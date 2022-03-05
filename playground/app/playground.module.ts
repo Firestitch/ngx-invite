@@ -14,10 +14,10 @@ import { ToastrModule } from 'ngx-toastr';
 
 import { AppMaterialModule } from './material.module';
 import {
+  KitchenSinkComponent,
   ExamplesComponent
 } from './components';
 import { AppComponent } from './app.component';
-import { TrustedDevicesComponent } from './components/trusted-devices';
 
 const routes: Routes = [
   { path: '', component: ExamplesComponent },
@@ -42,7 +42,7 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     ExamplesComponent,
-    TrustedDevicesComponent,
+    // KitchenSinkComponent,
   ],
 })
 export class PlaygroundModule {
