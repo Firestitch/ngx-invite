@@ -16,8 +16,6 @@ export class TrustedDevicesComponent implements OnInit {
 
   public trustedDevices: ITrustedDevice[] = null;
 
-  constructor() { }
-
   public ngOnInit(): void {
     this.trustedDevices = [
       {
@@ -46,6 +44,7 @@ export class TrustedDevicesComponent implements OnInit {
         createDate: new Date(),
         guid: guid(),
         state: 'active',
+        currentDevice: true,
       },
       {
         id: Math.random(),
@@ -73,6 +72,7 @@ export class TrustedDevicesComponent implements OnInit {
         createDate: new Date(),
         guid: guid(),
         state: 'active',
+        currentDevice: false,
       },
     ];
   }
@@ -83,18 +83,14 @@ export class TrustedDevicesComponent implements OnInit {
     });
   }
 
-  public removeTrustedDevice = (data) => {
-    console.log('Removed', data);
+  public deleteTrustedDevice = (data) => {
+    console.log('Deleted', data);
     return of(data);
   }
 
   public signOutTrustedDevice = (data) => {
     console.log('Sign Out', data);
     return of(data);
-  }
-
-  public accountClick(account: ITrustedDeviceAccount): void {
-    console.log(account);
   }
 
 }

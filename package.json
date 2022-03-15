@@ -2,7 +2,7 @@
   "name": "@firestitch/2fa",
   "title": "2FA",
   "description": "@firestitch/2fa",
-  "version": "12.0.0",
+  "version": "12.0.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/Firestitch/ngx-2fa"
@@ -57,6 +57,7 @@
     "@firestitch/label": "^8.2.10",
     "@firestitch/menu": "^12.0.0",
     "@firestitch/message": "^8.2.2",
+    "@firestitch/badge": "^10.0.0",
     "@firestitch/phone": "^10.0.4",
     "@firestitch/prompt": "^8.4.5",
     "@firestitch/scroll": "^8.0.0",
@@ -72,7 +73,6 @@
     "@firestitch/skeleton": "^8.1.5",
     "@firestitch/exif-js": "^2.3.0",
     "@firestitch/selectbutton": "^8.1.1",
-    "@firestitch/badge": "^10.0.0",
     "@firestitch/country": "^10.0.9",
     "@firestitch/device": "^12.0.4",
     "tsmodels": "^0.4.7",

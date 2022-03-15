@@ -1,24 +1,29 @@
 <fs-list [config]="listConfig">
-  <fs-list-column title="Name">
-    <ng-template fs-list-cell let-row="row">
-      <div *ngIf="row.account" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-        <fs-badge shape="circle" image="{{ row.account.avatarUrl }}"></fs-badge>
-        <div fxLayout="column">
-          <a (click)="accountClicked(row.account)">{{ row.account.name }}</a>
-          <small *ngIf="row.account.email">{{ row.account.email }}</small>
+  <fs-list-column title="Account" [show]="showAccount">
+    <ng-template fs-list-cell let-row="row" class="col-account">
+      <div *ngIf="row.account" class="row">
+        <fs-badge 
+          *ngIf="row.account.avatarUrl"
+          shape="circle" 
+          image="{{ row.account.avatarUrl }}">
+        </fs-badge>
+        <div>
+          {{ row.account.name }}
+          <div class="small" *ngIf="row.account.email">{{ row.account.email }}</div>  
         </div>
       </div>
     </ng-template>
   </fs-list-column>
-  <fs-list-column title="OS">
-    <ng-template fs-list-cell let-row="row">
-      <fs-device-os
-        *ngIf="row.device"
-        [type]="row.device.type"
-        [os]="row.device.osType"
-        [version]="row.device.osVersion"
-        [name]="row.device.osName"
-      ></fs-device-os>
+  <fs-list-column title="Device">
+    <ng-template fs-list-cell let-row="row" class="col-device">
+      <div class="device" *ngIf="row.device">
+        <fs-trusted-current-device *ngIf="row.currentDevice"></fs-trusted-current-device>
+        <fs-device-os
+          [type]="row.device.type"
+          [os]="row.device.osType"
+          [version]="row.device.osVersion">
+        </fs-device-os>
+      </div>     
     </ng-template>
   </fs-list-column>
   <fs-list-column title="Browser">
@@ -38,6 +43,7 @@
   </fs-list-column>
   <fs-list-column title="Location">
     <ng-template fs-list-cell let-row="row">
+      <!-- Use FsIp and pass in region, country, lat and lng -->
       <fs-country [code]="row.ip.country"></fs-country>
       <div><small>{{row.ip.ip}}</small></div>
     </ng-template>

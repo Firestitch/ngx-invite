@@ -17,7 +17,6 @@ import { Observable, Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 
 import { ITrustedDevice } from '../../interfaces/trusted-device';
-import { ITrustedDeviceAccount } from '../../interfaces/trusted-device-account';
 
 
 @Component({
@@ -35,16 +34,13 @@ export class FsTrustedDevicesComponent implements OnInit, OnDestroy {
   }>();
 
   @Input()
-  public removeTrustedDevice = (trustedDevice: ITrustedDevice) => new Observable<any>();
+  public deleteTrustedDevice = (trustedDevice: ITrustedDevice) => new Observable<any>();
 
   @Input()
   public signOutTrustedDevice = (trustedDevice:  ITrustedDevice) => new Observable<any>();
 
   @Input()
-  public currentDeviceGuid: string = null;
-
-  @Output()
-  public accountClick: EventEmitter<ITrustedDeviceAccount> = new EventEmitter< ITrustedDeviceAccount>();
+  public showAccount = true;
 
   @ViewChild(FsListComponent)
   public listComponent: FsListComponent;
@@ -67,10 +63,6 @@ export class FsTrustedDevicesComponent implements OnInit, OnDestroy {
       });
   }
 
-  public accountClicked(account: ITrustedDeviceAccount): void {
-    this.accountClick.emit(account);
-  }
-
   public ngOnDestroy(): void {
     this._destroy$.next();
     this._destroy$.complete();
@@ -78,28 +70,27 @@ export class FsTrustedDevicesComponent implements OnInit, OnDestroy {
 
   private _initListConfig(): void {
     this.listConfig = {
-      filters: [
-        {
-          name: 'keyword',
-          type: ItemType.Keyword,
-          label: 'Search',
-        },
-      ],
       rowActions: [
         {
           click: (data) => {
-            return this.signOutTrustedDevice(data);
+            this.signOutTrustedDevice(data)
+            .subscribe(() => {
+              this.reload();
+            });
           },
           menu: true,
           label: 'Sign Out',
         },
         {
           click: (data) => {
-            return this.removeTrustedDevice(data);
+            this.deleteTrustedDevice(data)
+            .subscribe(() => {
+              this.reload();
+            });
           },
           remove: {
             title: 'Confirm',
-            template: 'Are you sure you would like to delete this record?',
+            template: 'Are you sure you would like to delete this trusted device?',
           },
           menu: true,
           label: 'Delete',
@@ -117,6 +108,10 @@ export class FsTrustedDevicesComponent implements OnInit, OnDestroy {
           );
       },
     };
+  }
+
+  public reload(): void {
+    this.listComponent.reload();
   }
 
 }

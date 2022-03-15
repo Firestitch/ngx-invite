@@ -12,4 +12,5 @@ export interface ITrustedDevice {
   createDate: Date;
   guid: string;
   state: 'active' | 'deleted';
+  currentDevice?: boolean;
 }

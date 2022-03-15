@@ -1,4 +1,4 @@
-import { NgModule, ModuleWithProviders, APP_INITIALIZER } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -9,9 +9,11 @@ import { FsDateModule } from '@firestitch/date';
 import { FsCountryModule } from '@firestitch/country';
 import { FsDeviceModule } from '@firestitch/device';
 
+import { FsTrustedCurrentDeviceComponent } from './components/trusted-current-device/trusted-current-device.component';
 import { FsTrustedDevicesComponent } from './components/trusted-devices/trusted-devices.component';
 
-import { Fs2FaIconsFactory } from './helpers/icons.factory';
+import { FsBadgeModule } from '@firestitch/badge';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -20,34 +22,27 @@ import { Fs2FaIconsFactory } from './helpers/icons.factory';
     FlexLayoutModule,
 
     MatIconModule,
+    MatTooltipModule,
 
     FsListModule,
     FsDateModule,
     FsCountryModule,
     FsDeviceModule,
+    FsBadgeModule,
   ],
   exports: [
     FsTrustedDevicesComponent,
+    FsTrustedCurrentDeviceComponent,
   ],
   declarations: [
     FsTrustedDevicesComponent,
-  ],
-  providers: [
-    {
-      provide: APP_INITIALIZER,
-      useFactory: function (iconFactory: Fs2FaIconsFactory) {
-        return () => iconFactory.init();
-      },
-      multi: true,
-      deps: [ Fs2FaIconsFactory ]
-    },
+    FsTrustedCurrentDeviceComponent,
   ],
 })
 export class Fs2FaModule {
   static forRoot(): ModuleWithProviders<Fs2FaModule> {
     return {
       ngModule: Fs2FaModule,
-      // providers: [FsComponentService]
     };
   }
 }

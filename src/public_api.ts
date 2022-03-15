@@ -1,6 +1,7 @@
 export { Fs2FaModule } from './app/fs-2fa.module';
 
 export { FsTrustedDevicesComponent } from './app/components/trusted-devices/trusted-devices.component';
+export { FsTrustedCurrentDeviceComponent } from './app/components/trusted-current-device/trusted-current-device.component';
 
 export { ITrustedDevice } from './app/interfaces/trusted-device';
 export { ITrustedDeviceAccount } from './app/interfaces/trusted-device-account';
