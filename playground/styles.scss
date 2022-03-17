@@ -2,5 +2,8 @@
 @import '~@firestitch/message/styles';
 @import "~@firestitch/drawer/styles";
 @import '../src/app/styles.scss';
+@import '@firestitch/form/styles';
+@import '@firestitch/skeleton/styles';
 
 @include fs-drawer($mat-blue);
+@include fs-form($app-theme);

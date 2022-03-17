@@ -9,6 +9,7 @@ import { FsMessageModule } from '@firestitch/message';
 import { Fs2FaModule } from '@firestitch/2fa';
 import { FsLabelModule } from '@firestitch/label';
 import { FsStoreModule } from '@firestitch/store';
+import { FsFormModule } from '@firestitch/form';
 
 import { ToastrModule } from 'ngx-toastr';
 
@@ -18,6 +19,9 @@ import {
   ExamplesComponent
 } from './components';
 import { AppComponent } from './app.component';
+import { VerificationComponent } from './components/verification/verification.component';
+import { FS_2FA_VERIFICATION_PROVIDER } from '../../src/app/tokens/verification.token';
+import { VerificationService } from './services/verification.service';
 
 const routes: Routes = [
   { path: '', component: ExamplesComponent },
@@ -36,6 +40,7 @@ const routes: Routes = [
     FsStoreModule,
     FsExampleModule.forRoot(),
     FsMessageModule.forRoot(),
+    FsFormModule.forRoot(),
     ToastrModule.forRoot({ preventDuplicates: true }),
     RouterModule.forRoot(routes),
   ],
@@ -43,6 +48,13 @@ const routes: Routes = [
     AppComponent,
     ExamplesComponent,
     // KitchenSinkComponent,
+    VerificationComponent,
+  ],
+  providers: [
+    {
+      provide: FS_2FA_VERIFICATION_PROVIDER,
+      useClass: VerificationService,
+    },
   ],
 })
 export class PlaygroundModule {

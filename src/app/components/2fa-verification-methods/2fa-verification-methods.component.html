@@ -1,0 +1,67 @@
+<h2>
+  Verification Methods
+</h2>
+<form fsForm [submit]="setVerificationMethod">
+  <ng-container *fsSkeleton="methods$ | async as methods">
+    <fs-radio-group [(ngModel)]="method" name="method" [compareWith]="compareWith">
+      <ng-container *ngFor="let methodMap of methods | keyvalue">
+        <div class="method">
+          <ng-container [ngSwitch]="methodMap.key">
+            <ng-container *ngSwitchCase="verificationMethodType.Sms">
+              <div class="method-header">
+                <div class="method-icon">
+                  <mat-icon>
+                    smartphone
+                  </mat-icon>
+                </div>
+                <div class="method-name">
+                  <div class="method-title">Text Message</div>
+                  <div class="method-subtitle">
+                    Verification code send to one of following mobile number
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="verificationMethodType.Email">
+              <div class="method-header">
+                <div class="method-icon">
+                  <mat-icon>
+                    mail
+                  </mat-icon>
+                </div>
+                <div class="method-name">
+                  <div class="method-title">Email</div>
+                  <div class="method-subtitle">
+                    Verification code send to one of following email
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+
+          <ng-container [ngSwitch]="methodMap.key">
+            <ng-container *ngSwitchCase="verificationMethodType.Sms">
+              <mat-radio-button class="method-item" *ngFor="let method of methodMap.value" [value]="method">
+                + {{ method.phoneCode }} {{ method.phoneNumber }}
+              </mat-radio-button>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="verificationMethodType.Email">
+              <mat-radio-button class="method-item" *ngFor="let method of methodMap.value" [value]="method">
+                {{ method.email }}
+              </mat-radio-button>
+            </ng-container>
+          </ng-container>
+        </div>
+      </ng-container>
+    </fs-radio-group>
+  </ng-container>
+
+  <div class="actions">
+    <ng-container *ngIf="methods$ | async">
+      <button mat-button type="submit" color="primary">Next</button>
+    </ng-container>
+    <button mat-button type="button" (click)="cancel()">Cancel</button>
+  </div>
+</form>

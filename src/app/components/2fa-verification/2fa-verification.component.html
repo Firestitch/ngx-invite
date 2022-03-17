@@ -1,0 +1,21 @@
+<ng-container [ngSwitch]="view">
+  <ng-container *ngSwitchCase="'code'">
+    <fs-2fa-verification-form [method]="method" (verified)="verified.emit($event)">
+      <button mat-button type="button" (click)="switchVerificationMethod('methods')">
+        Try other ways to verify
+      </button>
+
+      <a mat-button (click)="toSignIn()">
+        Back to signin
+      </a>
+    </fs-2fa-verification-form>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="'methods'">
+    <fs-2fa-verification-methods
+      [method]="method"
+      (methodChange)="setActiveMethod($event)"
+      (cancelled)="cancel()">
+    </fs-2fa-verification-methods>
+  </ng-container>
+</ng-container>
