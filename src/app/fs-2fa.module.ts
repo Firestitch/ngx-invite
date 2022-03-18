@@ -13,13 +13,13 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FsFormModule } from '@firestitch/form';
 import { FsSkeletonModule } from '@firestitch/skeleton';
 import { FsRadioGroupModule } from '@firestitch/radiogroup';
+import { FsDialogModule } from '@firestitch/dialog';
 
 // import { CodeInputModule } from 'angular-code-input';
 
 import { Fs2FAVerificationComponent } from './components/2fa-verification/2fa-verification.component';
 import { Fs2FAVerificationSMSComponent } from './components/2fa-verification-code/2fa-verification-code.component';
 import { Fs2FAVerificationOTPComponent } from './components/2fa-verification-otp/2fa-verification-otp.component';
-import { Fs2FAVerificationFormComponent } from './components/2fa-verification-form/2fa-verification-form.component';
 import { Fs2FaVerificationMethodsComponent } from './components/2fa-verification-methods/2fa-verification-methods.component';
 
 
@@ -33,6 +33,8 @@ import { Fs2FaVerificationMethodsComponent } from './components/2fa-verification
     MatButtonModule,
 
     FsFormModule,
+    FsRadioGroupModule,
+    FsDialogModule,
 
     // CodeInputModule,
     MatCheckboxModule,
@@ -41,12 +43,10 @@ import { Fs2FaVerificationMethodsComponent } from './components/2fa-verification
     FsSkeletonModule,
     MatIconModule,
     MatRadioModule,
-    FsRadioGroupModule,
   ],
   declarations: [
     Fs2FAVerificationComponent,
 
-    Fs2FAVerificationFormComponent,
     Fs2FAVerificationSMSComponent,
     Fs2FAVerificationOTPComponent,
     Fs2FaVerificationMethodsComponent,

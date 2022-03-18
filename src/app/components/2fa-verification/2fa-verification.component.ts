@@ -1,12 +1,23 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
+  Inject,
   Input,
+  OnDestroy,
   Output,
 } from '@angular/core';
 
+import { FsDialog } from '@firestitch/dialog';
+
+import { filter, takeUntil, tap } from 'rxjs/operators';
+
 import { IFsVerificationMethod } from '../../interfaces/verification-method.interface';
+import { Fs2FaVerificationMethodsComponent } from '../2fa-verification-methods/2fa-verification-methods.component';
+import { Subject } from 'rxjs';
+import { FS_2FA_VERIFICATION_PROVIDER } from '../../tokens/verification.token';
+import { IFsVerificationProvider } from '../../interfaces/verification-provider.interface';
 
 
 @Component({
@@ -17,7 +28,7 @@ import { IFsVerificationMethod } from '../../interfaces/verification-method.inte
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Fs2FAVerificationComponent {
+export class Fs2FAVerificationComponent implements OnDestroy {
 
   @Input()
   public method: IFsVerificationMethod;
@@ -28,25 +39,72 @@ export class Fs2FAVerificationComponent {
   @Output()
   public backToSignIn = new EventEmitter<void>();
 
-  private _view: 'code' | 'methods' = 'code';
 
-  constructor() {}
+  public resendInProgress = false;
+  public trustedDevice = false;
 
-  public get view(): 'code' | 'methods' {
-    return this._view;
+  private _code: string;
+  private _destroy$ = new Subject<void>();
+
+  constructor(
+    @Inject(FS_2FA_VERIFICATION_PROVIDER)
+    public verificationProvider: IFsVerificationProvider,
+    private _cdRef: ChangeDetectorRef,
+    private _dialog: FsDialog,
+  ) {}
+
+  public ngOnDestroy(): void {
+    this._destroy$.next();
+    this._destroy$.complete();
   }
 
-  public switchVerificationMethod(method: 'code' | 'methods'): void {
-    this._view = method;
+  public verify = () => {
+    return this.verificationProvider
+      .verify(this._code, this.trustedDevice)
+      .pipe(
+        tap((response) => {
+          this.verified.emit(response);
+        }),
+      );
+  };
+
+  public codeChanged(code: string): void {
+    this._code = code;
   }
 
-  public setActiveMethod(method: IFsVerificationMethod): void {
-    this.method = method;
-    this.switchVerificationMethod('code');
+  public resend(): void {
+    this.resendInProgress = true;
+
+    this.verificationProvider
+      .resend()
+      .pipe(
+        takeUntil(this._destroy$),
+      )
+      .subscribe(() => {
+        this.resendInProgress = false;
+
+        this._cdRef.markForCheck();
+      })
   }
 
-  public cancel(): void {
-    this.switchVerificationMethod('code');
+  public showVerificationMethods(): void {
+    this._dialog.open(
+      Fs2FaVerificationMethodsComponent,
+      {
+        data: {
+          method: this.method,
+        }
+      }
+    )
+      .afterClosed()
+      .pipe(
+        filter((method) => !!method),
+      )
+      .subscribe((method) => {
+        this.method = method;
+
+        this._cdRef.markForCheck();
+      });
   }
 
   public toSignIn(): void {

@@ -1,21 +1,56 @@
-<ng-container [ngSwitch]="view">
-  <ng-container *ngSwitchCase="'code'">
-    <fs-2fa-verification-form [method]="method" (verified)="verified.emit($event)">
-      <button mat-button type="button" (click)="switchVerificationMethod('methods')">
-        Try other ways to verify
-      </button>
+<form fsForm [submit]="verify" [dirtySubmitButton]="false">
+  <h2>2-Step Verification</h2>
 
-      <a mat-button (click)="toSignIn()">
-        Back to signin
-      </a>
-    </fs-2fa-verification-form>
-  </ng-container>
+  <div class="code-container">
+    <ng-container *ngIf="method.type === 'authenticator' else code">
+      <fs-2fa-verification-otp class="otp"></fs-2fa-verification-otp>
+    </ng-container>
 
-  <ng-container *ngSwitchCase="'methods'">
-    <fs-2fa-verification-methods
-      [method]="method"
-      (methodChange)="setActiveMethod($event)"
-      (cancelled)="cancel()">
-    </fs-2fa-verification-methods>
-  </ng-container>
-</ng-container>
+    <ng-template #code>
+      <fs-2fa-verification-code
+        [method]="method"
+        (codeChange)="codeChanged($event)">
+      </fs-2fa-verification-code>
+    </ng-template>
+  </div>
+
+  <div class="additional">
+    <mat-checkbox
+      name="trust-device"
+      [(ngModel)]="trustedDevice">
+      Trust this device
+    </mat-checkbox>
+
+    <span matSuffix>
+    <a mat-button
+       type="button"
+       color="primary"
+       (click)="resend()"
+       [disabled]="resendInProgress"
+       class="resend-code-btn">
+      <ng-container *ngIf="!resendInProgress else sending">
+        Resend Code
+      </ng-container>
+      <ng-template #sending>
+        <mat-spinner [diameter]="12"></mat-spinner> Sending
+      </ng-template>
+    </a>
+  </span>
+  </div>
+
+  <div class="actions">
+    <button mat-raised-button
+            color="primary"
+            type="submit">
+      Verify
+    </button>
+
+    <button mat-button type="button" (click)="showVerificationMethods()">
+      Try other ways to verify
+    </button>
+
+    <button mat-button type="button" (click)="toSignIn()">
+      Back to signin
+    </button>
+  </div>
+</form>

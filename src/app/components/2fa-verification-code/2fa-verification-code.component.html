@@ -1,7 +1,7 @@
 <p class="description">
-  <ng-container *ngIf="method.phoneCode && method.phoneNumber && method.type === 'sms'">
+  <ng-container *ngIf="method.phoneNumber && method.type === 'sms'">
     A text message with a verification code was just
-    sent to <span style="white-space: nowrap;">+{{ method.phoneCode }} {{ method.phoneNumber }}</span> to verify it's you.
+    sent to <span style="white-space: nowrap;">{{ method.phoneNumber }}</span> to verify it's you.
   </ng-container>
 
   <ng-container *ngIf="method.type === 'email'">

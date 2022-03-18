@@ -1,12 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
   Inject,
-  Input,
-  OnInit,
-  Output,
 } from '@angular/core';
+
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { Observable } from 'rxjs';
 import { map, shareReplay, tap } from 'rxjs/operators';
@@ -18,24 +16,15 @@ import { IFsVerificationMethod } from '../../interfaces/verification-method.inte
 
 
 @Component({
-  selector: 'fs-2fa-verification-methods',
   templateUrl: './2fa-verification-methods.component.html',
   styleUrls: [
     './2fa-verification-methods.component.scss',
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Fs2FaVerificationMethodsComponent implements OnInit {
+export class Fs2FaVerificationMethodsComponent {
 
-  @Input()
   public method: IFsVerificationMethod;
-
-  @Output()
-  public methodChange = new EventEmitter<IFsVerificationMethod>();
-
-  @Output()
-  public cancelled = new EventEmitter<void>();
-
   public phone: string;
   public code: string;
   public methods$: Observable<Record<string, IFsVerificationMethod[]>>;
@@ -44,19 +33,16 @@ export class Fs2FaVerificationMethodsComponent implements OnInit {
   constructor(
     @Inject(FS_2FA_VERIFICATION_PROVIDER)
     private _verificationProvider: IFsVerificationProvider,
+    @Inject(MAT_DIALOG_DATA)
+    private _dialogData: any,
+    private _dialogRef: MatDialogRef<Fs2FaVerificationMethodsComponent>,
   ) {
+    this._setActiveMethod();
     this._initMethods();
-  }
-
-  public ngOnInit(): void {
   }
 
   public compareWith(o1, o2) {
     return o1 && o2 && o1.id === o2.id
-  }
-
-  public cancel(): void {
-    this.cancelled.emit();
   }
 
   public setVerificationMethod = () => {
@@ -64,10 +50,14 @@ export class Fs2FaVerificationMethodsComponent implements OnInit {
       .updateVerificationMethod(this.method.id)
       .pipe(
         tap((method: IFsVerificationMethod) => {
-          this.methodChange.emit(method);
+          this._dialogRef.close(method);
         })
       );
   };
+
+  private _setActiveMethod(): void {
+    this.method = this._dialogData?.method;
+  }
 
   private _initMethods(): void {
     this.methods$ = this._verificationProvider
