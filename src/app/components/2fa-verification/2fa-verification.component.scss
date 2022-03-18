@@ -41,6 +41,7 @@ h2, .code-container {
   margin-top: -5px;
 
   .resend-code-btn {
+    cursor: pointer;
     text-transform: none;
 
     mat-spinner {

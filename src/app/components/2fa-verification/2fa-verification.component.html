@@ -21,21 +21,16 @@
       Trust this device
     </mat-checkbox>
 
-    <span matSuffix>
-    <a mat-button
-       type="button"
-       color="primary"
-       (click)="resend()"
-       [disabled]="resendInProgress"
-       class="resend-code-btn">
+    <span class="resend-code-btn">
       <ng-container *ngIf="!resendInProgress else sending">
-        Resend Code
+        <a (click)="resend()">
+          Resend Code
+        </a>
       </ng-container>
       <ng-template #sending>
         <mat-spinner [diameter]="12"></mat-spinner> Sending
       </ng-template>
-    </a>
-  </span>
+    </span>
   </div>
 
   <div class="actions">
