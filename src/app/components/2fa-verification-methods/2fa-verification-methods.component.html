@@ -2,7 +2,7 @@
   <h1 mat-dialog-title>
     Verification Methods
   </h1>
-  <form fsForm [submit]="setVerificationMethod">
+  <form fsForm [submit]="setVerificationMethod" [dirtySubmitButton]="false">
     <mat-dialog-content>
       <ng-container *fsSkeleton="methods$ | async as methods">
         <fs-radio-group [(ngModel)]="method" name="method" [compareWith]="compareWith">
