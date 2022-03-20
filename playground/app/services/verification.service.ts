@@ -13,19 +13,19 @@ const methods = [
     type: FsVerificationMethodType.Sms,
     phoneCode: 1,
     phoneCountry: 'CA',
-    phoneNumber: '(905) *** - **32',
+    phoneNumber: '********32',
     default: false,
   },
   {
     id: 2,
     type: FsVerificationMethodType.Email,
-    email: 'example@example.com',
+    email: 'e******@example.com',
     default: false,
   },
   {
     id: 3,
     type: FsVerificationMethodType.Email,
-    email: 'elon.musk@example.com',
+    email: 'e******@example.com',
     default: false,
   },
   {
@@ -33,8 +33,13 @@ const methods = [
     type: FsVerificationMethodType.Sms,
     phoneCode: 1,
     phoneCountry: 'CA',
-    phoneNumber: '(416) *** - **47',
+    phoneNumber: '********47',
     default: true,
+  },
+  {
+    id: 5,
+    type: FsVerificationMethodType.App,
+    default: false,
   },
 ];
 
@@ -43,30 +48,32 @@ export class VerificationService implements IFsVerificationProvider {
 
   public methods(): Observable<IFsVerificationMethod[]> {
     return of(methods).pipe(
-      delay(2000),
+      delay(100),
     );
   }
 
   public verify(code: any, trustedDevice: boolean): Observable<void> {
+    console.log('verify', code, trustedDevice);
     return of(null)
       .pipe(
-        delay(2000),
+        delay(100),
       );
   }
 
   public resend(): Observable<void> {
     return of(null)
       .pipe(
-        delay(2000),
+        delay(100),
       );
   }
 
   public updateVerificationMethod(id: number): Observable<IFsVerificationMethod> {
+    console.log('updateVerificationMethod', id);
     const method = methods.find((method) => method.id === id);
 
     return of(method)
       .pipe(
-        delay(2000),
+        delay(100),
       );
   }
 

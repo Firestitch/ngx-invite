@@ -1,3 +1,5 @@
+@use '~@firestitch/style/styles' as fs-style;
+
 @import '../tools/assets/playground.scss';
 @import '~@firestitch/message/styles';
 @import "~@firestitch/drawer/styles";
@@ -5,5 +7,8 @@
 @import '@firestitch/form/styles';
 @import '@firestitch/skeleton/styles';
 
+
 @include fs-drawer($mat-blue);
 @include fs-form($app-theme);
+@include fs-style.core();
+

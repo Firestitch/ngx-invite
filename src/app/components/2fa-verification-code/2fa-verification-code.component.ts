@@ -4,8 +4,11 @@ import {
   EventEmitter,
   Input,
   Output,
+  ViewChild,
 } from '@angular/core';
 import { ControlContainer, NgForm } from '@angular/forms';
+import { CodeInputComponent } from 'angular-code-input';
+import { FsVerificationMethodType } from '../../enums/verification-method-type.enum';
 
 import { IFsVerificationMethod } from '../../interfaces/verification-method.interface';
 
@@ -24,18 +27,32 @@ import { IFsVerificationMethod } from '../../interfaces/verification-method.inte
     },
   ],
 })
-export class Fs2FAVerificationSMSComponent {
+export class Fs2FAVerificationCodeComponent {
+
+  @ViewChild(CodeInputComponent)
+  public codeInputComponent: CodeInputComponent;
 
   @Input()
   public method: IFsVerificationMethod;
 
+  @Input()
+  public code;
+
   @Output()
-  public codeChange = new EventEmitter<string>();
+  public codeChanged = new EventEmitter<string>();
 
-  public code: string;
+  @Output()
+  public codeCompleted = new EventEmitter<void>();
 
-  public codeChanged(): void {
-    this.codeChange.emit(this.code);
+  public FsVerificationMethodType = FsVerificationMethodType;
+
+  public codeChange(code): void {
+    this.code = code;
+    this.codeChanged.emit(this.code);
+  }
+
+  public focus(): void {
+    this.codeInputComponent.focusOnField(0);
   }
 
 }

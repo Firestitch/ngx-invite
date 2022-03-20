@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -6,7 +7,9 @@ import {
   Inject,
   Input,
   OnDestroy,
+  OnInit,
   Output,
+  ViewChild,
 } from '@angular/core';
 
 import { FsDialog } from '@firestitch/dialog';
@@ -18,6 +21,8 @@ import { Fs2FaVerificationMethodsComponent } from '../2fa-verification-methods/2
 import { Subject } from 'rxjs';
 import { FS_2FA_VERIFICATION_PROVIDER } from '../../tokens/verification.token';
 import { IFsVerificationProvider } from '../../interfaces/verification-provider.interface';
+import { FsVerificationMethodType } from '../../enums/verification-method-type.enum';
+import { Fs2FAVerificationCodeComponent } from '../2fa-verification-code/2fa-verification-code.component';
 
 
 @Component({
@@ -28,7 +33,10 @@ import { IFsVerificationProvider } from '../../interfaces/verification-provider.
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Fs2FAVerificationComponent implements OnDestroy {
+export class Fs2FAVerificationComponent implements OnDestroy, AfterViewInit, OnInit {
+
+  @ViewChild(Fs2FAVerificationCodeComponent)
+  public verificationCodeComponent: Fs2FAVerificationCodeComponent;
 
   @Input()
   public method: IFsVerificationMethod;
@@ -37,13 +45,16 @@ export class Fs2FAVerificationComponent implements OnDestroy {
   public verified = new EventEmitter<unknown>();
 
   @Output()
-  public backToSignIn = new EventEmitter<void>();
+  public codeChanged = new EventEmitter<unknown>();
 
+  @Output()
+  public codeCompleted = new EventEmitter<unknown>();
 
   public resendInProgress = false;
-  public trustedDevice = false;
+  public code = '';
+  public trustedDevice = true;
+  public FsVerificationMethodType = FsVerificationMethodType;
 
-  private _code: string;
   private _destroy$ = new Subject<void>();
 
   constructor(
@@ -51,29 +62,39 @@ export class Fs2FAVerificationComponent implements OnDestroy {
     public verificationProvider: IFsVerificationProvider,
     private _cdRef: ChangeDetectorRef,
     private _dialog: FsDialog,
-  ) {}
+  ) {
+  }
+
+  public ngOnInit(): void {
+    this.codeChanged
+    .pipe(
+      takeUntil(this._destroy$),
+    )
+    .subscribe((code: string) => {
+      this.code = code;
+    });
+  }
 
   public ngOnDestroy(): void {
     this._destroy$.next();
     this._destroy$.complete();
   }
 
-  public verify = () => {
-    return this.verificationProvider
-      .verify(this._code, this.trustedDevice)
-      .pipe(
-        tap((response) => {
-          this.verified.emit(response);
-        }),
-      );
+  public verify() {
+    this.verificationProvider
+      .verify(this.code, this.trustedDevice)
+      .subscribe((response) => {
+        this.verified.emit(response);
+      });
   };
 
-  public codeChanged(code: string): void {
-    this._code = code;
+  public ngAfterViewInit(): void {
+    this.verificationCodeComponent.focus();    
   }
 
   public resend(): void {
     this.resendInProgress = true;
+    this.code = '';
 
     this.verificationProvider
       .resend()
@@ -81,8 +102,8 @@ export class Fs2FAVerificationComponent implements OnDestroy {
         takeUntil(this._destroy$),
       )
       .subscribe(() => {
-        this.resendInProgress = false;
-
+        this.resendInProgress = false;   
+        this.verificationCodeComponent.focus();  
         this._cdRef.markForCheck();
       })
   }
@@ -102,13 +123,14 @@ export class Fs2FAVerificationComponent implements OnDestroy {
       )
       .subscribe((method) => {
         this.method = method;
+        this.code = '';
 
         this._cdRef.markForCheck();
-      });
-  }
 
-  public toSignIn(): void {
-    this.backToSignIn.emit();
+        setTimeout(() => {
+          this.verificationCodeComponent.focus();
+        });
+      });
   }
 
 }

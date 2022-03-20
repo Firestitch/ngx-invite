@@ -15,11 +15,10 @@ import { FsSkeletonModule } from '@firestitch/skeleton';
 import { FsRadioGroupModule } from '@firestitch/radiogroup';
 import { FsDialogModule } from '@firestitch/dialog';
 
-// import { CodeInputModule } from 'angular-code-input';
+import { CodeInputModule } from 'angular-code-input';
 
 import { Fs2FAVerificationComponent } from './components/2fa-verification/2fa-verification.component';
-import { Fs2FAVerificationSMSComponent } from './components/2fa-verification-code/2fa-verification-code.component';
-import { Fs2FAVerificationOTPComponent } from './components/2fa-verification-otp/2fa-verification-otp.component';
+import { Fs2FAVerificationCodeComponent } from './components/2fa-verification-code/2fa-verification-code.component';
 import { Fs2FaVerificationMethodsComponent } from './components/2fa-verification-methods/2fa-verification-methods.component';
 
 
@@ -36,7 +35,7 @@ import { Fs2FaVerificationMethodsComponent } from './components/2fa-verification
     FsRadioGroupModule,
     FsDialogModule,
 
-    // CodeInputModule,
+    CodeInputModule,
     MatCheckboxModule,
     MatProgressSpinnerModule,
     FsSkeletonModule,
@@ -46,9 +45,7 @@ import { Fs2FaVerificationMethodsComponent } from './components/2fa-verification
   ],
   declarations: [
     Fs2FAVerificationComponent,
-
-    Fs2FAVerificationSMSComponent,
-    Fs2FAVerificationOTPComponent,
+    Fs2FAVerificationCodeComponent,
     Fs2FaVerificationMethodsComponent,
   ],
   exports: [

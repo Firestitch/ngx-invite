@@ -1,51 +1,27 @@
-<form fsForm [submit]="verify" [dirtySubmitButton]="false">
-  <h2>2-Step Verification</h2>
+<div class="code-container">
+  <fs-2fa-verification-code
+    [method]="method"
+    [code]="code"
+    (codeChanged)="codeChanged.emit($event)"
+    (codeCompleted)="codeCompleted.emit()">
+  </fs-2fa-verification-code>
+</div>
 
-  <div class="code-container">
-    <ng-container *ngIf="method.type === 'authenticator' else code">
-      <fs-2fa-verification-otp class="otp"></fs-2fa-verification-otp>
+<div class="additional">
+  <mat-checkbox
+    name="trust-device"
+    [(ngModel)]="trustedDevice">
+    Trust this device
+  </mat-checkbox>
+
+  <span class="resend-code-btn">
+    <ng-container *ngIf="!resendInProgress else sending">
+      <a (click)="resend()">
+        Resend Code
+      </a>
     </ng-container>
-
-    <ng-template #code>
-      <fs-2fa-verification-code
-        [method]="method"
-        (codeChange)="codeChanged($event)">
-      </fs-2fa-verification-code>
+    <ng-template #sending>
+      <mat-spinner [diameter]="12"></mat-spinner> Sending
     </ng-template>
-  </div>
-
-  <div class="additional">
-    <mat-checkbox
-      name="trust-device"
-      [(ngModel)]="trustedDevice">
-      Trust this device
-    </mat-checkbox>
-
-    <span class="resend-code-btn">
-      <ng-container *ngIf="!resendInProgress else sending">
-        <a (click)="resend()">
-          Resend Code
-        </a>
-      </ng-container>
-      <ng-template #sending>
-        <mat-spinner [diameter]="12"></mat-spinner> Sending
-      </ng-template>
-    </span>
-  </div>
-
-  <div class="actions">
-    <button mat-raised-button
-            color="primary"
-            type="submit">
-      Verify
-    </button>
-
-    <button mat-button type="button" (click)="showVerificationMethods()">
-      Try other ways to verify
-    </button>
-
-    <button mat-button type="button" (click)="toSignIn()">
-      Back to signin
-    </button>
-  </div>
-</form>
+  </span>
+</div>
