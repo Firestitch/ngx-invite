@@ -1,0 +1,18 @@
+
+mat-form-field {
+  width: 100%;
+
+  ::ng-deep {
+    .mat-form-field-subscript-wrapper {
+      min-height: unset !important;
+
+      .fs-form-error {
+        padding-bottom: 5px;
+      }
+    }
+  }
+}
+
+app-code-input {
+  margin-bottom: 5px;
+}

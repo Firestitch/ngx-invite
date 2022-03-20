@@ -1,11 +1,8 @@
-/*
- * Public API Surface of fs-2fa
- */
+export { Fs2faVerificationModule } from './app/modules/verification/fs-2fa-verification.module';
+export { Fs2faManageModule } from './app/modules/manage/fs-2f-manage.module';
 
-export { Fs2FaModule } from './app/fs-2fa.module';
-
-// Components
-export { Fs2FAVerificationComponent } from './app/components/2fa-verification/2fa-verification.component';
+export { Fs2faVerificationComponent } from './app/modules/verification/components/2fa-verification/2fa-verification.component';
+export { Fs2faManageComponent } from './app/modules/manage/components/2fa-manage/2fa-manage.component';
 
 export { IFsVerificationProvider } from './app/interfaces/verification-provider.interface';
 export { IFsVerificationMethod } from './app/interfaces/verification-method.interface';

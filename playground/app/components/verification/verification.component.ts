@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { Fs2FAVerificationComponent, FsVerificationMethodType, IFsVerificationMethod } from '@firestitch/2fa';
+import { Fs2faVerificationComponent, FsVerificationMethodType, IFsVerificationMethod } from '@firestitch/2fa';
 import { FsMessage } from '@firestitch/message';
-import { Observable, of } from 'rxjs';
+
 
 @Component({
   selector: 'app-verification',
@@ -10,8 +10,8 @@ import { Observable, of } from 'rxjs';
 })
 export class VerificationComponent {
 
-  @ViewChild(Fs2FAVerificationComponent)
-  public verificationComponent: Fs2FAVerificationComponent;
+  @ViewChild(Fs2faVerificationComponent)
+  public verificationComponent: Fs2faVerificationComponent;
 
   constructor(
     private _message: FsMessage,

@@ -1,0 +1,17 @@
+<fs-list [config]="listConfig">
+  <fs-list-column class="col-name">
+    <ng-template fs-list-cell let-row="row">
+      <div class="row">
+        <ng-container *ngIf="row.type === 'sms'">
+          <fs-country [code]="row.phoneCountry" [showName]="false"></fs-country> {{row.phoneNumber | fsPhone}}
+        </ng-container>
+
+        <ng-container *ngIf="row.type === 'email'">
+          {{row.email}}
+        </ng-container>
+   
+        <app-defaulted *ngIf="row.default"></app-defaulted>
+      </div>
+    </ng-template>
+  </fs-list-column>
+</fs-list>

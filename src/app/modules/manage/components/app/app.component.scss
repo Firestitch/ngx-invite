@@ -1,0 +1,49 @@
+ul {
+  margin: 0;
+  padding-left: 24px;
+}
+
+qr-code {
+  display: flex;
+  justify-content: center;
+  margin: 30px;
+}
+
+app-code-input {
+  margin-top: 10px;
+}
+
+.code-input {
+  width: 400px;
+}
+
+.app-types {
+  text-align: center;
+  padding: 0 40px;
+  
+  .row {
+    display: flex;
+    justify-content: center;
+
+    span {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      max-width: 100px;
+
+      + span {
+        margin-left: 40px;
+      }
+    }
+  }
+
+  mat-checkbox {
+    margin-top: 20px;
+    
+    ::ng-deep {
+      .mat-ripple {
+        display: none;
+      }
+    }
+  }
+}

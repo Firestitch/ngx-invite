@@ -15,11 +15,11 @@ import { FsSkeletonModule } from '@firestitch/skeleton';
 import { FsRadioGroupModule } from '@firestitch/radiogroup';
 import { FsDialogModule } from '@firestitch/dialog';
 
-import { CodeInputModule } from 'angular-code-input';
+import { Fs2faVerificationComponent } from './components/2fa-verification/2fa-verification.component';
+import { Fs2faVerificationCodeComponent } from './components/2fa-verification-code/2fa-verification-code.component';
+import { Fs2faVerificationMethodsComponent } from './components/2fa-verification-methods/2fa-verification-methods.component';
 
-import { Fs2FAVerificationComponent } from './components/2fa-verification/2fa-verification.component';
-import { Fs2FAVerificationCodeComponent } from './components/2fa-verification-code/2fa-verification-code.component';
-import { Fs2FaVerificationMethodsComponent } from './components/2fa-verification-methods/2fa-verification-methods.component';
+import { CodeInputModule } from '../code-input';
 
 
 @NgModule({
@@ -44,13 +44,13 @@ import { Fs2FaVerificationMethodsComponent } from './components/2fa-verification
     MatRadioModule,
   ],
   declarations: [
-    Fs2FAVerificationComponent,
-    Fs2FAVerificationCodeComponent,
-    Fs2FaVerificationMethodsComponent,
+    Fs2faVerificationComponent,
+    Fs2faVerificationCodeComponent,
+    Fs2faVerificationMethodsComponent,
   ],
   exports: [
-    Fs2FAVerificationComponent,
+    Fs2faVerificationComponent,
   ],
   providers: [],
 })
-export class Fs2FaModule {}
+export class Fs2faVerificationModule {}

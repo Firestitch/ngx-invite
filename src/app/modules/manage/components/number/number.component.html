@@ -1,0 +1,54 @@
+<form fsForm [submit]="submit" autocomplete="off">
+  <fs-dialog>
+    <h1 mat-dialog-title>
+      Text Message Setup
+    </h1>
+    <mat-dialog-content>
+      <ng-container *ngIf="verificationMethod; else notVerificationMethod">
+        <p>The app just sent you a text message with a verification code.</p>
+
+        <app-code-input  
+          [code]="code"
+          (codeChanged)="codeChanged($event)"
+          (codeCompleted)="codeCompleted()">
+        </app-code-input> 
+        
+        <div>Did't get the code? <a (click)="resend()">Resend Code</a></div>
+      </ng-container>
+
+      <ng-template #notVerificationMethod>
+        <p>The app will only use this number for verifying your account security. Message and data rates may apply by your cell phone provider.</p>
+        <mat-form-field>
+          <mat-label>Phone number</mat-label>
+          <fs-phone-field
+            [(ngModel)]="phone"
+            [country]="defaultCountry"
+            name="phone"
+            autocomplete="off"
+            [required]="true">
+          </fs-phone-field>
+        </mat-form-field>
+        <mat-checkbox 
+            name="default"
+            [(ngModel)]="default"
+            [disableRipple]="true">
+          Make this the default 2-step vertification method
+        </mat-checkbox>
+      </ng-template>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button
+          mat-button
+          color="primary"
+          type="submit">
+        Next
+      </button>
+      <button
+          mat-button
+          type="button"
+          [mat-dialog-close]="undefined">
+        Cancel
+      </button>
+    </mat-dialog-actions>
+  </fs-dialog>
+</form>

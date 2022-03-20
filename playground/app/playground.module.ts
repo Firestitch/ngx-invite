@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { FsExampleModule } from '@firestitch/example';
 import { FsMessageModule } from '@firestitch/message';
-import { Fs2FaModule } from '@firestitch/2fa';
+import { Fs2faVerificationModule, Fs2faManageModule } from '@firestitch/2fa';
 import { FsLabelModule } from '@firestitch/label';
 import { FsStoreModule } from '@firestitch/store';
 import { FsFormModule } from '@firestitch/form';
@@ -21,6 +21,7 @@ import { AppComponent } from './app.component';
 import { VerificationComponent } from './components/verification/verification.component';
 import { FS_2FA_VERIFICATION_PROVIDER } from '../../src/app/tokens/verification.token';
 import { VerificationService } from './services/verification.service';
+import { ManageVerificationsComponent } from './components/manage-verifications/manage-verifications.component';
 
 const routes: Routes = [
   { path: '', component: ExamplesComponent },
@@ -30,7 +31,8 @@ const routes: Routes = [
   bootstrap: [ AppComponent ],
   imports: [
     BrowserModule,
-    Fs2FaModule,
+    Fs2faVerificationModule,
+    Fs2faManageModule,
     BrowserAnimationsModule,
     AppMaterialModule,
     FormsModule,
@@ -46,6 +48,7 @@ const routes: Routes = [
     AppComponent,
     ExamplesComponent,
     VerificationComponent,
+    ManageVerificationsComponent,
   ],
   providers: [
     {

@@ -9,10 +9,10 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { map, shareReplay, tap } from 'rxjs/operators';
 
-import { FS_2FA_VERIFICATION_PROVIDER } from '../../tokens/verification.token';
-import { FsVerificationMethodType } from '../../enums/verification-method-type.enum';
-import { IFsVerificationProvider } from '../../interfaces/verification-provider.interface';
-import { IFsVerificationMethod } from '../../interfaces/verification-method.interface';
+import { FS_2FA_VERIFICATION_PROVIDER } from '../../../../tokens/verification.token';
+import { FsVerificationMethodType } from '../../../../enums/verification-method-type.enum';
+import { IFsVerificationProvider } from '../../../../interfaces/verification-provider.interface';
+import { IFsVerificationMethod } from '../../../../interfaces/verification-method.interface';
 
 
 @Component({
@@ -22,7 +22,7 @@ import { IFsVerificationMethod } from '../../interfaces/verification-method.inte
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Fs2FaVerificationMethodsComponent {
+export class Fs2faVerificationMethodsComponent {
 
   public method: IFsVerificationMethod;
   public phone: string;
@@ -35,7 +35,7 @@ export class Fs2FaVerificationMethodsComponent {
     private _verificationProvider: IFsVerificationProvider,
     @Inject(MAT_DIALOG_DATA)
     private _dialogData: any,
-    private _dialogRef: MatDialogRef<Fs2FaVerificationMethodsComponent>,
+    private _dialogRef: MatDialogRef<Fs2faVerificationMethodsComponent>,
   ) {
     this._setActiveMethod();
     this._initMethods();

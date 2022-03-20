@@ -16,13 +16,13 @@ import { FsDialog } from '@firestitch/dialog';
 
 import { filter, takeUntil, tap } from 'rxjs/operators';
 
-import { IFsVerificationMethod } from '../../interfaces/verification-method.interface';
-import { Fs2FaVerificationMethodsComponent } from '../2fa-verification-methods/2fa-verification-methods.component';
+import { IFsVerificationMethod } from '../../../../interfaces/verification-method.interface';
+import { Fs2faVerificationMethodsComponent } from '../2fa-verification-methods/2fa-verification-methods.component';
 import { Subject } from 'rxjs';
-import { FS_2FA_VERIFICATION_PROVIDER } from '../../tokens/verification.token';
-import { IFsVerificationProvider } from '../../interfaces/verification-provider.interface';
-import { FsVerificationMethodType } from '../../enums/verification-method-type.enum';
-import { Fs2FAVerificationCodeComponent } from '../2fa-verification-code/2fa-verification-code.component';
+import { FS_2FA_VERIFICATION_PROVIDER } from '../../../../tokens/verification.token';
+import { IFsVerificationProvider } from '../../../../interfaces/verification-provider.interface';
+import { FsVerificationMethodType } from '../../../../enums/verification-method-type.enum';
+import { Fs2faVerificationCodeComponent } from '../2fa-verification-code/2fa-verification-code.component';
 
 
 @Component({
@@ -33,10 +33,10 @@ import { Fs2FAVerificationCodeComponent } from '../2fa-verification-code/2fa-ver
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Fs2FAVerificationComponent implements OnDestroy, AfterViewInit, OnInit {
+export class Fs2faVerificationComponent implements OnDestroy, AfterViewInit, OnInit {
 
-  @ViewChild(Fs2FAVerificationCodeComponent)
-  public verificationCodeComponent: Fs2FAVerificationCodeComponent;
+  @ViewChild(Fs2faVerificationCodeComponent)
+  public verificationCodeComponent: Fs2faVerificationCodeComponent;
 
   @Input()
   public method: IFsVerificationMethod;
@@ -110,7 +110,7 @@ export class Fs2FAVerificationComponent implements OnDestroy, AfterViewInit, OnI
 
   public showVerificationMethods(): void {
     this._dialog.open(
-      Fs2FaVerificationMethodsComponent,
+      Fs2faVerificationMethodsComponent,
       {
         data: {
           method: this.method,

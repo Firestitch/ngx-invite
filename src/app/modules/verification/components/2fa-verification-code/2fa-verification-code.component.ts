@@ -7,10 +7,10 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ControlContainer, NgForm } from '@angular/forms';
-import { CodeInputComponent } from 'angular-code-input';
-import { FsVerificationMethodType } from '../../enums/verification-method-type.enum';
+import { CodeInputComponent } from '../../../../modules/code-input/components/code-input';
+import { FsVerificationMethodType } from '../../../../enums/verification-method-type.enum';
 
-import { IFsVerificationMethod } from '../../interfaces/verification-method.interface';
+import { IFsVerificationMethod } from '../../../../interfaces/verification-method.interface';
 
 
 @Component({
@@ -27,7 +27,7 @@ import { IFsVerificationMethod } from '../../interfaces/verification-method.inte
     },
   ],
 })
-export class Fs2FAVerificationCodeComponent {
+export class Fs2faVerificationCodeComponent {
 
   @ViewChild(CodeInputComponent)
   public codeInputComponent: CodeInputComponent;
@@ -52,7 +52,7 @@ export class Fs2FAVerificationCodeComponent {
   }
 
   public focus(): void {
-    this.codeInputComponent.focusOnField(0);
+    this.codeInputComponent.focus();
   }
 
 }

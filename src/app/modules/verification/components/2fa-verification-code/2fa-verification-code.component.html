@@ -21,13 +21,10 @@
   <ng-container *ngTemplateOutlet="input"></ng-container>
 </ng-container>
 
-
 <ng-template #input> 
- <code-input  
+ <app-code-input  
     [code]="code"
-    [initialFocusField]="0"
-    [codeLength]="6"
     (codeChanged)="codeChange($event)"
     (codeCompleted)="codeCompleted.emit()">
-  </code-input> 
+  </app-code-input> 
 </ng-template> 

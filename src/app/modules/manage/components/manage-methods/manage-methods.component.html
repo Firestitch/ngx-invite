@@ -1,0 +1,106 @@
+<fs-dialog>
+  <h1 mat-dialog-title>2-Step Verification Methods</h1>
+  <mat-dialog-content>
+    <table>
+      <tr>
+        <td>
+          <mat-icon>textsms</mat-icon>
+        </td>
+        <td>
+          <div class="type">
+            <span>Text Message</span>
+            <app-defaulted *ngIf="defaultSms"></app-defaulted>
+          </div>
+          <div class="small">Verification codes are sent by text message</div>
+        </td>
+        <td>
+          <button 
+              *ngIf="textHasVerificationMethod; else textMessageManageButton"
+              mat-raised-button 
+              type="button"
+              (click)="textMessageManage()">
+              Manage
+            </button>
+          <ng-template #textMessageManageButton>
+            <button               
+                mat-raised-button 
+                color="primary"
+                type="button"
+                (click)="textMessageAdd()">
+              Turn On
+            </button>
+          </ng-template>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-icon>email</mat-icon>
+        </td>
+        <td>
+          <div class="type">
+            <span>Email</span> 
+            <app-defaulted *ngIf="defaultEmail"></app-defaulted>
+          </div>
+          <div class="small">Verification codes are sent by text message</div>
+        </td>
+        <td>
+          <button 
+              *ngIf="emailHasVerificationMethod; else emailMessageManageButton"
+              mat-raised-button 
+              type="button"
+              (click)="emailMessageManage()">
+            Manage
+          </button>
+        <ng-template #emailMessageManageButton>
+          <button               
+              mat-raised-button 
+              color="primary"
+              type="button"
+              (click)="emailMessageAdd()">
+            Turn On
+          </button>
+        </ng-template>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-icon>phone_iphone</mat-icon>
+        </td>
+        <td>
+          <div class="type">
+            <span>Authenticator App</span>
+            <app-defaulted *ngIf="defaultApp"></app-defaulted>
+          </div>
+          <div class="small">Verification code is generatede by an authenticator app such as Authy or Google Authenticator</div>
+        </td>
+        <td>
+          <button 
+              *ngIf="appHasVerificationMethod; else appMessageManageButton"
+              mat-raised-button 
+              type="button"
+              (click)="appRemove()">
+            Remove
+          </button>
+        <ng-template #appMessageManageButton>
+          <button               
+              mat-raised-button 
+              color="primary"
+              type="button"
+              (click)="appAdd()">
+            Turn On
+          </button>
+        </ng-template>
+        </td>
+      </tr> 
+    </table>      
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button
+        mat-button
+        color="primary"
+        type="button"
+        [mat-dialog-close]="undefined">
+      Close
+    </button>
+  </mat-dialog-actions>
+</fs-dialog>

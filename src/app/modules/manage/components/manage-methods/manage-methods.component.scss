@@ -1,0 +1,26 @@
+table {
+  tr {
+    td:first-child,
+    td:last-child {
+      width: 1%;
+      
+      mat-icon {
+        display: flex;
+      }
+    }
+
+    td {
+      padding: 6px;
+      vertical-align: middle;
+    }
+
+    .type {
+      display: flex;
+      align-items: center;
+
+      app-defaulted {
+        margin-left: 5px;
+      }
+    }
+  }
+}

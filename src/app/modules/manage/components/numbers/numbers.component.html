@@ -1,0 +1,27 @@
+<fs-dialog>
+  <h1 mat-dialog-title>
+    Text Message Numbers
+  </h1>
+  <mat-dialog-content>
+    <app-verification-methods
+      [type]="FsVerificationMethodType.Sms"
+      [twoFactorManageService]="twoFactorManageService"
+      (deleted)="deleted()">
+    </app-verification-methods>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button
+        mat-button
+        type="button"
+        color="primary"
+        [mat-dialog-close]="undefined">
+      Close
+    </button>
+    <button
+        mat-button
+        (click)="add()"
+        type="button">
+      Add Number
+    </button>
+  </mat-dialog-actions>
+</fs-dialog>

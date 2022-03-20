@@ -1,0 +1,24 @@
+:host ::ng-deep {
+  mat-checkbox {
+    .mat-ripple {
+      display: none;
+    }
+  }
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-dialog-content {
+  width: 400px;
+}
+
+p {
+  margin-top: 0;
+}
+
+app-code-input {
+  margin-bottom: 10px;
+  display: block;
+}
