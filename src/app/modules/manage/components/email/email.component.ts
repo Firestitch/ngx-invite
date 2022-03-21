@@ -75,7 +75,9 @@ export class EmailComponent {
   };
 
   public codeCompleted(): void {
-    this.form.triggerSubmit();
+    if(!this.form.submitting) {
+      this.form.triggerSubmit();
+    }
   }
 
   public codeChanged(code): void {

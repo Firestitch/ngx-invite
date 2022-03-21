@@ -1,3 +1,20 @@
+mat-dialog-content {
+  max-width: 500px;
+}
+
+.enabled {
+  font-size: 75%;
+  background-color: #70B601;
+  padding: 2px 4px;
+  border-radius: 4px;
+  color: #fff;
+  margin-left: 4px;
+
+  &::after {
+    content: 'Enabled';
+  }
+}
+
 table {
   tr {
     td:first-child,
@@ -19,8 +36,20 @@ table {
       align-items: center;
 
       app-defaulted {
-        margin-left: 5px;
+        margin-left: 4px;
       }
+    }
+  }
+}
+
+.items {
+  span + span {
+    &:not(:last-child)::before {
+      content: ', ';
+    }
+
+    &:last-child::before {
+      content: ' and ';
     }
   }
 }

@@ -1,6 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 
 import { MatDialog } from '@angular/material/dialog';
+import { FsVerificationMethodType } from '../../../enums/verification-method-type.enum';
 
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
@@ -40,6 +41,18 @@ export class TwoFactorManageService implements OnDestroy {
 
   public get hasVerificationMethods(): boolean {
     return !!this._verificationMethods$.getValue().length;
+  }
+
+  public get emailVerificationMethods() {
+    return this.getVerificationMethods(FsVerificationMethodType.Email);
+  }
+
+  public get smsVerificationMethods() {
+    return this.getVerificationMethods(FsVerificationMethodType.Sms);
+  }
+
+  public get appVerificationMethods() {
+    return this.getVerificationMethods(FsVerificationMethodType.App);
   }
   
   public getVerificationMethods(type) {
