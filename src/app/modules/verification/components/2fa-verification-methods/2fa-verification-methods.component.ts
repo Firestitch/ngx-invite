@@ -7,11 +7,9 @@ import {
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { Observable } from 'rxjs';
-import { map, shareReplay, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
-import { FS_2FA_VERIFICATION_PROVIDER } from '../../../../tokens/verification.token';
 import { FsVerificationMethodType } from '../../../../enums/verification-method-type.enum';
-import { IFsVerificationProvider } from '../../../../interfaces/verification-provider.interface';
 import { IFsVerificationMethod } from '../../../../interfaces/verification-method.interface';
 
 
@@ -27,18 +25,19 @@ export class Fs2faVerificationMethodsComponent {
   public method: IFsVerificationMethod;
   public phone: string;
   public code: string;
-  public methods$: Observable<Record<string, IFsVerificationMethod[]>>;
+  public verificationMethods: Record<string, IFsVerificationMethod[]>;
   public readonly verificationMethodType = FsVerificationMethodType;
 
+  private _selectVerificationMethod: (IFsVerificationMethod) => Observable<IFsVerificationMethod>;  
+
   constructor(
-    @Inject(FS_2FA_VERIFICATION_PROVIDER)
-    private _verificationProvider: IFsVerificationProvider,
     @Inject(MAT_DIALOG_DATA)
     private _dialogData: any,
     private _dialogRef: MatDialogRef<Fs2faVerificationMethodsComponent>,
   ) {
+    this._selectVerificationMethod = _dialogData.selectVerificationMethod;
     this._setActiveMethod();
-    this._initMethods();
+    this._initMethods(_dialogData.verificationMethods);
   }
 
   public compareWith(o1, o2) {
@@ -46,8 +45,7 @@ export class Fs2faVerificationMethodsComponent {
   }
 
   public setVerificationMethod = () => {
-    return this._verificationProvider
-      .updateVerificationMethod(this.method.id)
+    return this._selectVerificationMethod(this.method)
       .pipe(
         tap((method: IFsVerificationMethod) => {
           this._dialogRef.close(method);
@@ -59,23 +57,16 @@ export class Fs2faVerificationMethodsComponent {
     this.method = this._dialogData?.method;
   }
 
-  private _initMethods(): void {
-    this.methods$ = this._verificationProvider
-      .methods()
-      .pipe(
-        map((methods) => {
-          return methods
-            .reduce((acc, method) => {
-              if (!acc[method.type]) {
-                acc[method.type] = [];
-              }
+  private _initMethods(verificationMethods): void {
+    this.verificationMethods = verificationMethods
+      .reduce((acc, method) => {
+        if (!acc[method.type]) {
+          acc[method.type] = [];
+        }
 
-              acc[method.type].push(method);
+        acc[method.type].push(method);
 
-              return acc;
-            }, {});
-        }),
-        shareReplay(1),
-      );
+        return acc;
+      }, {});
   }
 }

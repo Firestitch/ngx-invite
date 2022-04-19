@@ -14,13 +14,11 @@ import {
 
 import { FsDialog } from '@firestitch/dialog';
 
-import { filter, takeUntil, tap } from 'rxjs/operators';
+import { filter, takeUntil } from 'rxjs/operators';
 
 import { IFsVerificationMethod } from '../../../../interfaces/verification-method.interface';
 import { Fs2faVerificationMethodsComponent } from '../2fa-verification-methods/2fa-verification-methods.component';
-import { Subject } from 'rxjs';
-import { FS_2FA_VERIFICATION_PROVIDER } from '../../../../tokens/verification.token';
-import { IFsVerificationProvider } from '../../../../interfaces/verification-provider.interface';
+import { Observable, Subject } from 'rxjs';
 import { FsVerificationMethodType } from '../../../../enums/verification-method-type.enum';
 import { Fs2faVerificationCodeComponent } from '../2fa-verification-code/2fa-verification-code.component';
 
@@ -41,6 +39,15 @@ export class Fs2faVerificationComponent implements OnDestroy, AfterViewInit, OnI
   @Input()
   public method: IFsVerificationMethod;
 
+  @Input()
+  public resend: () => Observable<void>;
+
+  @Input()
+  public getVerificationMethods: () => Observable<IFsVerificationMethod[]>;
+
+  @Input()
+  public selectVerificationMethod: (verificationMethod: IFsVerificationMethod) => Observable<IFsVerificationMethod>;
+
   @Output()
   public verified = new EventEmitter<unknown>();
 
@@ -58,8 +65,6 @@ export class Fs2faVerificationComponent implements OnDestroy, AfterViewInit, OnI
   private _destroy$ = new Subject<void>();
 
   constructor(
-    @Inject(FS_2FA_VERIFICATION_PROVIDER)
-    public verificationProvider: IFsVerificationProvider,
     private _cdRef: ChangeDetectorRef,
     private _dialog: FsDialog,
   ) {
@@ -80,24 +85,15 @@ export class Fs2faVerificationComponent implements OnDestroy, AfterViewInit, OnI
     this._destroy$.complete();
   }
 
-  public verify() {
-    this.verificationProvider
-      .verify(this.code, this.trustedDevice)
-      .subscribe((response) => {
-        this.verified.emit(response);
-      });
-  };
-
   public ngAfterViewInit(): void {
     this.verificationCodeComponent.focus();    
   }
 
-  public resend(): void {
+  public resendCode(): void {
     this.resendInProgress = true;
     this.code = '';
 
-    this.verificationProvider
-      .resend()
+    this.resend()
       .pipe(
         takeUntil(this._destroy$),
       )
@@ -109,28 +105,33 @@ export class Fs2faVerificationComponent implements OnDestroy, AfterViewInit, OnI
   }
 
   public showVerificationMethods(): void {
-    this._dialog.open(
-      Fs2faVerificationMethodsComponent,
-      {
-        data: {
-          method: this.method,
+    this.getVerificationMethods()
+    .subscribe((verificationMethods) => {
+      this._dialog.open(
+        Fs2faVerificationMethodsComponent,
+        {
+          data: {
+            method: this.method,
+            verificationMethods,
+            selectVerificationMethod: this.selectVerificationMethod,
+          }
         }
-      }
-    )
-      .afterClosed()
-      .pipe(
-        filter((method) => !!method),
       )
-      .subscribe((method) => {
-        this.method = method;
-        this.code = '';
+        .afterClosed()
+        .pipe(
+          filter((method) => !!method),
+        )
+        .subscribe((method) => {
+          this.method = method;
+          this.code = '';
 
-        this._cdRef.markForCheck();
+          this._cdRef.markForCheck();
 
-        setTimeout(() => {
-          this.verificationCodeComponent.focus();
+          setTimeout(() => {
+            this.verificationCodeComponent.focus();
+          });
         });
-      });
+    });
   }
 
 }

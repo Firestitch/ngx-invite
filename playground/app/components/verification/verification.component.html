@@ -1,11 +1,13 @@
 <div class="container">
-  <form fsForm [submit]="verification.verify" [dirtySubmitButton]="false">
+  <form fsForm [submit]="verify" [dirtySubmitButton]="false">
     <h2>2-Step Verification</h2> 
 
     <fs-2fa-verification
       #verification 
       [method]="method"
-      (verified)="verified()">
+      [getVerificationMethods]="getVerificationMethods"
+      [selectVerificationMethod]="selectVerificationMethod"
+      [resend]="resend">
     </fs-2fa-verification>
 
     <div class="actions">

@@ -19,8 +19,6 @@ import {
 } from './components';
 import { AppComponent } from './app.component';
 import { VerificationComponent } from './components/verification/verification.component';
-import { FS_2FA_VERIFICATION_PROVIDER } from '../../src/app/tokens/verification.token';
-import { VerificationService } from './services/verification.service';
 import { ManageVerificationsComponent } from './components/manage-verifications/manage-verifications.component';
 
 const routes: Routes = [
@@ -49,12 +47,6 @@ const routes: Routes = [
     ExamplesComponent,
     VerificationComponent,
     ManageVerificationsComponent,
-  ],
-  providers: [
-    {
-      provide: FS_2FA_VERIFICATION_PROVIDER,
-      useClass: VerificationService,
-    },
   ],
 })
 export class PlaygroundModule {

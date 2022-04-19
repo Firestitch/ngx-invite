@@ -4,9 +4,6 @@ export { Fs2faManageModule } from './app/modules/manage/fs-2f-manage.module';
 export { Fs2faVerificationComponent } from './app/modules/verification/components/2fa-verification/2fa-verification.component';
 export { Fs2faManageComponent } from './app/modules/manage/components/2fa-manage/2fa-manage.component';
 
-export { IFsVerificationProvider } from './app/interfaces/verification-provider.interface';
 export { IFsVerificationMethod } from './app/interfaces/verification-method.interface';
 
 export { FsVerificationMethodType } from './app/enums/verification-method-type.enum';
-
-export { FS_2FA_VERIFICATION_PROVIDER } from './app/tokens/verification.token';

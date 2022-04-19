@@ -4,9 +4,9 @@
   </h1>
   <form fsForm [submit]="setVerificationMethod" [dirtySubmitButton]="false">
     <mat-dialog-content>
-      <ng-container *fsSkeleton="methods$ | async as methods">
+      <ng-container>
         <fs-radio-group [(ngModel)]="method" name="method" [compareWith]="compareWith">
-          <ng-container *ngFor="let methodMap of methods | keyvalue">
+          <ng-container *ngFor="let methodMap of verificationMethods | keyvalue">
             <div class="method">
               <ng-container [ngSwitch]="methodMap.key">
                 <ng-container *ngSwitchCase="verificationMethodType.Sms">
@@ -78,9 +78,7 @@
     </mat-dialog-content>
     <mat-dialog-actions>
       <div class="actions">
-        <ng-container *ngIf="methods$ | async">
-          <button mat-button type="submit" color="primary">Next</button>
-        </ng-container>
+        <button mat-button type="submit" color="primary">Next</button>
         <button mat-button type="button" [mat-dialog-close]="null">Cancel</button>
       </div>
     </mat-dialog-actions>
