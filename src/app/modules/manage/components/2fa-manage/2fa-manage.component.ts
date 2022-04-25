@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 
 import { MatDialog } from '@angular/material/dialog';
+import { VerificationMethodType } from '../../../../enums/verification-method-type.enum';
 
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -27,6 +28,7 @@ export class Fs2faManageComponent implements OnDestroy, OnInit {
 
   @Input() public accountVerify: () => Observable<any>;
   @Input() public defaultCountry: string;
+  @Input() public verificationMethodTypes: VerificationMethodType[];
   @Input() public verificationMethodsFetch: () => Observable<any[]>;
   @Input() public verificationMethodDelete: (verificationMethod: any) => Observable<any>;
   @Input() public verificationMethodCreate: (verificationMethod: any) => Observable<any>;
@@ -44,6 +46,12 @@ export class Fs2faManageComponent implements OnDestroy, OnInit {
   ) {}
 
   public ngOnInit(): void {
+    this.verificationMethodTypes = this.verificationMethodTypes || [
+      VerificationMethodType.Sms,
+      VerificationMethodType.Email,
+      VerificationMethodType.App
+    ];
+
     this._twoFactorManageService.registerVerificationMethodFetch(this.verificationMethodsFetch);
     this._twoFactorManageService.registerVerificationMethodDelete(this.verificationMethodDelete);
     this._twoFactorManageService.registerVerificationMethodCreate(this.verificationMethodCreate);
@@ -83,6 +91,7 @@ export class Fs2faManageComponent implements OnDestroy, OnInit {
       data: {
         defaultCountry: this.defaultCountry,
         twoFactorManageService: this._twoFactorManageService,
+        verificationMethodTypes: this.verificationMethodTypes,
       },
     });
 

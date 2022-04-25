@@ -1,9 +1,9 @@
-import { FsVerificationMethodType } from '../enums/verification-method-type.enum';
+import { VerificationMethodType } from '../enums/verification-method-type.enum';
 
 export interface IFsVerificationMethod {
   id: number;
   state?: string;
-  type: FsVerificationMethodType;
+  type: VerificationMethodType;
   phoneCode?: number;
   phoneCountry?: string;
   email?: string;

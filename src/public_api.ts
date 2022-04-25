@@ -6,4 +6,4 @@ export { Fs2faManageComponent } from './app/modules/manage/components/2fa-manage
 
 export { IFsVerificationMethod } from './app/interfaces/verification-method.interface';
 
-export { FsVerificationMethodType } from './app/enums/verification-method-type.enum';
+export { VerificationMethodType } from './app/enums/verification-method-type.enum';

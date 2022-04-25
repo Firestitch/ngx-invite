@@ -9,7 +9,7 @@ import { Subject } from 'rxjs';
 import { NumbersComponent } from '../numbers';
 import { EmailsComponent } from '../emails';
 import { TwoFactorManageService } from '../../services';
-import { FsVerificationMethodType } from '../../../../enums/verification-method-type.enum';
+import { VerificationMethodType } from '../../../../enums/verification-method-type.enum';
 import { FsMessage } from '@firestitch/message';
 
 
@@ -22,6 +22,8 @@ export class ManageMethodsComponent implements OnInit, OnDestroy {
 
   public twoFactorManageService: TwoFactorManageService;
   public verificationMethods;
+  public verificationMethodTypes = {};
+  public VerificationMethodType = VerificationMethodType;
 
   private _destroy$ = new Subject();
   private _defaultCountry: string;
@@ -36,6 +38,12 @@ export class ManageMethodsComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this._defaultCountry = this._data.defaultCountry;
     this.twoFactorManageService = this._data.twoFactorManageService;
+    this.verificationMethodTypes = this._data.verificationMethodTypes
+    .reduce((verificationMethodTypes, verificationMethodType) => {
+      verificationMethodTypes[verificationMethodType] = true;
+
+      return verificationMethodTypes;
+    }, {});
 
     this.twoFactorManageService.verificationMethods$
       .subscribe((verificationMethods) => {
@@ -66,15 +74,15 @@ export class ManageMethodsComponent implements OnInit, OnDestroy {
   }
 
   public get textHasVerificationMethod(): boolean {
-    return this.twoFactorManageService.hasVerificationMethod(FsVerificationMethodType.Sms);
+    return this.twoFactorManageService.hasVerificationMethod(VerificationMethodType.Sms);
   }
 
   public get appHasVerificationMethod(): boolean {
-    return this.twoFactorManageService.hasVerificationMethod(FsVerificationMethodType.App);
+    return this.twoFactorManageService.hasVerificationMethod(VerificationMethodType.App);
   }
 
   public get emailHasVerificationMethod(): boolean {
-    return this.twoFactorManageService.hasVerificationMethod(FsVerificationMethodType.Email);
+    return this.twoFactorManageService.hasVerificationMethod(VerificationMethodType.Email);
   }
 
   public textMessageManage(): void {
@@ -109,7 +117,7 @@ export class ManageMethodsComponent implements OnInit, OnDestroy {
 
     const verificationMethod = this.verificationMethods
       .find((_verificationMethod) => {
-        return _verificationMethod.type === FsVerificationMethodType.App;
+        return _verificationMethod.type === VerificationMethodType.App;
       });
 
     if(verificationMethod) {

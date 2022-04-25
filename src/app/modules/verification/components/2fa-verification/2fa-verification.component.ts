@@ -19,7 +19,7 @@ import { filter, takeUntil } from 'rxjs/operators';
 import { IFsVerificationMethod } from '../../../../interfaces/verification-method.interface';
 import { Fs2faVerificationMethodsComponent } from '../2fa-verification-methods/2fa-verification-methods.component';
 import { Observable, Subject } from 'rxjs';
-import { FsVerificationMethodType } from '../../../../enums/verification-method-type.enum';
+import { VerificationMethodType } from '../../../../enums/verification-method-type.enum';
 import { Fs2faVerificationCodeComponent } from '../2fa-verification-code/2fa-verification-code.component';
 
 
@@ -60,7 +60,7 @@ export class Fs2faVerificationComponent implements OnDestroy, AfterViewInit, OnI
   public resendInProgress = false;
   public code = '';
   public trustedDevice = true;
-  public FsVerificationMethodType = FsVerificationMethodType;
+  public VerificationMethodType = VerificationMethodType;
 
   private _destroy$ = new Subject<void>();
 

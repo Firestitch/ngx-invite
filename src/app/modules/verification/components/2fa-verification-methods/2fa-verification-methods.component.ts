@@ -9,7 +9,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { FsVerificationMethodType } from '../../../../enums/verification-method-type.enum';
+import { VerificationMethodType } from '../../../../enums/verification-method-type.enum';
 import { IFsVerificationMethod } from '../../../../interfaces/verification-method.interface';
 
 
@@ -26,7 +26,7 @@ export class Fs2faVerificationMethodsComponent {
   public phone: string;
   public code: string;
   public verificationMethods: Record<string, IFsVerificationMethod[]>;
-  public readonly verificationMethodType = FsVerificationMethodType;
+  public readonly verificationMethodType = VerificationMethodType;
 
   private _selectVerificationMethod: (IFsVerificationMethod) => Observable<IFsVerificationMethod>;  
 

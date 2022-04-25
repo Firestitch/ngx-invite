@@ -2,7 +2,7 @@
   <h1 mat-dialog-title>2-Step Verification</h1>
   <mat-dialog-content>
     <table>
-      <tr>
+      <tr *ngIf="verificationMethodTypes[VerificationMethodType.Sms]">
         <td>
           <mat-icon>textsms</mat-icon>
         </td>
@@ -40,7 +40,7 @@
           </ng-template>
         </td>
       </tr>
-      <tr>
+      <tr *ngIf="verificationMethodTypes[VerificationMethodType.Email]">
         <td>
           <mat-icon>email</mat-icon>
         </td>
@@ -78,7 +78,7 @@
         </ng-template>
         </td>
       </tr>
-      <tr>
+      <tr *ngIf="verificationMethodTypes[VerificationMethodType.App]">
         <td>
           <mat-icon>phone_iphone</mat-icon>
         </td>

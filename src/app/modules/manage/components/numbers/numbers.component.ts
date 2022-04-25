@@ -4,7 +4,7 @@ import {
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FsMessage } from '@firestitch/message';
-import { FsVerificationMethodType } from '../../../../enums/verification-method-type.enum';
+import { VerificationMethodType } from '../../../../enums/verification-method-type.enum';
 import { TwoFactorManageService } from '../../services';
 
 
@@ -17,7 +17,7 @@ export class NumbersComponent {
 
   public defaultCountry;
   public twoFactorManageService: TwoFactorManageService;
-  public FsVerificationMethodType = FsVerificationMethodType;
+  public VerificationMethodType = VerificationMethodType;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private _data: any,   
@@ -35,7 +35,7 @@ export class NumbersComponent {
 
   public deleted(): void {
     this._message.success('Deleted text message verification method');
-    if(!this.twoFactorManageService.hasVerificationMethod(FsVerificationMethodType.Sms)) {
+    if(!this.twoFactorManageService.hasVerificationMethod(VerificationMethodType.Sms)) {
       this._dialogRef.close();
     }
   }

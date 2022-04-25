@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Fs2faVerificationComponent, FsVerificationMethodType, IFsVerificationMethod } from '@firestitch/2fa';
+import { Fs2faVerificationComponent, VerificationMethodType, IFsVerificationMethod } from '@firestitch/2fa';
 import { FsMessage } from '@firestitch/message';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, tap } from 'rxjs/operators';
@@ -21,7 +21,7 @@ export class VerificationComponent {
 
   public method: IFsVerificationMethod = {
     id: 4,
-    type: FsVerificationMethodType.Sms,
+    type: VerificationMethodType.Sms,
     phoneCode: 1,
     phoneCountry: 'CA',
     phoneNumber: '(416) *** - **47',
@@ -69,7 +69,7 @@ export class VerificationComponent {
   public methods = [
     {
       id: 1,
-      type: FsVerificationMethodType.Sms,
+      type: VerificationMethodType.Sms,
       phoneCode: 1,
       phoneCountry: 'CA',
       phoneNumber: '********32',
@@ -77,19 +77,19 @@ export class VerificationComponent {
     },
     {
       id: 2,
-      type: FsVerificationMethodType.Email,
+      type: VerificationMethodType.Email,
       email: 'e******@example.com',
       default: false,
     },
     {
       id: 3,
-      type: FsVerificationMethodType.Email,
+      type: VerificationMethodType.Email,
       email: 'e******@example.com',
       default: false,
     },
     {
       id: 4,
-      type: FsVerificationMethodType.Sms,
+      type: VerificationMethodType.Sms,
       phoneCode: 1,
       phoneCountry: 'CA',
       phoneNumber: '********47',
@@ -97,7 +97,7 @@ export class VerificationComponent {
     },
     {
       id: 5,
-      type: FsVerificationMethodType.App,
+      type: VerificationMethodType.App,
       default: false,
     },
   ];

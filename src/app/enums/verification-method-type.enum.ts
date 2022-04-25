@@ -1,4 +1,4 @@
-export enum FsVerificationMethodType {
+export enum VerificationMethodType {
   Sms = 'sms',
   Email = 'email',
   App = 'app',

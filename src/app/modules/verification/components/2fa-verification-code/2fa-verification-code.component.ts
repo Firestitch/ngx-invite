@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { CodeInputComponent } from '../../../../modules/code-input/components/code-input';
-import { FsVerificationMethodType } from '../../../../enums/verification-method-type.enum';
+import { VerificationMethodType } from '../../../../enums/verification-method-type.enum';
 
 import { IFsVerificationMethod } from '../../../../interfaces/verification-method.interface';
 
@@ -44,7 +44,7 @@ export class Fs2faVerificationCodeComponent {
   @Output()
   public codeCompleted = new EventEmitter<void>();
 
-  public FsVerificationMethodType = FsVerificationMethodType;
+  public VerificationMethodType = VerificationMethodType;
 
   public codeChange(code): void {
     this.code = code;

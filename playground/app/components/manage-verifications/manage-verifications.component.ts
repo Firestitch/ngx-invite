@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Fs2faManageComponent } from '@firestitch/2fa';
+import { Fs2faManageComponent, VerificationMethodType } from '@firestitch/2fa';
 import { guid } from '@firestitch/common';
 import { FsMessage } from '@firestitch/message';
 import { Observable, of } from 'rxjs';
@@ -14,6 +14,8 @@ export class ManageVerificationsComponent {
 
   @ViewChild(Fs2faManageComponent)
   public manageComponent: Fs2faManageComponent;
+
+  public VerificationMethodType = VerificationMethodType;
 
   private _createVerificationMethod;
   private _verificationMethods = [
