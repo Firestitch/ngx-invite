@@ -3,7 +3,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { VerificationMethodType } from '../../../enums/verification-method-type.enum';
 
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
 
 import { AppComponent } from '../components/app';
@@ -127,7 +127,7 @@ export class TwoFactorManageService implements OnDestroy {
   }
 
   public accountVerify(): Observable<any> {
-    return this._accountVerify();
+    return this._accountVerify ? this._accountVerify() : of(true);
   }
 
   public ngOnDestroy(): void {
