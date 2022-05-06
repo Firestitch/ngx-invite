@@ -41,6 +41,7 @@ export class VerificationMethodsComponent implements OnInit {
               template: 'Would you like to delete this verification method?',
             })
               .pipe(
+                switchMap(() => this.twoFactorManageService.accountVerify()),
                 switchMap(() => this.twoFactorManageService
                   .verificationMethodDelete(verificationMethod)),
               )

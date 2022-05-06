@@ -90,10 +90,12 @@ export class ManageVerificationsComponent {
   };
 
   public verificationMethodResend = (): Observable<any> => {
+    console.log('Mehtods resend');
     return of(true);
   };
 
   public accountVerify = (): Observable<any> => {
+    console.log('Account verify');
     return of(true);
   };
 }
