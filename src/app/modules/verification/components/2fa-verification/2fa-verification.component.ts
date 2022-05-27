@@ -4,7 +4,6 @@ import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
-  Inject,
   Input,
   OnDestroy,
   OnInit,
@@ -14,7 +13,7 @@ import {
 
 import { FsDialog } from '@firestitch/dialog';
 
-import { filter, takeUntil } from 'rxjs/operators';
+import { filter, finalize, takeUntil, tap } from 'rxjs/operators';
 
 import { IFsVerificationMethod } from '../../../../interfaces/verification-method.interface';
 import { Fs2faVerificationMethodsComponent } from '../2fa-verification-methods/2fa-verification-methods.component';
@@ -37,10 +36,13 @@ export class Fs2faVerificationComponent implements OnDestroy, AfterViewInit, OnI
   public verificationCodeComponent: Fs2faVerificationCodeComponent;
 
   @Input()
-  public method: IFsVerificationMethod;
+  public verificationMethod: IFsVerificationMethod;
 
   @Input()
   public resend: () => Observable<void>;
+
+  @Input()
+  public showTrustedDevice = true;
 
   @Input()
   public getVerificationMethods: () => Observable<IFsVerificationMethod[]>;
@@ -57,7 +59,6 @@ export class Fs2faVerificationComponent implements OnDestroy, AfterViewInit, OnI
   @Output()
   public codeCompleted = new EventEmitter<unknown>();
 
-  public resendInProgress = false;
   public code = '';
   public trustedDevice = true;
   public VerificationMethodType = VerificationMethodType;
@@ -67,7 +68,16 @@ export class Fs2faVerificationComponent implements OnDestroy, AfterViewInit, OnI
   constructor(
     private _cdRef: ChangeDetectorRef,
     private _dialog: FsDialog,
-  ) {
+  ) {}
+
+  public get recipient(): string {
+    if(this.verificationMethod.type === VerificationMethodType.Email) {
+      return this.verificationMethod.email;
+    }
+
+    if(this.verificationMethod.type === VerificationMethodType.Sms) {
+      return this.verificationMethod.phoneNumber;
+    }
   }
 
   public ngOnInit(): void {
@@ -89,19 +99,16 @@ export class Fs2faVerificationComponent implements OnDestroy, AfterViewInit, OnI
     this.verificationCodeComponent.focus();    
   }
 
-  public resendCode(): void {
-    this.resendInProgress = true;
-    this.code = '';
-
-    this.resend()
-      .pipe(
-        takeUntil(this._destroy$),
-      )
-      .subscribe(() => {
-        this.resendInProgress = false;   
+  public resendCode = (): Observable<void> => {
+    return this.resend()
+    .pipe(
+      tap(() => {
+        this.code = '';
+      }),
+      finalize(() => {
         this.verificationCodeComponent.focus();  
-        this._cdRef.markForCheck();
-      })
+      }),
+    );
   }
 
   public showVerificationMethods(): void {
@@ -111,7 +118,7 @@ export class Fs2faVerificationComponent implements OnDestroy, AfterViewInit, OnI
         Fs2faVerificationMethodsComponent,
         {
           data: {
-            method: this.method,
+            verificationMethod: this.verificationMethod,
             verificationMethods,
             selectVerificationMethod: this.selectVerificationMethod,
           }
@@ -119,10 +126,10 @@ export class Fs2faVerificationComponent implements OnDestroy, AfterViewInit, OnI
       )
         .afterClosed()
         .pipe(
-          filter((method) => !!method),
+          filter((verificationMethod) => !!verificationMethod),
         )
-        .subscribe((method) => {
-          this.method = method;
+        .subscribe((verificationMethod) => {
+          this.verificationMethod = verificationMethod;
           this.code = '';
 
           this._cdRef.markForCheck();

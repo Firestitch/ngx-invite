@@ -13,7 +13,7 @@
           (codeCompleted)="codeCompleted()">
         </app-code-input> 
         
-        <div>Did't get the code? <a (click)="resend()">Resend Code</a></div>
+        <app-resend [resend]="resend"></app-resend>
       </ng-container>
 
       <ng-template #notVerificationMethod>

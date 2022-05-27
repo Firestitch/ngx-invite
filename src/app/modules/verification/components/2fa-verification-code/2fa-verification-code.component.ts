@@ -33,7 +33,10 @@ export class Fs2faVerificationCodeComponent {
   public codeInputComponent: CodeInputComponent;
 
   @Input()
-  public method: IFsVerificationMethod;
+  public type: VerificationMethodType;
+
+  @Input()
+  public recipient: string;
 
   @Input()
   public code;

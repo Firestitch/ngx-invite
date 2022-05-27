@@ -5,7 +5,7 @@
   <form fsForm [submit]="setVerificationMethod" [dirtySubmitButton]="false">
     <mat-dialog-content>
       <ng-container>
-        <fs-radio-group [(ngModel)]="method" name="method" [compareWith]="compareWith">
+        <fs-radio-group [(ngModel)]="verificationMethod" name="method" [compareWith]="compareWith">
           <ng-container *ngFor="let methodMap of verificationMethods | keyvalue">
             <div class="method">
               <ng-container [ngSwitch]="methodMap.key">

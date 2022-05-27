@@ -5,10 +5,14 @@
 .additional {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 10px;
+  align-items: center;
+  margin: 4px 0 5px;
 
-  .resend-code-btn {
+  small {
+    color: inherit;
+  }
+  
+  .resend {
     cursor: pointer;
     text-transform: none;
 

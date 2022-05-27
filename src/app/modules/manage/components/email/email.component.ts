@@ -8,7 +8,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FsMessage } from '@firestitch/message';
 import { FsFormDirective } from '@firestitch/form';
 
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { TwoFactorManageService } from '../../services';
 
@@ -39,11 +39,13 @@ export class EmailComponent {
     this.default = !this.twoFactorManageService.hasVerificationMethods;
   }
 
-  public resend(): void {
-    this.twoFactorManageService.verificationMethodResend()
-      .subscribe(() => {
+  public resend = (): Observable<void> => {
+    return this.twoFactorManageService.verificationMethodResend()
+    .pipe(
+      tap(() => {
         this._message.success('Resent verification code');
-      });
+      }),
+    );
   }
 
   public submit = () => {

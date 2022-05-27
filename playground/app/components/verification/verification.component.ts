@@ -19,7 +19,7 @@ export class VerificationComponent {
     private _message: FsMessage,
   ) {}
 
-  public method: IFsVerificationMethod = {
+  public verificationMethod: IFsVerificationMethod = {
     id: 4,
     type: VerificationMethodType.Sms,
     phoneCode: 1,
@@ -45,7 +45,7 @@ export class VerificationComponent {
   public resend = (): Observable<void> => {
     return of(null)
       .pipe(
-        delay(100),
+        delay(2000),
       );
   }
 

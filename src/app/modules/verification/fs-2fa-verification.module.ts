@@ -20,6 +20,7 @@ import { Fs2faVerificationCodeComponent } from './components/2fa-verification-co
 import { Fs2faVerificationMethodsComponent } from './components/2fa-verification-methods/2fa-verification-methods.component';
 
 import { CodeInputModule } from '../code-input';
+import { ResendModule } from '../resend/resend.module';
 
 
 @NgModule({
@@ -30,18 +31,18 @@ import { CodeInputModule } from '../code-input';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatIconModule,
+    MatRadioModule,
+    MatCheckboxModule,
 
     FsFormModule,
     FsRadioGroupModule,
     FsDialogModule,
+    FsSkeletonModule,
+    FsSkeletonModule,
 
+    ResendModule,
     CodeInputModule,
-    MatCheckboxModule,
-    MatProgressSpinnerModule,
-    FsSkeletonModule,
-    FsSkeletonModule,
-    MatIconModule,
-    MatRadioModule,
   ],
   declarations: [
     Fs2faVerificationComponent,

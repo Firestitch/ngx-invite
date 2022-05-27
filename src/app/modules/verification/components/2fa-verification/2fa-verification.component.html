@@ -1,6 +1,7 @@
 <div class="code-container">
   <fs-2fa-verification-code
-    [method]="method"
+    [recipient]="recipient"
+    [type]="verificationMethod.type"
     [code]="code"
     (codeChanged)="codeChanged.emit($event)"
     (codeCompleted)="codeCompleted.emit()">
@@ -8,20 +9,17 @@
 </div>
 
 <div class="additional">
-  <mat-checkbox
-    name="trust-device"
-    [(ngModel)]="trustedDevice">
-    Trust this device
-  </mat-checkbox>
+  <div 
+      class="trust-device"
+      *ngIf="showTrustedDevice">
+    <mat-checkbox
+      name="trust-device"
+      [(ngModel)]="trustedDevice">
+      Trust this device
+    </mat-checkbox>
+  </div>
 
-  <span class="resend-code-btn">
-    <ng-container *ngIf="!resendInProgress else sending">
-      <a (click)="resendCode()">
-        Resend Code
-      </a>
-    </ng-container>
-    <ng-template #sending>
-      <mat-spinner [diameter]="12"></mat-spinner> Sending
-    </ng-template>
+  <span class="resend">
+    <app-resend [resend]="resendCode"></app-resend>
   </span>
 </div>

@@ -22,7 +22,7 @@ import { IFsVerificationMethod } from '../../../../interfaces/verification-metho
 })
 export class Fs2faVerificationMethodsComponent {
 
-  public method: IFsVerificationMethod;
+  public verificationMethod: IFsVerificationMethod;
   public phone: string;
   public code: string;
   public verificationMethods: Record<string, IFsVerificationMethod[]>;
@@ -45,7 +45,7 @@ export class Fs2faVerificationMethodsComponent {
   }
 
   public setVerificationMethod = () => {
-    return this._selectVerificationMethod(this.method)
+    return this._selectVerificationMethod(this.verificationMethod)
       .pipe(
         tap((method: IFsVerificationMethod) => {
           this._dialogRef.close(method);
@@ -54,7 +54,7 @@ export class Fs2faVerificationMethodsComponent {
   };
 
   private _setActiveMethod(): void {
-    this.method = this._dialogData?.method;
+    this.verificationMethod = this._dialogData?.verificationMethod;
   }
 
   private _initMethods(verificationMethods): void {

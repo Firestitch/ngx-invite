@@ -29,6 +29,7 @@ import { VerificationMethodsComponent } from './components/verification-methods'
 import { NumberComponent } from './components/number';
 import { EmailsComponent } from './components/emails';
 import { DefaultedComponent } from './components/defaulted';
+import { ResendModule } from '../resend/resend.module';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { DefaultedComponent } from './components/defaulted';
     CodeInputModule,
 
     QrCodeModule,
+    ResendModule,
   ],
   declarations: [
     Fs2faManageComponent,

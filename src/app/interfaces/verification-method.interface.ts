@@ -1,12 +1,12 @@
 import { VerificationMethodType } from '../enums/verification-method-type.enum';
 
 export interface IFsVerificationMethod {
-  id: number;
+  id?: number;
   state?: string;
-  type: VerificationMethodType;
+  type?: VerificationMethodType;
   phoneCode?: number;
   phoneCountry?: string;
   email?: string;
   phoneNumber?: string;
-  default: boolean;
+  default?: boolean;
 }

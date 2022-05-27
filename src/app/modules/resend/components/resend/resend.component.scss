@@ -1,0 +1,12 @@
+small {
+  color: inherit;
+}
+
+.sending {
+  display: inline-flex;
+  align-items: center;
+
+  mat-spinner {
+    margin-right: 2px;
+  }
+}
