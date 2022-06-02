@@ -10,6 +10,7 @@ import { FsFormDirective } from '@firestitch/form';
 import { Observable, of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { TwoFactorManageService } from '../../services';
+import { VerificationMethodType } from '../../../../enums/verification-method-type.enum';
 
 
 @Component({
@@ -62,7 +63,7 @@ export class NumberComponent {
                 }),
               ) :
             this.twoFactorManageService.verificationMethodCreate({
-              type: 'sms',
+              type: VerificationMethodType.Sms,
               phoneNumber: this.phone.number,
               phoneCode: this.phone.countryCode,
               phoneCountry: this.phone.isoCode,

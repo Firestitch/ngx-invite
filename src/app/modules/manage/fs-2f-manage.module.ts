@@ -28,8 +28,8 @@ import { EmailComponent } from './components/email';
 import { VerificationMethodsComponent } from './components/verification-methods';
 import { NumberComponent } from './components/number';
 import { EmailsComponent } from './components/emails';
-import { DefaultedComponent } from './components/defaulted';
 import { ResendModule } from '../resend/resend.module';
+import { DefautledModule } from '../defaulted/defaulted.module';
 
 
 @NgModule({
@@ -55,6 +55,7 @@ import { ResendModule } from '../resend/resend.module';
 
     QrCodeModule,
     ResendModule,
+    DefautledModule,
   ],
   declarations: [
     Fs2faManageComponent,
@@ -65,7 +66,6 @@ import { ResendModule } from '../resend/resend.module';
     VerificationMethodsComponent,
     NumberComponent,
     EmailsComponent,
-    DefaultedComponent,
   ],
   exports: [Fs2faManageComponent],
 })

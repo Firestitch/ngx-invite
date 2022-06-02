@@ -1,0 +1,22 @@
+:host ::ng-deep {
+  .col-name {
+    .row {
+      display: flex;
+      align-items: center;
+    }
+
+    fs-country {
+      img {
+        display: flex;
+      }
+    }
+  }
+}
+
+fs-country {
+  margin-right: 5px;
+}
+
+app-defaulted {
+  margin-left: 5px;
+}

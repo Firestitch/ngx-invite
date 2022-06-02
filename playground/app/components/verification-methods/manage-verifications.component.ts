@@ -1,23 +1,22 @@
 import { Component, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+
 import { Fs2faManageComponent, VerificationMethodType } from '@firestitch/2fa';
-import { guid } from '@firestitch/common';
-import { FsMessage } from '@firestitch/message';
+
 import { Observable, of } from 'rxjs';
 
+
 @Component({
-  selector: 'app-manage-verifications',
-  styleUrls: ['./manage-verifications.component.scss'],
-  templateUrl: './manage-verifications.component.html',
+  selector: 'app-verification-methods',
+  styleUrls: ['./verification-methods.component.scss'],
+  templateUrl: './verification-methods.component.html',
 })
-export class ManageVerificationsComponent {
+export class VerificationMethodsComponent {
 
   @ViewChild(Fs2faManageComponent)
   public manageComponent: Fs2faManageComponent;
 
   public VerificationMethodType = VerificationMethodType;
 
-  private _createVerificationMethod;
   private _verificationMethods = [
     {
       id: 5,
@@ -45,11 +44,6 @@ export class ManageVerificationsComponent {
     },
   ];
 
-  constructor(
-    private _message: FsMessage,
-    private _dialog: MatDialog,
-  ) {}
-
   public verificationMethodsFetch = (): Observable<any[]> => {
     return of(this._verificationMethods);
   };
@@ -60,37 +54,6 @@ export class ManageVerificationsComponent {
       return _verificationMethod.id !== verificationMethod.id;
     });
 
-    return of(true);
-  };
-
-  public verificationMethodCreate = (verificationMethod): Observable<any> => {
-    this._createVerificationMethod = {
-      ...verificationMethod,
-      id: guid(),
-    };
-
-    return of({
-      ...verificationMethod,
-      qrCodeUrl: 'https://google.com',
-    });
-  };
-
-  public verificationMethodVerify = (code): Observable<any> => {
-    this._verificationMethods.push(this._createVerificationMethod);
-
-    if(this._createVerificationMethod.default) {
-      this._verificationMethods
-      .filter((verificationMethod) => (verificationMethod.id !== this._createVerificationMethod.id))
-      .forEach((verificationMethod) => {
-        verificationMethod.default = false;
-      });
-    }
-
-    return of(true);
-  };
-
-  public verificationMethodResend = (): Observable<any> => {
-    console.log('Mehtods resend');
     return of(true);
   };
 

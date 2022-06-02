@@ -2,11 +2,11 @@
   <fs-list-column class="col-name">
     <ng-template fs-list-cell let-row="row">
       <div class="row">
-        <ng-container *ngIf="row.type === 'sms'">
+        <ng-container *ngIf="row.type === VerificationMethodType.Sms">
           <fs-country [code]="row.phoneCountry" [showName]="false"></fs-country> {{row.phoneNumber | fsPhone}}
         </ng-container>
 
-        <ng-container *ngIf="row.type === 'email'">
+        <ng-container *ngIf="row.type === VerificationMethodType.Email">
           {{row.email}}
         </ng-container>
    

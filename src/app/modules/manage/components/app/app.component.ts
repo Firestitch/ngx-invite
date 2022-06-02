@@ -6,6 +6,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { FsFormDirective } from '@firestitch/form';
 import { FsMessage } from '@firestitch/message';
+import { VerificationMethodType } from '../../../../enums/verification-method-type.enum';
 
 import { tap } from 'rxjs/operators';
 import { TwoFactorManageService } from '../../services';
@@ -53,7 +54,7 @@ export class AppComponent implements OnInit {
   public appTypeSelect(appType): void {
     this.appType = appType;
     this.twoFactorManageService.verificationMethodCreate({
-      type: 'app',
+      type: VerificationMethodType.App,
       default: this.default,
     })
       .subscribe((response) => {

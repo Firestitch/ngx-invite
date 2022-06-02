@@ -1,29 +1,32 @@
 import {
-  Component, ChangeDetectionStrategy, OnInit, Input, Output, EventEmitter,
+  Component, ChangeDetectionStrategy, OnInit, Input, ViewChild,
 } from '@angular/core';
 
-import { FsListConfig } from '@firestitch/list';
+import { FsListComponent, FsListConfig } from '@firestitch/list';
 import { FsPrompt } from '@firestitch/prompt';
-import { IFsVerificationMethod } from '../../../../interfaces/verification-method.interface';
 
 import { map, switchMap } from 'rxjs/operators';
-import { TwoFactorManageService } from '../../services';
+import { Observable } from 'rxjs';
+
+import { IFsVerificationMethod } from '../../../../interfaces/verification-method.interface';
 import { VerificationMethodType } from '../../../../enums/verification-method-type.enum';
 
 
 @Component({
-  selector: 'app-verification-methods',
+  selector: 'fs-2fa-verification-methods',
   templateUrl: './verification-methods.component.html',
   styleUrls: ['./verification-methods.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VerificationMethodsComponent implements OnInit {
 
-  @Input() public twoFactorManageService: TwoFactorManageService;
-  @Input() public type;
-  
-  @Output() public deleted = new EventEmitter<IFsVerificationMethod>();
+  @ViewChild(FsListComponent)
+  public list: FsListComponent;
 
+  @Input() public accountVerify: () => Observable<any>;
+  @Input() public verificationMethodsFetch: (query: any) => Observable<IFsVerificationMethod[]>;
+  @Input() public verificationMethodDelete: (verificationMethod: IFsVerificationMethod) => Observable<any>;
+  
   public listConfig: FsListConfig;
   public VerificationMethodType = VerificationMethodType;
   public textMessageAdd: () => void;
@@ -35,6 +38,7 @@ export class VerificationMethodsComponent implements OnInit {
 
   public ngOnInit(): void {
     this.listConfig = {
+      paging: false,
       rowActions: [
         {
           click: (verificationMethod) => {
@@ -43,24 +47,21 @@ export class VerificationMethodsComponent implements OnInit {
               template: 'Would you like to delete this verification method?',
             })
               .pipe(
-                switchMap(() => this.twoFactorManageService.accountVerify()),
-                switchMap(() => this.twoFactorManageService
-                  .verificationMethodDelete(verificationMethod)),
+                switchMap(() => this.accountVerify()),
+                switchMap(() => this.verificationMethodDelete(verificationMethod)),
               )
               .subscribe(() => {
-                this.deleted.emit(verificationMethod);
+                this.list.reload();
               });
           },
           label: 'Delete',
         },
       ],
-      fetch: () => {
-        return this.twoFactorManageService.verificationMethods$
+      fetch: (query) => {
+        return this.verificationMethodsFetch(query)
           .pipe(
             map((verificationMethods) => ({
-              data: verificationMethods.filter((verificationMethod) => {
-                return verificationMethod.type === this.type;
-              }),
+              data: verificationMethods,
             }),
             ),
           );
