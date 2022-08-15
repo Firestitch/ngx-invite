@@ -2,7 +2,7 @@
   "name": "@firestitch/2fa",
   "title": "2FA",
   "description": "@firestitch/2fa",
-  "version": "12.6.0",
+  "version": "12.7.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/Firestitch/ngx-2fa"
@@ -113,8 +113,8 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "angular-code-input": "^1.6.0",
-    "ng-qrcode": "^6.0.0",
+    "angular-code-input": "^1.5.0",
+    "ng-qrcode": "^5.2.0",
     "tslib": "^2.0.0"
   },
   "peerDependencies": {

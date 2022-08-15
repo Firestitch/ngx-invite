@@ -79,13 +79,6 @@
               Google Authenticator
             </span>
           </div>
-
-          <mat-checkbox 
-              name="default"
-              [(ngModel)]="default"
-              [disableRipple]="true">
-            Make this the default 2-step verification method
-          </mat-checkbox>
         </div>
      
       </div>
@@ -97,9 +90,12 @@
 
         <app-code-input
           [codeLength]="6"
-          (codeChanged)="codeChanged($event)"
-          (codeCompleted)="codeCompleted()">
+          (codeChanged)="codeChanged($event)">
         </app-code-input>
+
+        <mat-checkbox name="default" [(ngModel)]="default" [disableRipple]="true">
+          Make this the default 2-step verification method
+        </mat-checkbox>
       </div>
     </mat-dialog-content>
     <mat-dialog-actions>
