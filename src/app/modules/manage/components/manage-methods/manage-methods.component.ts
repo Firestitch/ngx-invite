@@ -11,6 +11,7 @@ import { EmailsComponent } from '../emails';
 import { TwoFactorManageService } from '../../services';
 import { VerificationMethodType } from '../../../../enums/verification-method-type.enum';
 import { FsMessage } from '@firestitch/message';
+import { switchMap } from 'rxjs/operators';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class ManageMethodsComponent implements OnInit, OnDestroy {
   public verificationMethods;
   public verificationMethodTypes = {};
   public VerificationMethodType = VerificationMethodType;
+
 
   private _destroy$ = new Subject();
   private _defaultCountry: string;
@@ -113,16 +115,18 @@ export class ManageMethodsComponent implements OnInit, OnDestroy {
   }
 
   public appRemove(): void {
-    this._message.success('Removed App Authenticator verification method');
-
     const verificationMethod = this.verificationMethods
       .find((_verificationMethod) => {
         return _verificationMethod.type === VerificationMethodType.App;
       });
 
     if(verificationMethod) {
-      this.twoFactorManageService.verificationMethodDelete(verificationMethod)
+      this.twoFactorManageService.accountVerify()
+      .pipe(
+        switchMap(() => this.twoFactorManageService.verificationMethodDelete(verificationMethod)),
+      )
         .subscribe(() => {
+          this._message.success('Removed App Authenticator verification method');
           this._cdRef.markForCheck();
         });
     }

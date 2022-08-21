@@ -9,6 +9,7 @@ import { FsMessage } from '@firestitch/message';
 import { VerificationMethodType } from '../../../../enums/verification-method-type.enum';
 
 import { tap } from 'rxjs/operators';
+
 import { TwoFactorManageService } from '../../services';
 
 
