@@ -5,15 +5,12 @@
     </h1>
     <mat-dialog-content>
       <ng-container *ngIf="verificationMethod; else notVerificationMethod">
-        <p>The app just sent you an email with a verification code.</p>
-        
-        <app-code-input  
-          [code]="code"
+        <fs-2fa-verification
+          [verificationMethod]="verificationMethod"
           (codeChanged)="codeChanged($event)"
-          (codeCompleted)="codeCompleted()">
-        </app-code-input> 
-
-        <app-resend [resend]="resend"></app-resend>
+          [resend]="resend"
+          [(trustDevice)]="trustDevice">
+        </fs-2fa-verification>
       </ng-container>
 
       <ng-template #notVerificationMethod>

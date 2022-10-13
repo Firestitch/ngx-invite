@@ -10,6 +10,9 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
+import { ControlContainer, NgForm } from '@angular/forms';
+
+import { Observable, Subject } from 'rxjs';
 
 import { FsDialog } from '@firestitch/dialog';
 
@@ -17,7 +20,6 @@ import { filter, finalize, takeUntil, tap } from 'rxjs/operators';
 
 import { IFsVerificationMethod } from '../../../../interfaces/verification-method.interface';
 import { Fs2faVerificationMethodsComponent } from '../2fa-verification-methods/2fa-verification-methods.component';
-import { Observable, Subject } from 'rxjs';
 import { VerificationMethodType } from '../../../../enums/verification-method-type.enum';
 import { Fs2faVerificationCodeComponent } from '../2fa-verification-code/2fa-verification-code.component';
 
@@ -25,10 +27,9 @@ import { Fs2faVerificationCodeComponent } from '../2fa-verification-code/2fa-ver
 @Component({
   selector: 'fs-2fa-verification',
   templateUrl: './2fa-verification.component.html',
-  styleUrls: [
-    './2fa-verification.component.scss',
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrls: ['./2fa-verification.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,  
+  viewProviders: [{ provide: ControlContainer, useExisting: NgForm }],
 })
 export class Fs2faVerificationComponent implements OnDestroy, AfterViewInit, OnInit {
 
@@ -45,6 +46,9 @@ export class Fs2faVerificationComponent implements OnDestroy, AfterViewInit, OnI
   public showTrustedDevice = true;
 
   @Input()
+  public trustDevice = true;
+
+  @Input()
   public getVerificationMethods: () => Observable<IFsVerificationMethod[]>;
 
   @Input()
@@ -59,8 +63,10 @@ export class Fs2faVerificationComponent implements OnDestroy, AfterViewInit, OnI
   @Output()
   public codeCompleted = new EventEmitter<unknown>();
 
+  @Output()
+  public trustDeviceChange = new EventEmitter<boolean>();
+
   public code = '';
-  public trustedDevice = true;
   public VerificationMethodType = VerificationMethodType;
 
   private _destroy$ = new Subject<void>();

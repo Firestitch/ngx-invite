@@ -45,16 +45,13 @@ export class ManageVerificationsComponent {
     },
   ];
 
-  constructor(
-    private _message: FsMessage,
-    private _dialog: MatDialog,
-  ) {}
-
   public verificationMethodsFetch = (): Observable<any[]> => {
+    console.log('verificationMethodsFetch');
     return of(this._verificationMethods);
   };
 
   public verificationMethodDelete = (verificationMethod): Observable<any> => {
+    console.log('verificationMethodDelete', verificationMethod);
     this._verificationMethods = this._verificationMethods
     .filter((_verificationMethod) => {
       return _verificationMethod.id !== verificationMethod.id;
@@ -64,6 +61,7 @@ export class ManageVerificationsComponent {
   };
 
   public verificationMethodCreate = (verificationMethod): Observable<any> => {
+    console.log('verificationMethodCreate', verificationMethod);
     this._createVerificationMethod = {
       ...verificationMethod,
       id: guid(),
@@ -75,7 +73,8 @@ export class ManageVerificationsComponent {
     });
   };
 
-  public verificationMethodVerify = (code): Observable<any> => {
+  public verificationMethodVerify = (code, trustDevice): Observable<any> => {
+    console.log('verificationMethodVerify', code, trustDevice);
     this._verificationMethods.push(this._createVerificationMethod);
 
     if(this._createVerificationMethod.default) {
@@ -90,12 +89,12 @@ export class ManageVerificationsComponent {
   };
 
   public verificationMethodResend = (): Observable<any> => {
-    console.log('Mehtods resend');
+    console.log('verificationMethodResend');
     return of(true);
   };
 
   public accountVerify = (): Observable<any> => {
-    console.log('Account verify');
+    console.log('accountVerify');
     return of(true);
   };
 }

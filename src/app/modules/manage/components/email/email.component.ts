@@ -28,6 +28,7 @@ export class EmailComponent {
   public code;
   public default;
   public verificationMethod = null;
+  public trustDevice = true;
   public twoFactorManageService: TwoFactorManageService;
 
   constructor(
@@ -54,7 +55,7 @@ export class EmailComponent {
       .pipe(
         switchMap(() => {
           return this.verificationMethod ?
-            this.twoFactorManageService.verificationMethodVerify(this.code)
+            this.twoFactorManageService.verificationMethodVerify(this.code, this.trustDevice)
               .pipe(
                 tap((verificationMethod) => {
                   this._message.success('Created email verification method');

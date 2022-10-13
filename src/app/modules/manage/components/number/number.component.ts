@@ -26,6 +26,7 @@ export class NumberComponent {
   public phone;
   public code;
   public default;
+  public trustDevice = true;
   public verificationMethod = null;
   public defaultCountry;
   public twoFactorManageService: TwoFactorManageService;
@@ -55,7 +56,7 @@ export class NumberComponent {
       .pipe(
         switchMap(() => {
           return this.verificationMethod ?
-            this.twoFactorManageService.verificationMethodVerify(this.code)
+            this.twoFactorManageService.verificationMethodVerify(this.code, this.trustDevice)
               .pipe(
                 tap((verificationMethod) => {
                   this._message.success('Created text message verification method');
@@ -68,7 +69,8 @@ export class NumberComponent {
               phoneCode: this.phone.countryCode,
               phoneCountry: this.phone.isoCode,
               default: this.default,
-            }).pipe(
+            })
+            .pipe(
               tap((verificationMethod) => {
                 this.verificationMethod = verificationMethod;
                 this.form.clear();

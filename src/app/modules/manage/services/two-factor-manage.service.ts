@@ -19,7 +19,7 @@ export class TwoFactorManageService implements OnDestroy {
   private _verificationMethodFetch: () => Observable<any[]>;
   private _verificationMethodCreate: (verificationMethod) => Observable<any>;
   private _verificationMethodDelete: (verificationMethod) => Observable<any>;
-  private _verificationMethodVerify: (verificationMethod) => Observable<any>;
+  private _verificationMethodVerify: (code, trustDevice: boolean) => Observable<any>;
   private _verificationMethodResend: () => Observable<any>;
   private _accountVerify: () => Observable<any[]>;
   private _verificationMethods$ = new BehaviorSubject<any[]>([]);
@@ -102,8 +102,8 @@ export class TwoFactorManageService implements OnDestroy {
       );
   }
 
-  public verificationMethodVerify(verificationMethod): Observable<any> {
-    return this._verificationMethodVerify(verificationMethod)
+  public verificationMethodVerify(code, trustDevice): Observable<any> {
+    return this._verificationMethodVerify(code, trustDevice)
       .pipe(
         tap(() => {
           this.verificationMethodFetch();

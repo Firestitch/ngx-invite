@@ -2,7 +2,7 @@
   "name": "@firestitch/2fa",
   "title": "2FA",
   "description": "@firestitch/2fa",
-  "version": "12.7.2",
+  "version": "12.8.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/Firestitch/ngx-2fa"
@@ -49,7 +49,7 @@
     "@firestitch/chip": "^12.0.0",
     "@firestitch/clear": "^12.0.0",
     "@firestitch/common": "^12.0.0",
-    "@firestitch/core": "^9.1.2",
+    "@firestitch/core": "^12.0.3",
     "@firestitch/country": "^12.0.0",
     "@firestitch/date": "^12.0.0",
     "@firestitch/datepicker": "^12.0.1",
@@ -66,7 +66,7 @@
     "@firestitch/mask": "^12.0.0",
     "@firestitch/menu": "^12.0.1",
     "@firestitch/message": "^12.0.0",
-    "@firestitch/phone": "^12.0.0",
+    "@firestitch/phone": "^12.4.1",
     "@firestitch/prompt": "^12.0.1",
     "@firestitch/radiogroup": "^12.0.0",
     "@firestitch/scroll": "^12.0.0",

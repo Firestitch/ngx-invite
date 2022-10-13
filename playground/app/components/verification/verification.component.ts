@@ -33,7 +33,7 @@ export class VerificationComponent {
   }
 
   public verify = (): Observable<any> => {
-    return of({ code: this.verificationComponent.code, trustedDevice: this.verificationComponent.trustedDevice })
+    return of({ code: this.verificationComponent.code, trustDevice: this.verificationComponent.trustDevice })
       .pipe(
         delay(1000),
         tap(() => {

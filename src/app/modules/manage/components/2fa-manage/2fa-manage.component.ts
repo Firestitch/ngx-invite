@@ -15,6 +15,7 @@ import { takeUntil } from 'rxjs/operators';
 import { TwoFactorManageService } from '../../services';
 
 import { ManageMethodsComponent } from '../manage-methods';
+import { IFsVerificationMethod } from '../../../../interfaces/verification-method.interface';
 
 
 @Component({
@@ -29,10 +30,10 @@ export class Fs2faManageComponent implements OnDestroy, OnInit {
   @Input() public accountVerify: () => Observable<any>;
   @Input() public defaultCountry: string;
   @Input() public verificationMethodTypes: VerificationMethodType[];
-  @Input() public verificationMethodsFetch: () => Observable<any[]>;
-  @Input() public verificationMethodDelete: (verificationMethod: any) => Observable<any>;
-  @Input() public verificationMethodCreate: (verificationMethod: any) => Observable<any>;
-  @Input() public verificationMethodVerify: (verificationMethod: any) => Observable<any>;
+  @Input() public verificationMethodsFetch: () => Observable<IFsVerificationMethod[]>;
+  @Input() public verificationMethodDelete: (verificationMethod: IFsVerificationMethod) => Observable<IFsVerificationMethod>;
+  @Input() public verificationMethodCreate: (verificationMethod: IFsVerificationMethod) => Observable<IFsVerificationMethod>;
+  @Input() public verificationMethodVerify: (code: string, trustDevice) => Observable<any>;
   @Input() public verificationMethodResend: () => Observable<any>;
 
   public statuses;

@@ -38,6 +38,10 @@ app-code-input {
   }
 }
 
-mat-checkbox {
+.checkboxes {
   margin: 8px 0;
+
+  mat-checkbox {
+    display: block;
+  }
 }

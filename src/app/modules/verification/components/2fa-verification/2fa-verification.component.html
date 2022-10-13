@@ -14,7 +14,8 @@
       *ngIf="showTrustedDevice">
     <mat-checkbox
       name="trust-device"
-      [(ngModel)]="trustedDevice">
+      [(ngModel)]="trustDevice"
+      (ngModelChange)="trustDeviceChange.emit($event)">
       Trust this device
     </mat-checkbox>
   </div>

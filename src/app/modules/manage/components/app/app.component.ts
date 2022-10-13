@@ -28,7 +28,8 @@ export class AppComponent implements OnInit {
   public accountId;
   public qrCodeUrl;
   public code;
-  public default;
+  public default;  
+  public trustDevice = true;
   public appType: 'google' | 'authy';
 
   constructor(
@@ -78,7 +79,7 @@ export class AppComponent implements OnInit {
   }
 
   public verify = () => {
-    return this.twoFactorManageService.verificationMethodVerify(this.code)
+    return this.twoFactorManageService.verificationMethodVerify(this.code, this.trustDevice)
       .pipe(
         tap(() => {
           this._message.success('Created app authenticator verification method');

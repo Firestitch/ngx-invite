@@ -21,6 +21,7 @@ import { AppComponent } from './app.component';
 import { VerificationComponent } from './components/verification/verification.component';
 import { ManageVerificationsComponent } from './components/manage-verifications/manage-verifications.component';
 import { VerificationMethodsComponent } from './components/verification-methods/manage-verifications.component';
+import { FsPhoneModule } from '@firestitch/phone';
 
 const routes: Routes = [
   { path: '', component: ExamplesComponent },
@@ -41,6 +42,7 @@ const routes: Routes = [
     FsExampleModule.forRoot(),
     FsMessageModule.forRoot(),
     FsFormModule.forRoot(),
+    FsPhoneModule.forRoot(),
     ToastrModule.forRoot({ preventDuplicates: true }),
     RouterModule.forRoot(routes),
   ],
