@@ -1,7 +1,7 @@
 <ng-container *ngIf="type === VerificationMethodType.Sms">
   <p class="description">
     A text message with a verification code was just
-    sent to <span style="white-space: nowrap;">{{ recipient }}</span> to verify it's you.
+    sent to <span style="white-space: nowrap;">{{ recipient | fsPhone }}</span> to verify it's you.
   </p>
 
   <ng-container *ngTemplateOutlet="input"></ng-container>

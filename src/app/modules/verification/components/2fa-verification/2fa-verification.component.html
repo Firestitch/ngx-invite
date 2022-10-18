@@ -13,14 +13,12 @@
       class="trust-device"
       *ngIf="showTrustedDevice">
     <mat-checkbox
-      name="trust-device"
-      [(ngModel)]="trustDevice"
-      (ngModelChange)="trustDeviceChange.emit($event)">
-      Trust this device
+        name="trust-device"
+        [(ngModel)]="trustDevice"
+        (ngModelChange)="trustDeviceChange.emit($event)">
+        Trust Device & Bypass 2-Step Verification 
+      <ng-container *ngIf="trustDays">for {{trustDays}} days</ng-container>
+      <div class="small">If you use a different browser or clear cookies you may need to perform 2-Step Verification again.</div>
     </mat-checkbox>
   </div>
-
-  <span class="resend">
-    <app-resend [resend]="resendCode"></app-resend>
-  </span>
 </div>

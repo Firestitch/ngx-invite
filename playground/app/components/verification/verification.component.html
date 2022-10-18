@@ -7,6 +7,7 @@
       [verificationMethod]="verificationMethod"
       [getVerificationMethods]="getVerificationMethods"
       [selectVerificationMethod]="selectVerificationMethod"
+      [trustDays]="30"
       [resend]="resend">
     </fs-2fa-verification>
 
@@ -18,7 +19,17 @@
         Verify
       </button>
 
-      <button mat-button type="button" (click)="verification.showVerificationMethods()">
+      <button 
+          [fs2faVerificationResend]="verification"
+          mat-button 
+          type="button">
+        Resend Code
+      </button>
+
+      <button 
+          mat-button 
+          type="button" 
+          (click)="verification.showVerificationMethods()">
         Try other ways to verify
       </button>
 

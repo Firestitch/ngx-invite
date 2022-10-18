@@ -21,6 +21,8 @@ import { Fs2faVerificationMethodsComponent } from './components/2fa-verification
 
 import { CodeInputModule } from '../code-input';
 import { ResendModule } from '../resend/resend.module';
+import { Fs2faVerificationResendDirective } from './directives';
+import { FsPhoneModule } from '@firestitch/phone';
 
 
 @NgModule({
@@ -39,6 +41,7 @@ import { ResendModule } from '../resend/resend.module';
     FsRadioGroupModule,
     FsDialogModule,
     FsSkeletonModule,
+    FsPhoneModule,
     FsSkeletonModule,
 
     ResendModule,
@@ -48,9 +51,11 @@ import { ResendModule } from '../resend/resend.module';
     Fs2faVerificationComponent,
     Fs2faVerificationCodeComponent,
     Fs2faVerificationMethodsComponent,
+    Fs2faVerificationResendDirective,
   ],
   exports: [
     Fs2faVerificationComponent,
+    Fs2faVerificationResendDirective,
   ],
   providers: [],
 })

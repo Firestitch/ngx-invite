@@ -22,6 +22,7 @@ import { IFsVerificationMethod } from '../../../../interfaces/verification-metho
 import { Fs2faVerificationMethodsComponent } from '../2fa-verification-methods/2fa-verification-methods.component';
 import { VerificationMethodType } from '../../../../enums/verification-method-type.enum';
 import { Fs2faVerificationCodeComponent } from '../2fa-verification-code/2fa-verification-code.component';
+import { FsMessage } from '@firestitch/message';
 
 
 @Component({
@@ -49,6 +50,9 @@ export class Fs2faVerificationComponent implements OnDestroy, AfterViewInit, OnI
   public trustDevice = true;
 
   @Input()
+  public trustDays;
+
+  @Input()
   public getVerificationMethods: () => Observable<IFsVerificationMethod[]>;
 
   @Input()
@@ -74,6 +78,7 @@ export class Fs2faVerificationComponent implements OnDestroy, AfterViewInit, OnI
   constructor(
     private _cdRef: ChangeDetectorRef,
     private _dialog: FsDialog,
+    private _message: FsMessage,
   ) {}
 
   public get recipient(): string {
@@ -105,16 +110,17 @@ export class Fs2faVerificationComponent implements OnDestroy, AfterViewInit, OnI
     this.verificationCodeComponent.focus();    
   }
 
-  public resendCode = (): Observable<void> => {
+  public resendCode(): Observable<any> {
     return this.resend()
-    .pipe(
-      tap(() => {
-        this.code = '';
-      }),
-      finalize(() => {
-        this.verificationCodeComponent.focus();  
-      }),
-    );
+      .pipe(
+        tap(() => {
+          this.code = '';
+          this._message.success('Resent Code');
+        }),
+        finalize(() => {
+          this.verificationCodeComponent.focus();  
+        }),
+      );
   }
 
   public showVerificationMethods(): void {

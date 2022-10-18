@@ -9,3 +9,5 @@ export { VerificationMethodsComponent } from './app/modules/verification-methods
 export { IFsVerificationMethod } from './app/interfaces/verification-method.interface';
 
 export { VerificationMethodType } from './app/enums/verification-method-type.enum';
+
+export { Fs2faVerificationResendDirective } from './app/modules/verification/directives';
