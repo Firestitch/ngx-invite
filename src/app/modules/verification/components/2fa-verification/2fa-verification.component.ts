@@ -143,7 +143,6 @@ export class Fs2faVerificationComponent implements OnDestroy, AfterViewInit, OnI
         .subscribe((verificationMethod) => {
           this.verificationMethod = verificationMethod;
           this.code = '';
-
           this._cdRef.markForCheck();
 
           setTimeout(() => {
