@@ -1,14 +1,15 @@
 import { Injectable, OnDestroy } from '@angular/core';
 
 import { MatDialog } from '@angular/material/dialog';
-import { VerificationMethodType } from '../../../enums/verification-method-type.enum';
 
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
 
 import { AppComponent } from '../components/app';
+import { VerificationMethodType } from '../../../enums/verification-method-type.enum';
 import { EmailComponent } from '../components/email';
 import { NumberComponent } from '../components/number';
+import { IFsVerificationMethod } from '../../../interfaces';
 
 
 @Injectable()
@@ -16,9 +17,10 @@ export class TwoFactorManageService implements OnDestroy {
 
   private _destroy$ = new Subject();
 
-  private _verificationMethodFetch: () => Observable<any[]>;
-  private _verificationMethodCreate: (verificationMethod) => Observable<any>;
-  private _verificationMethodDelete: (verificationMethod) => Observable<any>;
+  private _verificationMethodsFetch: (query: any) => Observable<any[]>;
+  private _verificationMethodCreate: (verificationMethod: IFsVerificationMethod) => Observable<IFsVerificationMethod>;
+  private _verificationMethodDelete: (verificationMethod: IFsVerificationMethod) => Observable<IFsVerificationMethod>;
+  private _verificationMethodDefault: (verificationMethod: IFsVerificationMethod) => Observable<IFsVerificationMethod>;
   private _verificationMethodVerify: (code, trustDevice: boolean) => Observable<any>;
   private _verificationMethodResend: () => Observable<any>;
   private _accountVerify: () => Observable<any[]>;
@@ -69,12 +71,16 @@ export class TwoFactorManageService implements OnDestroy {
     });
   }
 
+  public registerVerificationMethodDefault(value) {
+    this._verificationMethodDefault = value;
+  }
+
   public registerVerificationMethodResend(value) {
     this._verificationMethodResend = value;
   }
 
-  public registerVerificationMethodFetch(value) {
-    this._verificationMethodFetch = value;
+  public registerVerificationMethodsFetch(value) {
+    this._verificationMethodsFetch = value;
   }
 
   public registerVerificationMethodDelete(value) {
@@ -93,40 +99,75 @@ export class TwoFactorManageService implements OnDestroy {
     this._accountVerify = value;
   }
 
-  public verificationMethodDelete(verificationMethod): Observable<any> {
+  public get hasVerificationMethodResend() {
+    return !!this._verificationMethodResend;
+  }
+
+  public get hasVerificationMethodDefault() {
+    return !!this._verificationMethodDefault;
+  }
+
+  public get hasVerificationMethodsFetch() {
+    return !!this._verificationMethodsFetch;
+  }
+
+  public get hasVerificationMethodDelete() {
+    return !!this._verificationMethodDelete;
+  }
+
+  public get hasVerificationMethodCreate() {
+    return !!this._verificationMethodCreate;
+  }
+
+  public get hasVerificationMethodVerify() {
+    return !!this._verificationMethodVerify;
+  }
+
+  public verificationMethodDelete$(verificationMethod): Observable<any> {
     return this._verificationMethodDelete(verificationMethod)
       .pipe(
         tap(() => {
-          this.verificationMethodFetch();
+          this.verificationMethodsFetch();
         }),
       );
   }
 
-  public verificationMethodVerify(code, trustDevice): Observable<any> {
+  public verificationMethodVerify$(code, trustDevice): Observable<any> {
     return this._verificationMethodVerify(code, trustDevice)
       .pipe(
         tap(() => {
-          this.verificationMethodFetch();
+          this.verificationMethodsFetch();
         }),
       );
   }
 
-  public verificationMethodCreate(verificationMethod): Observable<any>  {
+  public verificationMethodCreate$(verificationMethod): Observable<any>  {
     return this._verificationMethodCreate(verificationMethod);
+  }
+
+  public verificationMethodDefault$(verificationMethod): Observable<any>  {
+    return this._verificationMethodDefault(verificationMethod);
   }
 
   public verificationMethodResend(): Observable<any>  {
     return this._verificationMethodResend();
   }
 
-  public verificationMethodFetch() {
-    this._verificationMethodFetch()
-      .subscribe((verificationMethods) => {
-        this._verificationMethods$.next(verificationMethods);
-      });
+  public verificationMethodsFetch(query?: any) {
+    this.verificationMethodsFetch$(query)
+      .subscribe();
   }
 
-  public accountVerify(): Observable<any> {
+  public verificationMethodsFetch$(query?: any): Observable<any> {
+    return this._verificationMethodsFetch(query)
+      .pipe(
+        tap((verificationMethods) => {
+          this._verificationMethods$.next(verificationMethods);
+        })
+      );
+  }
+
+  public accountVerify$(): Observable<any> {
     return this._accountVerify ? this._accountVerify() : of(true);
   }
 
@@ -135,8 +176,8 @@ export class TwoFactorManageService implements OnDestroy {
     this._destroy$.complete();
   }
 
-  public addSms(defaultCountry): Observable<any>{
-    return this.accountVerify()
+  public addSms$(defaultCountry): Observable<any>{
+    return this.accountVerify$()
       .pipe(
         switchMap(() => this._dialog.open(NumberComponent, {
           data: {
@@ -147,14 +188,14 @@ export class TwoFactorManageService implements OnDestroy {
           .afterClosed(),
         ),
         tap(() => {
-          this.verificationMethodFetch();
+          this.verificationMethodsFetch();
         }),
         takeUntil(this._destroy$),
       );
   }
 
-  public addEmail(): Observable<any>{
-    return this.accountVerify()
+  public addEmail$(): Observable<any>{
+    return this.accountVerify$()
       .pipe(
         switchMap(() => this._dialog.open(EmailComponent, {
           data: { twoFactorManageService: this },
@@ -162,14 +203,14 @@ export class TwoFactorManageService implements OnDestroy {
           .afterClosed(),
         ),
         tap(() => {
-          this.verificationMethodFetch();
+          this.verificationMethodsFetch();
         }),
         takeUntil(this._destroy$),
       );
   }
 
-  public addApp(): Observable<any>{
-    return this.accountVerify()
+  public addApp$(): Observable<any>{
+    return this.accountVerify$()
       .pipe(
         switchMap(() => this._dialog.open(AppComponent, {
           data: { twoFactorManageService: this  },
@@ -177,7 +218,7 @@ export class TwoFactorManageService implements OnDestroy {
           .afterClosed(),
         ),
         tap(() => {
-          this.verificationMethodFetch();
+          this.verificationMethodsFetch();
         }),
         takeUntil(this._destroy$),
       );

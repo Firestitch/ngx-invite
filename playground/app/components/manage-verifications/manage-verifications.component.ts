@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Fs2faManageComponent, VerificationMethodType } from '@firestitch/2fa';
+import { Fs2faManageComponent, IFsVerificationMethod, VerificationMethodType } from '@firestitch/2fa';
 import { guid } from '@firestitch/common';
 import { FsMessage } from '@firestitch/message';
 import { Observable, of } from 'rxjs';
@@ -65,12 +65,10 @@ export class ManageVerificationsComponent {
     this._createVerificationMethod = {
       ...verificationMethod,
       id: guid(),
+      qrCodeUrl: 'https://google.com',
     };
 
-    return of({
-      ...verificationMethod,
-      qrCodeUrl: 'https://google.com',
-    });
+    return of(this._createVerificationMethod);
   };
 
   public verificationMethodVerify = (code, trustDevice): Observable<any> => {
@@ -91,6 +89,19 @@ export class ManageVerificationsComponent {
   public verificationMethodResend = (): Observable<any> => {
     console.log('verificationMethodResend');
     return of(true);
+  };
+
+  public verificationMethodDefault = (verificationMethod: IFsVerificationMethod): Observable<IFsVerificationMethod> => {
+    console.log('verificationMethodDefault');
+
+    this._verificationMethods
+      .forEach((item) => {
+        item.default = false;
+      });
+    
+    verificationMethod.default = true;
+
+    return of(verificationMethod);
   };
 
   public accountVerify = (): Observable<any> => {

@@ -1,9 +1,11 @@
 import {
-  Component, Inject, ChangeDetectionStrategy,
+  Component, Inject, ChangeDetectionStrategy, ViewChild,
 } from '@angular/core';
 
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FsMessage } from '@firestitch/message';
+import { VerificationMethodsComponent } from '../../../../modules/verification-methods/components/verification-methods';
+
 import { VerificationMethodType } from '../../../../enums/verification-method-type.enum';
 import { TwoFactorManageService } from '../../services';
 
@@ -14,6 +16,9 @@ import { TwoFactorManageService } from '../../services';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EmailsComponent {
+
+  @ViewChild(VerificationMethodsComponent) 
+  public verificationMethods: VerificationMethodsComponent;
 
   public twoFactorManageService: TwoFactorManageService;
   public VerificationMethodType = VerificationMethodType;
@@ -27,8 +32,10 @@ export class EmailsComponent {
   }
 
   public add(): void {
-    this.twoFactorManageService.addEmail()
-      .subscribe();
+    this.twoFactorManageService.addEmail$()
+      .subscribe(() =>{
+        this.verificationMethods.reload();
+      });
   }
 
   public deleted(): void {

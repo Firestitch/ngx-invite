@@ -3,11 +3,11 @@
     <mat-icon>textsms</mat-icon> Text Message Numbers
   </h1>
   <mat-dialog-content>
-    <app-verification-methods
+    <fs-2fa-verification-methods
       [type]="VerificationMethodType.Sms"
       [twoFactorManageService]="twoFactorManageService"
       (deleted)="deleted()">
-    </app-verification-methods>
+    </fs-2fa-verification-methods> 
   </mat-dialog-content>
   <mat-dialog-actions>
     <button

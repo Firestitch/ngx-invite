@@ -8,14 +8,14 @@ import {
 } from '@angular/core';
 
 import { MatDialog } from '@angular/material/dialog';
-import { VerificationMethodType } from '../../../../enums/verification-method-type.enum';
 
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { TwoFactorManageService } from '../../services';
 
+import { TwoFactorManageService } from '../../services';
 import { ManageMethodsComponent } from '../manage-methods';
-import { IFsVerificationMethod } from '../../../../interfaces/verification-method.interface';
+import { IFsVerificationMethod } from '../../../../interfaces';
+import { VerificationMethodType } from '../../../../enums';
 
 
 @Component({
@@ -33,6 +33,7 @@ export class Fs2faManageComponent implements OnDestroy, OnInit {
   @Input() public verificationMethodsFetch: () => Observable<IFsVerificationMethod[]>;
   @Input() public verificationMethodDelete: (verificationMethod: IFsVerificationMethod) => Observable<IFsVerificationMethod>;
   @Input() public verificationMethodCreate: (verificationMethod: IFsVerificationMethod) => Observable<IFsVerificationMethod>;
+  @Input() public verificationMethodDefault: (verificationMethod: IFsVerificationMethod) => Observable<IFsVerificationMethod>;
   @Input() public verificationMethodVerify: (code: string, trustDevice) => Observable<any>;
   @Input() public verificationMethodResend: () => Observable<any>;
 
@@ -53,11 +54,12 @@ export class Fs2faManageComponent implements OnDestroy, OnInit {
       VerificationMethodType.App
     ];
 
-    this._twoFactorManageService.registerVerificationMethodFetch(this.verificationMethodsFetch);
+    this._twoFactorManageService.registerVerificationMethodsFetch(this.verificationMethodsFetch);
     this._twoFactorManageService.registerVerificationMethodDelete(this.verificationMethodDelete);
     this._twoFactorManageService.registerVerificationMethodCreate(this.verificationMethodCreate);
     this._twoFactorManageService.registerVerificationMethodVerify(this.verificationMethodVerify);
     this._twoFactorManageService.registerVerificationMethodResend(this.verificationMethodResend);
+    this._twoFactorManageService.registerVerificationMethodDefault(this.verificationMethodDefault);
     this._twoFactorManageService.registerAccountVerify(this.accountVerify);
 
 
@@ -83,7 +85,7 @@ export class Fs2faManageComponent implements OnDestroy, OnInit {
         this._cdRef.markForCheck();
       });
 
-    this._twoFactorManageService.verificationMethodFetch();
+    this._twoFactorManageService.verificationMethodsFetch();
   }
 
   public manage() {
@@ -106,7 +108,7 @@ export class Fs2faManageComponent implements OnDestroy, OnInit {
   }
 
   public reload(): void {
-    this._twoFactorManageService.verificationMethodFetch();
+    this._twoFactorManageService.verificationMethodsFetch();
   }
 
   public ngOnDestroy(): void {

@@ -6,8 +6,8 @@ export { Fs2faVerificationComponent } from './app/modules/verification/component
 export { Fs2faManageComponent } from './app/modules/manage/components/2fa-manage/2fa-manage.component';
 export { VerificationMethodsComponent } from './app/modules/verification-methods/components/verification-methods/verification-methods.component';
 
-export { IFsVerificationMethod } from './app/interfaces/verification-method.interface';
+export { IFsVerificationMethod } from './app/interfaces';
 
-export { VerificationMethodType } from './app/enums/verification-method-type.enum';
+export { VerificationMethodType } from './app/enums';
 
 export { Fs2faVerificationResendDirective } from './app/modules/verification/directives';

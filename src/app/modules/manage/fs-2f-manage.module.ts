@@ -25,12 +25,12 @@ import { ManageMethodsComponent } from './components/manage-methods';
 import { NumbersComponent } from './components/numbers';
 import { AppComponent } from './components/app';
 import { EmailComponent } from './components/email';
-import { VerificationMethodsComponent } from './components/verification-methods';
 import { NumberComponent } from './components/number';
 import { EmailsComponent } from './components/emails';
 import { ResendModule } from '../resend/resend.module';
 import { DefautledModule } from '../defaulted/defaulted.module';
 import { Fs2faVerificationModule } from '../verification/fs-2fa-verification.module';
+import { Fs2faVerificationMethodsModule } from '../verification-methods';
 
 
 @NgModule({
@@ -58,6 +58,7 @@ import { Fs2faVerificationModule } from '../verification/fs-2fa-verification.mod
     ResendModule,
     DefautledModule,
     Fs2faVerificationModule,
+    Fs2faVerificationMethodsModule,
   ],
   declarations: [
     Fs2faManageComponent,
@@ -65,7 +66,6 @@ import { Fs2faVerificationModule } from '../verification/fs-2fa-verification.mod
     NumbersComponent,
     AppComponent,
     EmailComponent,
-    VerificationMethodsComponent,
     NumberComponent,
     EmailsComponent,
   ],

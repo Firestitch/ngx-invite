@@ -56,14 +56,14 @@ export class NumberComponent {
       .pipe(
         switchMap(() => {
           return this.verificationMethod ?
-            this.twoFactorManageService.verificationMethodVerify(this.code, this.trustDevice)
+            this.twoFactorManageService.verificationMethodVerify$(this.code, this.trustDevice)
               .pipe(
                 tap((verificationMethod) => {
                   this._message.success('Created text message verification method');
                   this._dialogRef.close(verificationMethod);
                 }),
               ) :
-            this.twoFactorManageService.verificationMethodCreate({
+            this.twoFactorManageService.verificationMethodCreate$({
               type: VerificationMethodType.Sms,
               phoneNumber: this.phone.number,
               phoneCode: this.phone.countryCode,

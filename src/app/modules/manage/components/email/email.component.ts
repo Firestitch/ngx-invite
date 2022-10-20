@@ -55,14 +55,14 @@ export class EmailComponent {
       .pipe(
         switchMap(() => {
           return this.verificationMethod ?
-            this.twoFactorManageService.verificationMethodVerify(this.code, this.trustDevice)
+            this.twoFactorManageService.verificationMethodVerify$(this.code, this.trustDevice)
               .pipe(
                 tap((verificationMethod) => {
                   this._message.success('Created email verification method');
                   this._dialogRef.close(verificationMethod);
                 }),
               ) :
-            this.twoFactorManageService.verificationMethodCreate({
+            this.twoFactorManageService.verificationMethodCreate$({
               type: VerificationMethodType.Email,
               email: this.email,
               default: this.default,

@@ -26,7 +26,6 @@ export class ManageMethodsComponent implements OnInit, OnDestroy {
   public verificationMethodTypes = {};
   public VerificationMethodType = VerificationMethodType;
 
-
   private _destroy$ = new Subject();
   private _defaultCountry: string;
 
@@ -97,7 +96,7 @@ export class ManageMethodsComponent implements OnInit, OnDestroy {
   }
 
   public textMessageAdd(): void {
-    this.twoFactorManageService.addSms(this._defaultCountry)
+    this.twoFactorManageService.addSms$(this._defaultCountry)
       .subscribe();
   }
 
@@ -110,7 +109,7 @@ export class ManageMethodsComponent implements OnInit, OnDestroy {
   }
 
   public emailMessageAdd(): void {
-    this.twoFactorManageService.addEmail()
+    this.twoFactorManageService.addEmail$()
       .subscribe();
   }
 
@@ -121,9 +120,9 @@ export class ManageMethodsComponent implements OnInit, OnDestroy {
       });
 
     if(verificationMethod) {
-      this.twoFactorManageService.accountVerify()
+      this.twoFactorManageService.accountVerify$()
       .pipe(
-        switchMap(() => this.twoFactorManageService.verificationMethodDelete(verificationMethod)),
+        switchMap(() => this.twoFactorManageService.verificationMethodDelete$(verificationMethod)),
       )
         .subscribe(() => {
           this._message.success('Removed App Authenticator verification method');
@@ -133,7 +132,7 @@ export class ManageMethodsComponent implements OnInit, OnDestroy {
   }
 
   public appAdd(): void {
-    this.twoFactorManageService.addApp()
+    this.twoFactorManageService.addApp$()
       .subscribe();
   }
 

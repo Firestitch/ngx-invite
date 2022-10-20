@@ -55,7 +55,7 @@ export class AppComponent implements OnInit {
 
   public appTypeSelect(appType): void {
     this.appType = appType;
-    this.twoFactorManageService.verificationMethodCreate({
+    this.twoFactorManageService.verificationMethodCreate$({
       type: VerificationMethodType.App,
       default: this.default,
     })
@@ -79,7 +79,7 @@ export class AppComponent implements OnInit {
   }
 
   public verify = () => {
-    return this.twoFactorManageService.verificationMethodVerify(this.code, this.trustDevice)
+    return this.twoFactorManageService.verificationMethodVerify$(this.code, this.trustDevice)
       .pipe(
         tap(() => {
           this._message.success('Created app authenticator verification method');

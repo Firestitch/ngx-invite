@@ -3,11 +3,11 @@
     <mat-icon>email</mat-icon> Emails
   </h1>
   <mat-dialog-content>
-    <app-verification-methods
+    <fs-2fa-verification-methods
       [type]="VerificationMethodType.Email"
       [twoFactorManageService]="twoFactorManageService"
       (deleted)="deleted()">
-    </app-verification-methods>
+    </fs-2fa-verification-methods>
   </mat-dialog-content>
   <mat-dialog-actions>
     <button
