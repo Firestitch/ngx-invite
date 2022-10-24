@@ -14,6 +14,7 @@ import { ControlContainer, NgForm } from '@angular/forms';
 
 import { Observable, Subject } from 'rxjs';
 
+import { FsMessage } from '@firestitch/message';
 import { FsDialog } from '@firestitch/dialog';
 
 import { filter, finalize, takeUntil, tap } from 'rxjs/operators';
@@ -22,7 +23,6 @@ import { IFsVerificationMethod } from '../../../../interfaces/verification-metho
 import { Fs2faVerificationMethodsComponent } from '../2fa-verification-methods/2fa-verification-methods.component';
 import { VerificationMethodType } from '../../../../enums/verification-method-type.enum';
 import { Fs2faVerificationCodeComponent } from '../2fa-verification-code/2fa-verification-code.component';
-import { FsMessage } from '@firestitch/message';
 
 
 @Component({
@@ -51,6 +51,9 @@ export class Fs2faVerificationComponent implements OnDestroy, AfterViewInit, OnI
 
   @Input()
   public trustDays;
+
+  @Input()
+  public formatRecipient = false;
 
   @Input()
   public getVerificationMethods: () => Observable<IFsVerificationMethod[]>;

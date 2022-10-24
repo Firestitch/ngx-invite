@@ -1,6 +1,6 @@
 <div class="code-container">
   <fs-2fa-verification-code
-    [recipient]="recipient"
+    [recipient]="(formatRecipient && verificationMethod.type === VerificationMethodType.Sms) ? (recipient | fsPhone) : recipient"
     [type]="verificationMethod.type"
     [code]="code"
     (codeChanged)="codeChanged.emit($event)"
