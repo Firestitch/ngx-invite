@@ -78,8 +78,8 @@ export class VerificationMethodsComponent implements OnInit {
                 this.list.reload();
               });
           },
-          show: () => {
-            return !!this.verificationMethodDefault;
+          show: (data) => {
+            return !!this.verificationMethodDefault && !data.default;
           },
           label: 'Set as Default',
         },
