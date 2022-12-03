@@ -8,9 +8,10 @@ import { FsFormDirective } from '@firestitch/form';
 import { FsMessage } from '@firestitch/message';
 import { VerificationMethodType } from '../../../../enums/verification-method-type.enum';
 
-import { tap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 
 import { TwoFactorManageService } from '../../services';
+import { of } from 'rxjs';
 
 
 @Component({
@@ -26,10 +27,10 @@ export class AppComponent implements OnInit {
   public twoFactorManageService: TwoFactorManageService;
   public mode: 'qr-code' | 'code-input' = 'qr-code';
   public accountId;
+  public verificationMethod;
   public qrCodeUrl;
   public code;
   public default;  
-  public trustDevice = true;
   public appType: 'google' | 'authy';
 
   constructor(
@@ -57,10 +58,10 @@ export class AppComponent implements OnInit {
     this.appType = appType;
     this.twoFactorManageService.verificationMethodCreate$({
       type: VerificationMethodType.App,
-      default: this.default,
     })
-      .subscribe((response) => {
-        this.qrCodeUrl = response.qrCodeUrl;
+      .subscribe((verificationMethod) => {
+        this.verificationMethod = verificationMethod;
+        this.qrCodeUrl = verificationMethod.qrCodeUrl;
         this._cdRef.markForCheck();
       });
   }
@@ -79,8 +80,13 @@ export class AppComponent implements OnInit {
   }
 
   public verify = () => {
-    return this.twoFactorManageService.verificationMethodVerify$(this.code, this.trustDevice)
+    return this.twoFactorManageService.verificationMethodVerify$(this.code, true)
       .pipe(
+        switchMap(() => {
+          return this.default && this.twoFactorManageService.verificationMethodDefault$ ?
+            this.twoFactorManageService.verificationMethodDefault$(this.verificationMethod) :
+            of(true);
+          }),
         tap(() => {
           this._message.success('Created app authenticator verification method');
           this._dialogRef.close(true);
