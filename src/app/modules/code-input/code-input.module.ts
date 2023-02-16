@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 
-import { CodeInputModule as AngularCodeInputModule } from 'angular-code-input';
+import { FsCodeInputModule } from '@firestitch/code-input';
 
 import { CodeInputComponent } from './components/code-input';
 
 
 @NgModule({
   imports: [
-    AngularCodeInputModule,
+    FsCodeInputModule,
   ],
   declarations: [
     CodeInputComponent,

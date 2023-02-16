@@ -1,6 +1,5 @@
 import { Component, ChangeDetectionStrategy, Output, EventEmitter, Input, ViewChild } from '@angular/core';
-
-import { CodeInputComponent as AngularCodeInputComponent } from 'angular-code-input';
+import { FsCodeInputComponent } from '@firestitch/code-input';
 
 
 @Component({
@@ -11,8 +10,8 @@ import { CodeInputComponent as AngularCodeInputComponent } from 'angular-code-in
 })
 export class CodeInputComponent {
 
-  @ViewChild(AngularCodeInputComponent)
-  public angularCodeInputComponent: AngularCodeInputComponent;
+  @ViewChild(FsCodeInputComponent)
+  public codeInput: FsCodeInputComponent;
 
   @Input() public codeLength: number;
   @Input() public code;
@@ -21,6 +20,6 @@ export class CodeInputComponent {
   @Output() public codeChanged = new EventEmitter();
   
   public focus(): void {
-    this.angularCodeInputComponent.focusOnField(0);
+    this.codeInput.focusOnField(0);
   }
 }
