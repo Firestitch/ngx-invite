@@ -15,9 +15,7 @@ import { IFsVerificationMethod } from '../../../../interfaces/verification-metho
 
 @Component({
   templateUrl: './2fa-verification-methods.component.html',
-  styleUrls: [
-    './2fa-verification-methods.component.scss',
-  ],
+  styleUrls: ['./2fa-verification-methods.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Fs2faVerificationMethodsComponent {

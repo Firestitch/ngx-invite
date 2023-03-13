@@ -35,13 +35,11 @@
             </ng-container>
           </ol>
 
-          <qr-code 
-            *fsSkeleton="qrCodeUrl"
-            [value]="qrCodeUrl"
-            size="200"
-            errorCorrectionLevel="H"
-            [margin]="0">
-          </qr-code> 
+          <ng-container *fsSkeleton="qrCodeUrl">
+            <app-qr-code
+              [value]="qrCodeUrl">
+            </app-qr-code>
+          </ng-container>
         </ng-container>
 
         <div class="app-types" *ngIf="!appType">

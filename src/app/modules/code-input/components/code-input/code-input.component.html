@@ -1,6 +1,8 @@
 <fs-code-input
   [codeLength]="6"
+  [ngModel]="code"
+  name="code"
   [isPrevFocusableAfterClearing]="false"
-  (codeCompleted)="codeCompleted.emit($event)"
-  (codeChanged)="codeChanged.emit($event)">
+  (completed)="codeCompleted.emit($event)"
+  (ngModelChange)="codeChanged.emit($event)">
 </fs-code-input>

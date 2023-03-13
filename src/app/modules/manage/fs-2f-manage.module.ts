@@ -16,8 +16,6 @@ import { FsLabelModule } from '@firestitch/label';
 import { FsPhoneModule } from '@firestitch/phone';
 import { FsCountryModule } from '@firestitch/country';
 
-import { QrCodeModule } from 'ng-qrcode';
-
 
 import { CodeInputModule } from '../code-input';
 import { Fs2faManageComponent } from './components/2fa-manage';
@@ -31,6 +29,7 @@ import { ResendModule } from '../resend/resend.module';
 import { DefautledModule } from '../defaulted/defaulted.module';
 import { Fs2faVerificationModule } from '../verification/fs-2fa-verification.module';
 import { Fs2faVerificationMethodsModule } from '../verification-methods';
+import { QrCodeComponent } from './components/qr-code';
 
 
 @NgModule({
@@ -54,7 +53,6 @@ import { Fs2faVerificationMethodsModule } from '../verification-methods';
 
     CodeInputModule,
 
-    QrCodeModule,
     ResendModule,
     DefautledModule,
     Fs2faVerificationModule,
@@ -68,6 +66,7 @@ import { Fs2faVerificationMethodsModule } from '../verification-methods';
     EmailComponent,
     NumberComponent,
     EmailsComponent,
+    QrCodeComponent,
   ],
   exports: [Fs2faManageComponent],
 })

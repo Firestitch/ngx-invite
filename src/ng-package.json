@@ -5,7 +5,6 @@
     "entryFile": "public_api.ts"
   },
   "allowedNonPeerDependencies": [
-    "angular-code-input",
-    "ng-qrcode"
+    "qrcode"
   ]
 }
