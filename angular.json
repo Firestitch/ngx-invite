@@ -36,14 +36,16 @@
                 "glob": "metadata.full.json",
                 "input": "./node_modules/libphonenumber-js/",
                 "output": "./assets/"
-              },  
+              }
             ],
             "styles": [
               "playground/styles.scss"
             ],
             "scripts": [],
             "allowedCommonJsDependencies": [
-              "highlight.js"
+              "highlight.js",
+              "qrcode",
+              "date-fns-tz"
             ]
           },
           "configurations": {
