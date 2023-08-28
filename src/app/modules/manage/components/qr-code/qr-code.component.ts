@@ -1,5 +1,5 @@
 import {
-  Component, OnInit, ChangeDetectorRef, Input,
+  Component, OnInit, ChangeDetectorRef, Input, ChangeDetectionStrategy,
 } from '@angular/core';
 
 import QRCode from 'qrcode';
@@ -8,6 +8,7 @@ import QRCode from 'qrcode';
   selector: 'app-qr-code',
   templateUrl: './qr-code.component.html',
   styleUrls: ['./qr-code.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class QrCodeComponent implements OnInit {
 
@@ -32,8 +33,6 @@ export class QrCodeComponent implements OnInit {
     .catch((err) => {
       console.error(err)
     });
-    
   }
-
 
 }
