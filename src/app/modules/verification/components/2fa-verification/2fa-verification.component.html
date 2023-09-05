@@ -16,9 +16,11 @@
           name="trust-device"
           [(ngModel)]="trustDevice"
           (ngModelChange)="trustDeviceChange.emit($event)">
-        Trust device
       <div class="small">
-        Bypass 2-Step Verification on this browser <ng-container *ngIf="trustDays">for {{trustDays}} days</ng-container> unless you clear cookies.
+        Bypass verification 
+        <ng-container *ngIf="trustDays">for {{trustDays}} days</ng-container>  
+        <ng-container *ngIf="!trustDays">for future signins</ng-container> 
+        unless cookies are cleared
       </div>
     </mat-checkbox>
   </div>
