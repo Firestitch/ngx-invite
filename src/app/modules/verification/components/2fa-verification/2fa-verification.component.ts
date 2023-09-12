@@ -50,6 +50,9 @@ export class Fs2faVerificationComponent implements OnDestroy, AfterViewInit, OnI
   public trustDevice = true;
 
   @Input()
+  public codeLength;
+
+  @Input()
   public trustDays;
 
   @Input()

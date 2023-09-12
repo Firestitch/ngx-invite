@@ -3,6 +3,7 @@
     [recipient]="(formatRecipient && verificationMethod.type === VerificationMethodType.Sms) ? (recipient | fsPhone) : recipient"
     [type]="verificationMethod.type"
     [code]="code"
+    [codeLength]="codeLength"
     (codeChanged)="codeChanged.emit($event)"
     (codeCompleted)="codeCompleted.emit()">
   </fs-2fa-verification-code>

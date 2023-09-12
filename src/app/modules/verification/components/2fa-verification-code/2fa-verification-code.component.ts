@@ -38,6 +38,9 @@ export class Fs2faVerificationCodeComponent {
   public recipient: string;
 
   @Input()
+  public codeLength;
+
+  @Input()
   public code;
 
   @Output()

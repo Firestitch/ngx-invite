@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, Output, EventEmitter, Input, ViewChild } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Output, EventEmitter, Input, ViewChild, OnInit } from '@angular/core';
 import { FsCodeInputComponent } from '@firestitch/code-input';
 
 
@@ -8,7 +8,7 @@ import { FsCodeInputComponent } from '@firestitch/code-input';
   styleUrls: ['./code-input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CodeInputComponent {
+export class CodeInputComponent implements OnInit {
 
   @ViewChild(FsCodeInputComponent)
   public codeInput: FsCodeInputComponent;
@@ -18,7 +18,13 @@ export class CodeInputComponent {
 
   @Output() public codeCompleted = new EventEmitter();
   @Output() public codeChanged = new EventEmitter();
-  
+
+  public ngOnInit(): void {
+    if(!this.codeLength) {
+      this.codeLength = 6;
+    }
+  } 
+
   public focus(): void {
     this.codeInput.focusOnField(0);
   }

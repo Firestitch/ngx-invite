@@ -23,6 +23,7 @@
 <ng-template #input> 
  <app-code-input  
     [code]="code"
+    [codeLength]="codeLength"
     (codeChanged)="codeChange($event)"
     (codeCompleted)="codeCompleted.emit()">
   </app-code-input> 
