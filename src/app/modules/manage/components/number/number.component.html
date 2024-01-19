@@ -18,14 +18,15 @@
         <p>The app will only use this number for verifying your account security. Message and data rates may apply by your cell phone provider.</p>
         <mat-form-field>
           <mat-label>Phone number</mat-label>
-          <fs-phone-field
+          <input 
+            matInput
+            fsPhoneField
             [(ngModel)]="phone"
+            [required]="true"
             [country]="defaultCountry"
-            name="phone"
             [mode]="'object'"
             autocomplete="off"
-            [required]="true">
-          </fs-phone-field>
+            name="phone">
         </mat-form-field>
         <mat-checkbox 
             name="default"

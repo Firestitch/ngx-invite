@@ -67,7 +67,7 @@
     "@firestitch/mask": "^12.2.4",
     "@firestitch/menu": "^12.0.1",
     "@firestitch/message": "^12.2.1",
-    "@firestitch/phone": "^12.4.3",
+    "@firestitch/phone": "^12.6.0",
     "@firestitch/popover": "^12.1.2",
     "@firestitch/prompt": "^12.0.1",
     "@firestitch/radiogroup": "^12.0.2",
