@@ -14,6 +14,7 @@ import { FsFormModule } from '@firestitch/form';
 import { FsLabelModule } from '@firestitch/label';
 import { FsListModule } from '@firestitch/list';
 import { FsPhoneModule } from '@firestitch/phone';
+import { FsQrcodeModule } from '@firestitch/qrcode';
 import { FsSkeletonModule } from '@firestitch/skeleton';
 
 
@@ -30,7 +31,6 @@ import { EmailsComponent } from './components/emails';
 import { ManageMethodsComponent } from './components/manage-methods';
 import { NumberComponent } from './components/number';
 import { NumbersComponent } from './components/numbers';
-import { QrCodeComponent } from './components/qr-code';
 
 
 @NgModule({
@@ -51,6 +51,7 @@ import { QrCodeComponent } from './components/qr-code';
     FsPhoneModule,
     FsSkeletonModule,
     FsCountryModule,
+    FsQrcodeModule,
 
     CodeInputModule,
 
@@ -67,7 +68,6 @@ import { QrCodeComponent } from './components/qr-code';
     EmailComponent,
     NumberComponent,
     EmailsComponent,
-    QrCodeComponent,
   ],
   exports: [Fs2faManageComponent],
 })

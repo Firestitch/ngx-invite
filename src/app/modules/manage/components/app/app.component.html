@@ -36,9 +36,11 @@
           </ol>
 
           <ng-container *fsSkeleton="qrCodeUrl">
-            <app-qr-code
-              [value]="qrCodeUrl">
-            </app-qr-code>
+            <fs-qrcode
+              [value]="qrCodeUrl"
+              [width]="300"
+              [height]="300">
+            </fs-qrcode>
           </ng-container>
         </ng-container>
 
