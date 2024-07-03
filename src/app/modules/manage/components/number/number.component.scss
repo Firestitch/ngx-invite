@@ -3,6 +3,10 @@
     .mat-ripple {
       display: none;
     }
+
+    .mat-checkbox-layout {
+      white-space: wrap;
+    }
   }
 }
 
@@ -17,6 +21,7 @@ mat-form-field {
 
 mat-dialog-content {
   width: 400px;
+  max-width: 100%;
 }
 
 p {
