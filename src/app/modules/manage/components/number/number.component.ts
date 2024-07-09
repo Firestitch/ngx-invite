@@ -1,16 +1,19 @@
 import {
-  Component, Inject, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild,
+  ChangeDetectionStrategy, ChangeDetectorRef,
+  Component, Inject,
+  ViewChild,
 } from '@angular/core';
 
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
-import { FsMessage } from '@firestitch/message';
 import { FsFormDirective } from '@firestitch/form';
+import { FsMessage } from '@firestitch/message';
 
 import { Observable, of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
-import { TwoFactorManageService } from '../../services';
+
 import { VerificationMethodType } from '../../../../enums/verification-method-type.enum';
+import { TwoFactorManageService } from '../../services';
 
 
 @Component({
@@ -49,7 +52,7 @@ export class NumberComponent {
           this._message.success('Resent verification code');
         }),
       );
-  }
+  };
 
   public submit = () => {
     return of(true)
@@ -70,13 +73,13 @@ export class NumberComponent {
               phoneCountry: this.phone.isoCode,
               default: this.default,
             })
-            .pipe(
-              tap((verificationMethod) => {
-                this.verificationMethod = verificationMethod;
-                this.form.clear();
-                this._cdRef.markForCheck();
-              }),
-            );
+              .pipe(
+                tap((verificationMethod) => {
+                  this.verificationMethod = verificationMethod;
+                  this.form.clear();
+                  this._cdRef.markForCheck();
+                }),
+              );
         }),
       );
   };

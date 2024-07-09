@@ -10,8 +10,8 @@ import { ControlContainer, NgForm } from '@angular/forms';
 
 import { FsFormDirective } from '@firestitch/form';
 
-import { CodeInputComponent } from '../../../../modules/code-input/components/code-input';
 import { VerificationMethodType } from '../../../../enums/verification-method-type.enum';
+import { CodeInputComponent } from '../../../../modules/code-input/components/code-input';
 
 
 @Component({

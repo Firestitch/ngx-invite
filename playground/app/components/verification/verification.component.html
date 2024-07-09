@@ -7,6 +7,7 @@
       [verificationMethod]="verificationMethod"
       [getVerificationMethods]="getVerificationMethods"
       [selectVerificationMethod]="selectVerificationMethod"
+      (codeCompleted)="codeCompleted()"
       [trustDays]="30"
       [resend]="resend">
     </fs-2fa-verification>

@@ -1,17 +1,20 @@
 import {
-  Component, Inject, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild,
+  ChangeDetectionStrategy, ChangeDetectorRef,
+  Component, Inject,
+  ViewChild,
 } from '@angular/core';
 
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 
-import { FsMessage } from '@firestitch/message';
 import { FsFormDirective } from '@firestitch/form';
+import { FsMessage } from '@firestitch/message';
 
 import { Observable, of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
-import { TwoFactorManageService } from '../../services';
+
 import { VerificationMethodType } from '../../../../enums/verification-method-type.enum';
+import { TwoFactorManageService } from '../../services';
 
 
 @Component({
@@ -43,12 +46,12 @@ export class EmailComponent {
 
   public resend = (): Observable<void> => {
     return this.twoFactorManageService.verificationMethodResend()
-    .pipe(
-      tap(() => {
-        this._message.success('Resent verification code');
-      }),
-    );
-  }
+      .pipe(
+        tap(() => {
+          this._message.success('Resent verification code');
+        }),
+      );
+  };
 
   public submit = () => {
     return of(true)

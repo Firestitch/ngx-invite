@@ -8,6 +8,7 @@
         <fs-2fa-verification
           [verificationMethod]="verificationMethod"
           (codeChanged)="codeChanged($event)"
+          (codeCompleted)="codeCompleted()"
           [resend]="resend"
           [(trustDevice)]="trustDevice">
         </fs-2fa-verification>

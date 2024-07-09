@@ -12,17 +12,17 @@ import {
 } from '@angular/core';
 import { ControlContainer, NgForm } from '@angular/forms';
 
-import { Observable, Subject } from 'rxjs';
 
-import { FsMessage } from '@firestitch/message';
 import { FsDialog } from '@firestitch/dialog';
+import { FsMessage } from '@firestitch/message';
 
+import { Observable, Subject } from 'rxjs';
 import { filter, finalize, takeUntil, tap } from 'rxjs/operators';
 
-import { IFsVerificationMethod } from '../../../../interfaces/verification-method.interface';
-import { Fs2faVerificationMethodsComponent } from '../2fa-verification-methods/2fa-verification-methods.component';
 import { VerificationMethodType } from '../../../../enums/verification-method-type.enum';
+import { IFsVerificationMethod } from '../../../../interfaces/verification-method.interface';
 import { Fs2faVerificationCodeComponent } from '../2fa-verification-code/2fa-verification-code.component';
+import { Fs2faVerificationMethodsComponent } from '../2fa-verification-methods/2fa-verification-methods.component';
 
 
 @Component({
@@ -99,12 +99,12 @@ export class Fs2faVerificationComponent implements OnDestroy, AfterViewInit, OnI
 
   public ngOnInit(): void {
     this.codeChanged
-    .pipe(
-      takeUntil(this._destroy$),
-    )
-    .subscribe((code: string) => {
-      this.code = code;
-    });
+      .pipe(
+        takeUntil(this._destroy$),
+      )
+      .subscribe((code: string) => {
+        this.code = code;
+      });
   }
 
   public ngOnDestroy(): void {
@@ -131,31 +131,31 @@ export class Fs2faVerificationComponent implements OnDestroy, AfterViewInit, OnI
 
   public showVerificationMethods(): void {
     this.getVerificationMethods()
-    .subscribe((verificationMethods) => {
-      this._dialog.open(
-        Fs2faVerificationMethodsComponent,
-        {
-          data: {
-            verificationMethod: this.verificationMethod,
-            verificationMethods,
-            selectVerificationMethod: this.selectVerificationMethod,
-          }
-        }
-      )
-        .afterClosed()
-        .pipe(
-          filter((verificationMethod) => !!verificationMethod),
+      .subscribe((verificationMethods) => {
+        this._dialog.open(
+          Fs2faVerificationMethodsComponent,
+          {
+            data: {
+              verificationMethod: this.verificationMethod,
+              verificationMethods,
+              selectVerificationMethod: this.selectVerificationMethod,
+            },
+          },
         )
-        .subscribe((verificationMethod) => {
-          this.verificationMethod = verificationMethod;
-          this.code = '';
-          this._cdRef.markForCheck();
+          .afterClosed()
+          .pipe(
+            filter((verificationMethod) => !!verificationMethod),
+          )
+          .subscribe((verificationMethod) => {
+            this.verificationMethod = verificationMethod;
+            this.code = '';
+            this._cdRef.markForCheck();
 
-          setTimeout(() => {
-            this.verificationCodeComponent.focus();
+            setTimeout(() => {
+              this.verificationCodeComponent.focus();
+            });
           });
-        });
-    });
+      });
   }
 
 }
