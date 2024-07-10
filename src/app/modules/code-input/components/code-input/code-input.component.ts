@@ -1,4 +1,5 @@
-import { Component, ChangeDetectionStrategy, Output, EventEmitter, Input, ViewChild, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+
 import { FsCodeInputComponent } from '@firestitch/code-input';
 
 

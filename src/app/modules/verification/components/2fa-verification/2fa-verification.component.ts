@@ -6,7 +6,6 @@ import {
   EventEmitter,
   Input,
   OnDestroy,
-  OnInit,
   Output,
   ViewChild,
 } from '@angular/core';
@@ -17,7 +16,7 @@ import { FsDialog } from '@firestitch/dialog';
 import { FsMessage } from '@firestitch/message';
 
 import { Observable, Subject } from 'rxjs';
-import { filter, finalize, takeUntil, tap } from 'rxjs/operators';
+import { filter, finalize, tap } from 'rxjs/operators';
 
 import { VerificationMethodType } from '../../../../enums/verification-method-type.enum';
 import { IFsVerificationMethod } from '../../../../interfaces/verification-method.interface';
@@ -32,7 +31,7 @@ import { Fs2faVerificationMethodsComponent } from '../2fa-verification-methods/2
   changeDetection: ChangeDetectionStrategy.OnPush,  
   viewProviders: [{ provide: ControlContainer, useExisting: NgForm }],
 })
-export class Fs2faVerificationComponent implements OnDestroy, AfterViewInit, OnInit {
+export class Fs2faVerificationComponent implements OnDestroy, AfterViewInit {
 
   @ViewChild(Fs2faVerificationCodeComponent)
   public verificationCodeComponent: Fs2faVerificationCodeComponent;
@@ -97,14 +96,9 @@ export class Fs2faVerificationComponent implements OnDestroy, AfterViewInit, OnI
     }
   }
 
-  public ngOnInit(): void {
-    this.codeChanged
-      .pipe(
-        takeUntil(this._destroy$),
-      )
-      .subscribe((code: string) => {
-        this.code = code;
-      });
+  public codeComplete(code): void {
+    this.code = code;
+    this.codeCompleted.emit(this.code);
   }
 
   public ngOnDestroy(): void {

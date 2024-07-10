@@ -108,7 +108,8 @@ export class VerificationComponent {
 
   public selectVerificationMethod = (verificationMethod: IFsVerificationMethod): Observable<IFsVerificationMethod> => {
     console.log('selectVerificationMethod', verificationMethod.id);
-    const method = this.methods.find((method) => method.id === verificationMethod.id);
+    const method = this.methods
+      .find((item) => item.id === verificationMethod.id);
 
     return of(method)
       .pipe(
