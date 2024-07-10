@@ -85,9 +85,12 @@ export class NumberComponent {
   };
 
   public codeCompleted(): void {
-    if(!this.form.submitting) {
-      this.form.triggerSubmit();
-    }
+    //Legacy support
+    setTimeout(() => {
+      if(!this.form.submitting) {
+        this.form.triggerSubmit();
+      }
+    });
   }
 
   public codeChanged(code): void {

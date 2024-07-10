@@ -16,7 +16,7 @@ import { FsDialog } from '@firestitch/dialog';
 import { FsMessage } from '@firestitch/message';
 
 import { Observable, Subject } from 'rxjs';
-import { filter, finalize, tap } from 'rxjs/operators';
+import { filter, finalize, switchMap, tap } from 'rxjs/operators';
 
 import { VerificationMethodType } from '../../../../enums/verification-method-type.enum';
 import { IFsVerificationMethod } from '../../../../interfaces/verification-method.interface';
@@ -125,30 +125,32 @@ export class Fs2faVerificationComponent implements OnDestroy, AfterViewInit {
 
   public showVerificationMethods(): void {
     this.getVerificationMethods()
-      .subscribe((verificationMethods) => {
-        this._dialog.open(
-          Fs2faVerificationMethodsComponent,
-          {
-            data: {
-              verificationMethod: this.verificationMethod,
-              verificationMethods,
-              selectVerificationMethod: this.selectVerificationMethod,
+      .pipe(
+        switchMap((verificationMethods) => {
+          return this._dialog.open(
+            Fs2faVerificationMethodsComponent,
+            {
+              data: {
+                verificationMethod: this.verificationMethod,
+                verificationMethods,
+                selectVerificationMethod: this.selectVerificationMethod,
+              },
             },
-          },
-        )
-          .afterClosed()
-          .pipe(
-            filter((verificationMethod) => !!verificationMethod),
           )
-          .subscribe((verificationMethod) => {
-            this.verificationMethod = verificationMethod;
-            this.code = '';
-            this._cdRef.markForCheck();
+            .afterClosed()
+            .pipe(
+              filter((verificationMethod) => !!verificationMethod),
+            );
+        }),
+      )
+      .subscribe((verificationMethod) => {
+        this.verificationMethod = verificationMethod;
+        this.code = '';
+        this._cdRef.markForCheck();
 
-            setTimeout(() => {
-              this.verificationCodeComponent.focus();
-            });
-          });
+        setTimeout(() => {
+          this.verificationCodeComponent.focus();
+        });
       });
   }
 

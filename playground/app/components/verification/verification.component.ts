@@ -71,9 +71,12 @@ export class VerificationComponent {
   ) {}
 
   public codeCompleted(): void {
-    if(!this.form.submitting) {
-      this.form.triggerSubmit();
-    }
+    //Legacy support
+    setTimeout(() => {
+      if(!this.form.submitting) {
+        this.form.triggerSubmit();
+      }
+    });
   }
 
   public showVerificationMethods(): void {
