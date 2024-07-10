@@ -84,7 +84,8 @@ export class NumberComponent {
       );
   };
 
-  public codeCompleted(): void {
+  public codeCompleted(code): void {
+    this.code = code;
     //Legacy support
     setTimeout(() => {
       if(!this.form.submitting) {
