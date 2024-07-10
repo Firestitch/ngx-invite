@@ -3,6 +3,6 @@
   [ngModel]="code"
   name="code"
   [isPrevFocusableAfterClearing]="false"
-  (completedLast)="codeCompleted.emit($event)"
+  (completedLast)="codeComplete($event)"
   (ngModelChange)="codeChanged.emit($event)">
 </fs-code-input>

@@ -55,6 +55,10 @@ export class Fs2faVerificationCodeComponent {
     private _form: FsFormDirective,
   ) {}
 
+  public codeComplete(code): void {
+    this.codeCompleted.emit(code);
+  }
+
   public codeChange(code): void {
     this.code = code;
     this.codeChanged.emit(this.code);
