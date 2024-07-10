@@ -27,7 +27,7 @@ export class CodeInputComponent implements OnInit {
   } 
 
   public codeComplete(code): void {
-    this.codeChanged.emit(code);
+    this.codeCompleted.emit(code);
   }
 
   public focus(): void {
