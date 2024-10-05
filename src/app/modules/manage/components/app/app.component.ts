@@ -75,7 +75,7 @@ export class AppComponent implements OnInit {
     this.form.dirty();
   }
 
-  public next(): void {
+  public.next(null): void {
     this.mode = 'code-input';
   }
 

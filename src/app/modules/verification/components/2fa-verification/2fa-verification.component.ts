@@ -102,7 +102,7 @@ export class Fs2faVerificationComponent implements OnDestroy, AfterViewInit {
   }
 
   public ngOnDestroy(): void {
-    this._destroy$.next();
+    this._destroy$.next(null);
     this._destroy$.complete();
   }
 
