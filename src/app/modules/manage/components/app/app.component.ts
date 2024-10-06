@@ -1,17 +1,19 @@
 import {
-  Component, Inject, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, ViewChild,
+  ChangeDetectionStrategy, ChangeDetectorRef,
+  Component, Inject,
+  OnInit, ViewChild,
 } from '@angular/core';
 
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { FsFormDirective } from '@firestitch/form';
 import { FsMessage } from '@firestitch/message';
-import { VerificationMethodType } from '../../../../enums/verification-method-type.enum';
 
+import { of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 
+import { VerificationMethodType } from '../../../../enums/verification-method-type.enum';
 import { TwoFactorManageService } from '../../services';
-import { of } from 'rxjs';
 
 
 @Component({
@@ -75,7 +77,7 @@ export class AppComponent implements OnInit {
     this.form.dirty();
   }
 
-  public.next(null): void {
+  public next(): void {
     this.mode = 'code-input';
   }
 
@@ -86,7 +88,7 @@ export class AppComponent implements OnInit {
           return this.default && this.twoFactorManageService.verificationMethodDefault$ ?
             this.twoFactorManageService.verificationMethodDefault$(this.verificationMethod) :
             of(true);
-          }),
+        }),
         tap(() => {
           this._message.success('Created app authenticator verification method');
           this._dialogRef.close(true);
