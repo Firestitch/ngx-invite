@@ -1,9 +1,9 @@
 import {
-  Component,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  OnDestroy,
+  Component,
   Input,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 
@@ -12,10 +12,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+import { VerificationMethodType } from '../../../../enums';
+import { IFsVerificationMethod } from '../../../../interfaces';
 import { TwoFactorManageService } from '../../services';
 import { ManageMethodsComponent } from '../manage-methods';
-import { IFsVerificationMethod } from '../../../../interfaces';
-import { VerificationMethodType } from '../../../../enums';
 
 
 @Component({
@@ -29,6 +29,7 @@ export class Fs2faManageComponent implements OnDestroy, OnInit {
 
   @Input() public accountVerify: () => Observable<any>;
   @Input() public defaultCountry: string;
+  @Input() public buttonStyle: 'raised' | 'stroked' = 'raised';
   @Input() public verificationMethodTypes: VerificationMethodType[];
   @Input() public verificationMethodsFetch: () => Observable<IFsVerificationMethod[]>;
   @Input() public verificationMethodDelete: (verificationMethod: IFsVerificationMethod) => Observable<IFsVerificationMethod>;
@@ -51,7 +52,7 @@ export class Fs2faManageComponent implements OnDestroy, OnInit {
     this.verificationMethodTypes = this.verificationMethodTypes || [
       VerificationMethodType.Sms,
       VerificationMethodType.Email,
-      VerificationMethodType.App
+      VerificationMethodType.App,
     ];
 
     this._twoFactorManageService.registerVerificationMethodsFetch(this.verificationMethodsFetch);
@@ -89,14 +90,16 @@ export class Fs2faManageComponent implements OnDestroy, OnInit {
   }
 
   public manage() {
-    const dialogRef = this._dialog.open(ManageMethodsComponent, {
-      autoFocus: false,
-      data: {
-        defaultCountry: this.defaultCountry,
-        twoFactorManageService: this._twoFactorManageService,
-        verificationMethodTypes: this.verificationMethodTypes,
-      },
-    });
+    const dialogRef = this._dialog
+      .open(ManageMethodsComponent, {
+        autoFocus: false,
+        data: {
+          defaultCountry: this.defaultCountry,
+          twoFactorManageService: this._twoFactorManageService,
+          verificationMethodTypes: this.verificationMethodTypes,
+          buttonStyle: this.buttonStyle,
+        },
+      });
 
     dialogRef.afterClosed()
       .pipe(

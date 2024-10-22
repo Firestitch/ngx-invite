@@ -2,19 +2,6 @@ mat-dialog-content {
   max-width: 500px;
 }
 
-.enabled {
-  font-size: 75%;
-  background-color: #70B601;
-  padding: 2px 4px;
-  border-radius: 4px;
-  color: #fff;
-  margin-left: 4px;
-
-  &::after {
-    content: 'Enabled';
-  }
-}
-
 table {
   tr {
     td:first-child,
@@ -34,6 +21,10 @@ table {
     .type {
       display: flex;
       align-items: center;
+
+      span {
+        margin-right: 5px;
+      }
 
       app-defaulted {
         margin-left: 4px;

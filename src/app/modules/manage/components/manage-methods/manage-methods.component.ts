@@ -1,17 +1,21 @@
 import {
-  Component, Inject, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy,
+  ChangeDetectionStrategy, ChangeDetectorRef,
+  Component, Inject,
+  OnDestroy,
+  OnInit,
 } from '@angular/core';
 
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
-import { Subject } from 'rxjs';
-
-import { NumbersComponent } from '../numbers';
-import { EmailsComponent } from '../emails';
-import { TwoFactorManageService } from '../../services';
-import { VerificationMethodType } from '../../../../enums/verification-method-type.enum';
 import { FsMessage } from '@firestitch/message';
+
+import { Subject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+
+import { VerificationMethodType } from '../../../../enums/verification-method-type.enum';
+import { TwoFactorManageService } from '../../services';
+import { EmailsComponent } from '../emails';
+import { NumbersComponent } from '../numbers';
 
 
 @Component({
@@ -25,6 +29,7 @@ export class ManageMethodsComponent implements OnInit, OnDestroy {
   public verificationMethods;
   public verificationMethodTypes = {};
   public VerificationMethodType = VerificationMethodType;
+  public buttonStyle: 'raised' | 'stroked' = 'raised';
 
   private _destroy$ = new Subject();
   private _defaultCountry: string;
@@ -39,12 +44,13 @@ export class ManageMethodsComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this._defaultCountry = this._data.defaultCountry;
     this.twoFactorManageService = this._data.twoFactorManageService;
+    this.buttonStyle = this._data.buttonStyle;
     this.verificationMethodTypes = this._data.verificationMethodTypes
-    .reduce((verificationMethodTypes, verificationMethodType) => {
-      verificationMethodTypes[verificationMethodType] = true;
+      .reduce((verificationMethodTypes, verificationMethodType) => {
+        verificationMethodTypes[verificationMethodType] = true;
 
-      return verificationMethodTypes;
-    }, {});
+        return verificationMethodTypes;
+      }, {});
 
     this.twoFactorManageService.verificationMethods$
       .subscribe((verificationMethods) => {
@@ -55,23 +61,23 @@ export class ManageMethodsComponent implements OnInit, OnDestroy {
 
   public get defaultSms(): boolean {
     return this.twoFactorManageService.smsVerificationMethods
-    .some((verificationMethod) => {
-      return verificationMethod.default;
-    });
+      .some((verificationMethod) => {
+        return verificationMethod.default;
+      });
   }
 
   public get defaultApp(): boolean {
     return this.twoFactorManageService.appVerificationMethods
-    .some((verificationMethod) => {
-      return verificationMethod.default;
-    });
+      .some((verificationMethod) => {
+        return verificationMethod.default;
+      });
   }
 
   public get defaultEmail(): boolean {
     return this.twoFactorManageService.emailVerificationMethods
-    .some((verificationMethod) => {
-      return verificationMethod.default;
-    });
+      .some((verificationMethod) => {
+        return verificationMethod.default;
+      });
   }
 
   public get textHasVerificationMethod(): boolean {
@@ -121,9 +127,9 @@ export class ManageMethodsComponent implements OnInit, OnDestroy {
 
     if(verificationMethod) {
       this.twoFactorManageService.accountVerify$()
-      .pipe(
-        switchMap(() => this.twoFactorManageService.verificationMethodDelete$(verificationMethod)),
-      )
+        .pipe(
+          switchMap(() => this.twoFactorManageService.verificationMethodDelete$(verificationMethod)),
+        )
         .subscribe(() => {
           this._message.success('Removed App Authenticator verification method');
           this._cdRef.markForCheck();

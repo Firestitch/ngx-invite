@@ -8,6 +8,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 
+import { FsChipModule } from '@firestitch/chip';
 import { FsCountryModule } from '@firestitch/country';
 import { FsDialogModule } from '@firestitch/dialog';
 import { FsFormModule } from '@firestitch/form';
@@ -16,7 +17,6 @@ import { FsListModule } from '@firestitch/list';
 import { FsPhoneModule } from '@firestitch/phone';
 import { FsQrcodeModule } from '@firestitch/qrcode';
 import { FsSkeletonModule } from '@firestitch/skeleton';
-
 
 import { CodeInputModule } from '../code-input';
 import { DefautledModule } from '../defaulted/defaulted.module';
@@ -46,6 +46,7 @@ import { NumbersComponent } from './components/numbers';
 
     FsDialogModule,
     FsListModule,
+    FsChipModule,
     FsFormModule,
     FsLabelModule,
     FsPhoneModule,
