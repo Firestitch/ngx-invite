@@ -4,24 +4,26 @@
     [type]="verificationMethod.type"
     [code]="code"
     [codeLength]="codeLength"
-    (codeChanged)="codeChanged.emit($event)"
+    (codeChanged)="codeChange($event)"
     (codeCompleted)="codeComplete($event)">
   </fs-2fa-verification-code>
 </div>
-
 <div class="additional">
-  <div 
+  <div
       class="trust-device"
       *ngIf="showTrustedDevice">
     <mat-checkbox
-          name="trust-device"
-          [(ngModel)]="trustDevice"
-          (ngModelChange)="trustDeviceChange.emit($event)">
+        name="trust-device"
+        [(ngModel)]="trustDevice"
+        (ngModelChange)="trustDeviceChange.emit($event)">
       <div class="small">
-        Bypass verification 
-        <ng-container *ngIf="trustDays">for {{trustDays}} days</ng-container>  
-        <ng-container *ngIf="!trustDays">for future signins</ng-container> 
-        unless cookies are cleared
+        Bypass 2-step verification
+        <ng-container *ngIf="trustDays">
+          for {{ trustDays }} days
+        </ng-container>
+        <ng-container *ngIf="!trustDays">
+          for future signins
+        </ng-container>
       </div>
     </mat-checkbox>
   </div>

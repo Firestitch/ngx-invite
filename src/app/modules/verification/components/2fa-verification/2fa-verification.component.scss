@@ -12,14 +12,14 @@
 }
 
 .code-container {
-  text-align: center;
+  display: block;
 }
 
 .additional {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 4px 0 5px;
+  margin: 4px 0 10px;
 
   small {
     color: inherit;
@@ -35,3 +35,4 @@
     }
   }
 }
+

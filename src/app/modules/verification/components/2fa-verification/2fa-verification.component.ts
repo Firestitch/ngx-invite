@@ -96,6 +96,11 @@ export class Fs2faVerificationComponent implements OnDestroy, AfterViewInit {
     }
   }
 
+  public codeChange(code): void {
+    this.code = code;
+    this.codeChanged.emit(this.code);
+  }
+
   public codeComplete(code): void {
     this.code = code;
     this.codeCompleted.emit(this.code);

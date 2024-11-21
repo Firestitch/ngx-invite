@@ -1,34 +1,35 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { RouterModule, Routes } from '@angular/router';
 
+import { Fs2faManageModule, Fs2faVerificationMethodsModule, Fs2faVerificationModule } from '@firestitch/2fa';
 import { FsExampleModule } from '@firestitch/example';
-import { FsMessageModule } from '@firestitch/message';
-import { Fs2faVerificationModule, Fs2faManageModule, Fs2faVerificationMethodsModule } from '@firestitch/2fa';
-import { FsLabelModule } from '@firestitch/label';
-import { FsStoreModule } from '@firestitch/store';
 import { FsFormModule } from '@firestitch/form';
+import { FsLabelModule } from '@firestitch/label';
+import { FsMessageModule } from '@firestitch/message';
+import { FsPhoneModule } from '@firestitch/phone';
+import { FsStoreModule } from '@firestitch/store';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 
-import { AppMaterialModule } from './material.module';
-import {
-  ExamplesComponent
-} from './components';
 import { AppComponent } from './app.component';
-import { VerificationComponent } from './components/verification/verification.component';
+import {
+  ExamplesComponent,
+} from './components';
 import { ManageVerificationsComponent } from './components/manage-verifications/manage-verifications.component';
 import { VerificationMethodsComponent } from './components/verification-methods/manage-verifications.component';
-import { FsPhoneModule } from '@firestitch/phone';
+import { VerificationComponent } from './components/verification/verification.component';
+import { AppMaterialModule } from './material.module';
+
 
 const routes: Routes = [
   { path: '', component: ExamplesComponent },
 ];
 
 @NgModule({
-  bootstrap: [ AppComponent ],
+  bootstrap: [AppComponent],
   imports: [
     BrowserModule,
     Fs2faVerificationModule,
