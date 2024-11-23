@@ -1,0 +1,75 @@
+<ng-container *fsSkeleton="invite">
+  <form
+      fsForm
+      [submit]="continue">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          Create your account
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="fs-row.gap-sm">
+          <mat-form-field class="full-width">
+            <mat-label>
+              First Name
+            </mat-label>
+            <input
+              matInput
+              [(ngModel)]="account.firstName"
+              name="first_name"
+              fsFormRequired>
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <mat-label>
+              Last Name
+            </mat-label>
+            <input
+              matInput
+              [(ngModel)]="account.lastName"
+              name="last_name"
+              fsFormRequired>
+          </mat-form-field>
+        </div>
+        <mat-form-field class="full-width">
+          <mat-label>
+            Email
+          </mat-label>
+          <input
+            matInput
+            [(ngModel)]="account.email"
+            name="email"
+            fsFormRequired
+            fsFormEmail="true">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>
+            Password
+          </mat-label>
+          <input
+            type="password"
+            matInput
+            [(ngModel)]="account.password"
+            fsFormRequired
+            fsPassword
+            [strength]="true"
+            name="password">
+        </mat-form-field>
+        <div class="buttons">
+          <button
+              mat-flat-button
+              type="submit"
+              color="primary">
+            Continue
+          </button>
+          <button
+              mat-button
+              type="button"
+              [routerLink]="['../']">
+            Back
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</ng-container>
