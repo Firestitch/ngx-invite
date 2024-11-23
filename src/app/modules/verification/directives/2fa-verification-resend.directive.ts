@@ -1,5 +1,7 @@
-import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+import { Directive, HostListener, inject, Input } from '@angular/core';
+
 import { MatButton } from '@angular/material/button';
+
 import { finalize } from 'rxjs/operators';
 
 import { Fs2faVerificationComponent } from '../components/2fa-verification/2fa-verification.component';
@@ -11,6 +13,8 @@ export class Fs2faVerificationResendDirective {
   
   @Input('fs2faVerificationResend') public verification: Fs2faVerificationComponent;
 
+  private _button = inject(MatButton);
+  
   @HostListener('click')
   public click() {
     this._button.disabled = true;
@@ -20,9 +24,5 @@ export class Fs2faVerificationResendDirective {
       )
       .subscribe();
   }
-
-  public constructor(
-    private _button: MatButton,
-  ) {}
 
 }

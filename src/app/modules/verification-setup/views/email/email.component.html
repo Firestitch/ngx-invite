@@ -1,0 +1,36 @@
+<mat-card>
+  <form
+      fsForm
+      [submit]="next"
+      [dirtySubmitButton]="false"
+      *fsSkeleton="email">
+    <mat-card-content>
+      <!-- <app-logo></app-logo> -->
+      <h2>
+        Enable 2-Step Verification
+      </h2>
+      <p>
+        Please enable two factor authentication to protect your account.
+        The app will use this email for verifying your account
+      </p>
+      <fs-label-field>
+        <fs-label>
+          Email
+        </fs-label>
+        {{ email }}
+      </fs-label-field>
+      <button
+          mat-raised-button
+          type="submit"
+          color="primary">
+        Next
+      </button>
+      <button
+          mat-button
+          (click)="cancel()"
+          type="button">
+        Cancel
+      </button>
+    </mat-card-content>
+  </form>
+</mat-card>

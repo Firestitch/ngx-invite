@@ -1,8 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+
+
 import { Fs2faManageComponent, IFsVerificationMethod, VerificationMethodType } from '@firestitch/2fa';
 import { guid } from '@firestitch/common';
-import { FsMessage } from '@firestitch/message';
+
 import { Observable, of } from 'rxjs';
 
 @Component({
@@ -47,15 +48,16 @@ export class ManageVerificationsComponent {
 
   public verificationMethodsFetch = (): Observable<any[]> => {
     console.log('verificationMethodsFetch');
+
     return of(this._verificationMethods);
   };
 
   public verificationMethodDelete = (verificationMethod): Observable<any> => {
     console.log('verificationMethodDelete', verificationMethod);
     this._verificationMethods = this._verificationMethods
-    .filter((_verificationMethod) => {
-      return _verificationMethod.id !== verificationMethod.id;
-    });
+      .filter((_verificationMethod) => {
+        return _verificationMethod.id !== verificationMethod.id;
+      });
 
     return of(true);
   };
@@ -77,10 +79,10 @@ export class ManageVerificationsComponent {
 
     if(this._createVerificationMethod.default) {
       this._verificationMethods
-      .filter((verificationMethod) => (verificationMethod.id !== this._createVerificationMethod.id))
-      .forEach((verificationMethod) => {
-        verificationMethod.default = false;
-      });
+        .filter((verificationMethod) => (verificationMethod.id !== this._createVerificationMethod.id))
+        .forEach((verificationMethod) => {
+          verificationMethod.default = false;
+        });
     }
 
     return of(true);
@@ -88,6 +90,7 @@ export class ManageVerificationsComponent {
 
   public verificationMethodResend = (): Observable<any> => {
     console.log('verificationMethodResend');
+
     return of(true);
   };
 
@@ -106,6 +109,7 @@ export class ManageVerificationsComponent {
 
   public accountVerify = (): Observable<any> => {
     console.log('accountVerify');
+
     return of(true);
   };
 }
