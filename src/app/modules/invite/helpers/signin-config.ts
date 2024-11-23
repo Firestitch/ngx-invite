@@ -14,6 +14,7 @@ export function signinConfig(
   inviteService: InviteService,
 ): SigninConfig {
   return {
+    signinTitle: '',
     emailChanged: () => {
       const path = window.location.pathname.replace(/\/[^/]+$/, '');
       router.navigateByUrl(path);
