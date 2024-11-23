@@ -19,7 +19,7 @@ import { InviteData } from '../../data';
 })
 export class SignupComponent implements OnInit, OnDestroy {
 
-  public account;
+  public account: any = {};
   public confirmPassword: string = null;
   public invite = null;
   public invite$: RouteObserver<any>;
