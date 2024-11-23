@@ -1,5 +1,5 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit,
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnDestroy, OnInit,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -23,11 +23,11 @@ export class InviteComponent implements OnInit, OnDestroy {
   public invite$: RouteObserver<any>;
 
   private _destroy$ = new Subject<void>();
-  private _route: ActivatedRoute;
-  private _inviteData: InviteData;
-  private _router: Router;
-  private _message: FsMessage;
-  private _cdRef: ChangeDetectorRef;
+  private _route = inject(ActivatedRoute);
+  private _inviteData = inject(InviteData);
+  private _router = inject(Router);
+  private _message = inject(FsMessage);
+  private _cdRef = inject(ChangeDetectorRef);
 
   public ngOnInit(): void {
     this.invite$ = new RouteObserver(this._route, 'invite');

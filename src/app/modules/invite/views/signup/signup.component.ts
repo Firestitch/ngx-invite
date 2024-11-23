@@ -1,5 +1,5 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit,
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnDestroy, OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -25,10 +25,10 @@ export class SignupComponent implements OnInit, OnDestroy {
   public invite$: RouteObserver<any>;
 
   private _destroy$ = new Subject<void>();
-  private _route: ActivatedRoute;
-  private _inviteData: InviteData;
-  private _cdRef: ChangeDetectorRef;
-  private _signinService: SigninService;
+  private _route = inject(ActivatedRoute);
+  private _inviteData = inject(InviteData);
+  private _signinService = inject(SigninService);
+  private _cdRef = inject(ChangeDetectorRef);
 
   public ngOnInit(): void {
     this.invite$ = new RouteObserver(this._route, 'invite');
