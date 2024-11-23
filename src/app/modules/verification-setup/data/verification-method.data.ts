@@ -39,7 +39,7 @@ export class VerificationMethodData<T = any> {
       'verifications/methods/account',
       {},
       {
-        key: '',
+        key: 'verificationMethod',
         ...config,
       },
     );

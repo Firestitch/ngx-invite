@@ -1,7 +1,9 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   inject,
+  OnInit,
   ViewChild,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,6 +18,7 @@ import { tap } from 'rxjs/operators';
 import { IFsVerificationMethod } from '../../../../interfaces';
 import { Fs2faVerificationComponent } from '../../../verification/components/2fa-verification';
 import { VerificationMethodData } from '../../data';
+import { VerificationSetupService } from '../../services';
 
 
 @Component({
@@ -23,7 +26,7 @@ import { VerificationMethodData } from '../../data';
   styleUrls: ['./verify.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class VerifyComponent {
+export class VerifyComponent implements OnInit {
 
   @ViewChild(Fs2faVerificationComponent)
   public verification: Fs2faVerificationComponent;
@@ -36,6 +39,18 @@ export class VerifyComponent {
   private _route = inject(ActivatedRoute);
   private _message = inject(FsMessage);
   private _verificationMethodData = inject(VerificationMethodData);
+  private _cdRef = inject(ChangeDetectorRef);
+  private _verificationSetupService = inject(VerificationSetupService);
+
+  public ngOnInit(): void {
+    this._verificationMethodData.account()
+      .pipe(
+        tap((verificationMethod) => {
+          this.verificationMethod = verificationMethod;
+          this._cdRef.markForCheck();
+        }),
+      );
+  }
 
   public codeChanged(code): void {
     this.code = code;
@@ -59,7 +74,9 @@ export class VerifyComponent {
   };
 
   public cancel() {
-    this._router.navigateByUrl('/signin');
+    this._verificationSetupService
+      .signout()
+      .subscribe();
   }
 
 }

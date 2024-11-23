@@ -5,9 +5,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { FsApi } from '@firestitch/api';
 
-import { tap } from 'rxjs/operators';
+import { from } from 'rxjs';
 
-import { VerificationMethodData } from '../../data';
+import { VerificationSetupService } from '../../services';
 
 
 @Component({
@@ -22,8 +22,8 @@ export class EmailComponent implements OnInit {
   private _api = inject(FsApi);
   private _router = inject(Router);
   private _route = inject(ActivatedRoute);
-  private _verificationMethodData = inject(VerificationMethodData);
   private _cdRef = inject(ChangeDetectorRef);
+  private _verificationSetupService = inject(VerificationSetupService);
 
   public ngOnInit(): void {
     this._api.get('account', {}, { key: 'account' })
@@ -36,16 +36,17 @@ export class EmailComponent implements OnInit {
   public next = () => {
     const redirect = this._route.snapshot.queryParams.redirect || '/';
 
-    return this._verificationMethodData.account()
-      .pipe(
-        tap(() => {
-          this._router.navigate(['verify'], { relativeTo: this._route, queryParams: { redirect } });
-        }),
-      );
+    return from(this._router
+      .navigate(['verify'], {
+        relativeTo: this._route, 
+        queryParams: { redirect }, 
+      }));
   };
 
   public cancel() {
-    this._router.navigateByUrl('/signin');
+    this._verificationSetupService
+      .signout()
+      .subscribe();
   }
 
 }

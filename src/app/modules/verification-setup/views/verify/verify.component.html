@@ -4,11 +4,12 @@
     [dirtySubmitButton]="false"
     *fsSkeleton="verificationMethod">
   <mat-card>
-    <mat-card-content>
-      <!-- <app-logo></app-logo> -->
-      <h2>
+    <mat-card-header>
+      <mat-card-title>
         Enable 2-Step Verification
-      </h2>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
       <fs-2fa-verification
         #verification
         [verificationMethod]="verificationMethod"
@@ -16,24 +17,26 @@
         (codeChanged)="codeChanged($event)"
         [resend]="resend">
       </fs-2fa-verification>
-      <button
-          mat-raised-button
-          type="submit"
-          color="primary">
-        Verify
-      </button>
-      <button
-          mat-button
-          [fs2faVerificationResend]="verification"
-          type="button">
-        Resend
-      </button>
-      <button
-          mat-button
-          (click)="cancel()"
-          type="button">
-        Cancel
-      </button>
+      <div class="buttons">
+        <button
+            mat-raised-button
+            type="submit"
+            color="primary">
+          Verify
+        </button>
+        <button
+            mat-button
+            [fs2faVerificationResend]="verification"
+            type="button">
+          Resend
+        </button>
+        <button
+            mat-button
+            (click)="cancel()"
+            type="button">
+          Cancel
+        </button>
+      </div>
     </mat-card-content>
   </mat-card>
 </form>

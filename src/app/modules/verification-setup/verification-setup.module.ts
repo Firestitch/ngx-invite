@@ -15,6 +15,7 @@ import { Fs2faVerificationModule } from '../verification';
 import { Fs2faVerificationMethodsModule } from '../verification-methods';
 
 import { VerificationMethodData } from './data';
+import { VerificationSetupService } from './services';
 import { VerificationSetupRoutingModule } from './verification-setup-routing.module';
 import { EmailComponent, VerifyComponent } from './views';
 
@@ -43,6 +44,7 @@ import { EmailComponent, VerifyComponent } from './views';
   ],
   providers: [
     VerificationMethodData,
+    VerificationSetupService,
   ],
 })
 export class FsVerificationSetupModule { }
