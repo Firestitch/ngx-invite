@@ -26,7 +26,7 @@ export class EmailComponent implements OnInit {
   private _cdRef = inject(ChangeDetectorRef);
 
   public ngOnInit(): void {
-    this._api.get('account')
+    this._api.get('account', {}, { key: 'account' })
       .subscribe(({ email }) => {
         this.email = email;
         this._cdRef.markForCheck();

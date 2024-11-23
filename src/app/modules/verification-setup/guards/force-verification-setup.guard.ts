@@ -17,7 +17,7 @@ export class ForceVerificationSetupGuard  {
       const redirect = window.location.pathname + window.location.search;
 
       return this._router
-        .createUrlTree(['/verification/setup'], { queryParams: { redirect } });
+        .createUrlTree(['/verification'], { queryParams: { redirect } });
     }
 
     return true;

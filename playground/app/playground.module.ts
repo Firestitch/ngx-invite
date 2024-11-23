@@ -26,7 +26,7 @@ import { AppMaterialModule } from './material.module';
 
 const routes: Routes = [
   { path: '', component: ExamplesComponent },
-  { path: 'verification-setup', loadChildren: () => import('../../src/app/modules/verification-setup').then((m) => m.FsVerificationSetupModule) },
+  { path: 'verification', loadChildren: () => import('../../src/app/modules/verification-setup').then((m) => m.FsVerificationSetupModule) },
 ];
 
 @NgModule({

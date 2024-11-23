@@ -1,7 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 
-
-import { Fs2faManageComponent, IFsVerificationMethod, VerificationMethodType } from '@firestitch/2fa';
+import {
+  Fs2faManageComponent, IFsVerificationMethod, VerificationMethodType,
+} from '@firestitch/2fa';
 import { guid } from '@firestitch/common';
 
 import { Observable, of } from 'rxjs';

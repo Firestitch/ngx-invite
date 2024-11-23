@@ -5,7 +5,7 @@ import { EmailComponent, VerifyComponent } from './views';
 
 
 const routes: Routes = [
-  { path: '', component: EmailComponent },
+  { path: '', component: EmailComponent, pathMatch: 'full' },
   { path: 'verify', component: VerifyComponent },
 ];
 
