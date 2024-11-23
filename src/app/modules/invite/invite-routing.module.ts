@@ -19,7 +19,7 @@ const routes: Routes = [
       {
         path: 'signin',
         component: SigninComponent,
-        loadChildren: () => import('@firestitch/signin').then((m) => m.FsSigninModule),
+        loadChildren: () => import('@firestitch/signin').then((m) => m.FsSigninRouteModule),
       },
       {
         path: 'signup',
