@@ -5,8 +5,7 @@ import { FsApi } from '@firestitch/api';
 
 import { Observable } from 'rxjs';
 
-import { FS_INVITE_CONFIG } from 'src/app/injectors/invite-config.injector';
-
+import { FS_INVITE_CONFIG } from '../../../injectors';
 import { FsInviteConfig } from '../../../interfaces';
 
 
