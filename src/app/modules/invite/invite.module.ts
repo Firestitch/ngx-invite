@@ -46,6 +46,7 @@ import { InviteComponent, SigninComponent, SignupComponent } from './views';
   ],
   providers: [
     InviteService,
+    InviteData,
     {
       provide: SIGNIN_CONFIG,
       useFactory: signinConfig,

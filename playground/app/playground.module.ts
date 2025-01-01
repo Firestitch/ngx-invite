@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { FsExampleModule } from '@firestitch/example';
 import { FsFormModule } from '@firestitch/form';
+import { FS_INVITE_CONFIG } from '@firestitch/invite';
 import { FsLabelModule } from '@firestitch/label';
 import { FsMessageModule } from '@firestitch/message';
 import { FsStoreModule } from '@firestitch/store';
@@ -41,6 +42,9 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     ExamplesComponent,
+  ],
+  providers: [
+    { provide: FS_INVITE_CONFIG, useValue: { apiUrl: 'http://localhost:3000' } },
   ],
 })
 export class PlaygroundModule {

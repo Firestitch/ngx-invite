@@ -1,36 +1,43 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
 import { FsApi } from '@firestitch/api';
 
+
 import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
+import { FS_INVITE_CONFIG } from 'src/app/injectors/invite-config.injector';
+
+import { FsInviteConfig } from '../../../interfaces';
+
+
+@Injectable()
 export class InviteData {
 
-  constructor(
-    private _api: FsApi,
-  ) { }
-
+  private _api = inject(FsApi);
+  private _config: FsInviteConfig = inject(FS_INVITE_CONFIG, { optional: true });
+  
   public valid(data, options: any = {}): Observable<any> {
-    return this._api.post('invite/valid', data, { key: null, ...options });
+    return this._api.post(this.apiUrl('valid'), data, { key: null, ...options });
   }
 
   public email(data): Observable<any> {
-    return this._api.post('invite/email', data, { key: 'exists' });
+    return this._api.post(this.apiUrl('email'), data, { key: 'exists' });
   }
 
   public use(guid): Observable<any> {
-    return this._api.post('invite/use', { guid }, { key: '' });
+    return this._api.post(this.apiUrl('use'), { guid }, { key: '' });
   }
 
   public signupEmail(guid, account): Observable<any> {
-    return this._api.post('invite/signup/email', { account, guid }, { key: null });
+    return this._api.post(this.apiUrl('signup/email'), { account, guid }, { key: null });
   }
 
   public resend(data): Observable<any> {
-    return this._api.post('invite/resend', data, { key: null });
+    return this._api.post(this.apiUrl('resend'), data, { key: null });
+  }
+
+  public apiUrl(path: string): string {
+    return `${this._config?.apiUrl || 'invite'}/${path}`;
   }
 }
 

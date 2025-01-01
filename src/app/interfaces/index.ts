@@ -1,1 +1,1 @@
-export * from './verification-method.interface';
+export * from './invite-config';
