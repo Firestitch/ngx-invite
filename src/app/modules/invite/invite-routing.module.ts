@@ -23,10 +23,6 @@ const routes: Routes = [
         component: InviteComponent,
       },
       {
-        path: 'error',
-        component: ErrorComponent,
-      },
-      {
         path: 'signin',
         component: SigninComponent,
         loadChildren: () => import('@firestitch/signin').then((m) => m.FsSigninRouteModule),

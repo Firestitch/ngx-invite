@@ -29,7 +29,7 @@ export class InviteResolve  {
       )
         .pipe(
           catchError((error) => {
-            this._router.navigate([state.url, 'error']);
+            this._router.navigate([state.url, '../error']);
 
             return throwError(() => error);
           }),
