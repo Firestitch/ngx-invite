@@ -3,8 +3,14 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { InviteResolve } from './resolvers';
 import { InviteComponent, SigninComponent, SignupComponent } from './views';
+import { ErrorComponent } from './views/error';
 
 const routes: Routes = [
+  
+  {
+    path: 'error',
+    component: ErrorComponent,
+  },
   {
     path: ':guid',
     resolve: {
@@ -15,6 +21,10 @@ const routes: Routes = [
         path: '',
         pathMatch: 'full',
         component: InviteComponent,
+      },
+      {
+        path: 'error',
+        component: ErrorComponent,
       },
       {
         path: 'signin',

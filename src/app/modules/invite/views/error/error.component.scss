@@ -1,0 +1,18 @@
+.buttons {
+  button + button {
+    margin-top: 5px;
+  }
+
+  button {
+    width: 100%;
+    display: block;
+  }
+}
+
+mat-card-header {
+  justify-content: center;
+}
+
+p {
+  text-align: center;
+}

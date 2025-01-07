@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot } from '@angular/router';
+import { Injectable, inject } from '@angular/core';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 
 import { DisplayApiError } from '@firestitch/api';
 import { RouteSubject } from '@firestitch/core';
 
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 
 import { HttpContext } from '@angular/common/http';
 
@@ -16,12 +16,11 @@ import { InviteService } from '../services';
 @Injectable()
 export class InviteResolve  {
 
-  constructor(
-    private _inviteData: InviteData,
-    private _inviteService: InviteService,
-  ) { }
+  private _inviteData = inject(InviteData);
+  private _inviteService = inject(InviteService);
+  private _router = inject(Router);
 
-  public resolve(route: ActivatedRouteSnapshot): Observable<any> {
+  public resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     const routeSubject = new RouteSubject();
 
     return routeSubject.observe(
@@ -29,6 +28,11 @@ export class InviteResolve  {
         { context: new HttpContext().set(DisplayApiError, false) },
       )
         .pipe(
+          catchError((error) => {
+            this._router.navigate([state.url, 'error']);
+
+            return throwError(() => error);
+          }),
           tap((invite) => {
             this._inviteService.invite = invite;
           }),
