@@ -6,7 +6,6 @@ import { InviteComponent, SigninComponent, SignupComponent } from './views';
 import { ErrorComponent } from './views/error';
 
 const routes: Routes = [
-  
   {
     path: 'error',
     component: ErrorComponent,
