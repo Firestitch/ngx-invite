@@ -1,46 +1,47 @@
 <ng-container *fsSkeleton="invite">
-  <form
+  @if (!invite.error) {
+    <form
       fsForm
       [submit]="save"
-      *ngIf="!invite.error"
       [dirtySubmitButton]="false">
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>
-          Accept invitation
-        </mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <p>
-          You have been invited to join {{ invite.scope }}
-        </p>
-        <mat-form-field class="full-width">
-          <mat-label>
-            Email
-          </mat-label>
-          <input
-            matInput
-            [(ngModel)]="invite.email"
-            name="email"
-            fsFormRequired
-            fsFormEmail="true">
-        </mat-form-field>
-        <div class="buttons">
-          <button
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>
+            Accept invitation
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            You have been invited to join {{ invite.scope }}
+          </p>
+          <mat-form-field class="full-width">
+            <mat-label>
+              Email
+            </mat-label>
+            <input
+              matInput
+              [(ngModel)]="invite.email"
+              name="email"
+              fsFormRequired
+              fsFormEmail="true">
+          </mat-form-field>
+          <div class="buttons">
+            <button
               mat-flat-button
               type="submit"
               color="primary">
-            Continue with Email
-          </button>
-          <button
+              Continue with Email
+            </button>
+            <button
               mat-button
               routerLink="/signin"
               class="cancel"
               type="button">
-            Cancel
-          </button>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </form>
+              Cancel
+            </button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </form>
+  }
 </ng-container>
