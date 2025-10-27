@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnDestroy, OnInit,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 import { RouteObserver } from '@firestitch/core';
 import { SigninService } from '@firestitch/signin';
@@ -10,12 +10,36 @@ import { Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 
 import { InviteData } from '../../data';
+import { FsSkeletonModule } from '@firestitch/skeleton';
+import { FormsModule } from '@angular/forms';
+import { FsFormModule } from '@firestitch/form';
+import { MatCard, MatCardHeader, MatCardTitle, MatCardContent } from '@angular/material/card';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { FsPasswordModule } from '@firestitch/password';
+import { MatButton } from '@angular/material/button';
 
 
 @Component({
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: './signup.component.html',
+    styleUrls: ['./signup.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [
+        FsSkeletonModule,
+        FormsModule,
+        FsFormModule,
+        MatCard,
+        MatCardHeader,
+        MatCardTitle,
+        MatCardContent,
+        MatFormField,
+        MatLabel,
+        MatInput,
+        FsPasswordModule,
+        MatButton,
+        RouterLink,
+    ],
 })
 export class SignupComponent implements OnInit, OnDestroy {
 

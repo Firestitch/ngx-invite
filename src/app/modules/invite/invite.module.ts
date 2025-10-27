@@ -22,36 +22,31 @@ import { InviteComponent, SigninComponent, SignupComponent } from './views';
 
 
 @NgModule({
-  imports: [
-    FormsModule,
-    CommonModule,
-
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-
-    FsFormModule,
-    FsBadgeModule,
-    FsPasswordModule,
-    FsSkeletonModule,
-    FsSigninModule,
-
-    InviteRoutingModule,
-  ],
-  declarations: [
-    InviteComponent,
-    SigninComponent,
-    SignupComponent,
-  ],
-  providers: [
-    InviteService,
-    InviteData,
-    {
-      provide: SIGNIN_CONFIG,
-      useFactory: signinConfig,
-      deps: [Router, InviteData, InviteService],
-    },
-  ],
+    imports: [
+        FormsModule,
+        CommonModule,
+        MatCardModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        FsFormModule,
+        FsBadgeModule,
+        FsPasswordModule,
+        FsSkeletonModule,
+        FsSigninModule,
+        InviteRoutingModule,
+        InviteComponent,
+        SigninComponent,
+        SignupComponent,
+    ],
+    providers: [
+        InviteService,
+        InviteData,
+        {
+            provide: SIGNIN_CONFIG,
+            useFactory: signinConfig,
+            deps: [Router, InviteData, InviteService],
+        },
+    ],
 })
 export class FsInviteModule { }
