@@ -1,0 +1,63 @@
+<fs-list [config]="listConfig()">
+  <fs-list-column [title]="'Email'">
+    <ng-template fs-list-cell let-row="row">
+      {{ row.email }}
+    </ng-template>
+  </fs-list-column>
+  <fs-list-column
+      [title]="'Invitation Creator'"
+      [name]="'creator_name'"
+      [sortable]="true">
+    <ng-template fs-list-cell let-row="row">
+      @if (row.creatorAccount; as account) {
+        <div class="fs-row.gap-sm">
+          <fs-badge
+            [image]="account.avatar?.small"
+            [size]="24"
+            [color]="'#dfdfdf'">
+          </fs-badge>
+          @if (creatorAccountClick()) {
+            <a (click)="openCreatorAccount(account, row)">{{ account.firstName }} {{ account.lastName }}</a>
+          } @else {
+            <span>{{ account.firstName }} {{ account.lastName }}</span>
+          }
+        </div>
+      }
+    </ng-template>
+  </fs-list-column>
+  <fs-list-column
+      [title]="environmentLabel()"
+      [show]="showEnvironments()">
+    <ng-template fs-list-cell let-row="row">
+      @if (row.environment?.avatar?.tiny) {
+        <fs-badge
+          [size]="30"
+          [tooltip]="row.environment.name"
+          [image]="row.environment.avatar.tiny">
+        </fs-badge>
+      }
+    </ng-template>
+  </fs-list-column>
+  <!-- Sorted by the computed status, so Expired invites group apart from Pending ones -->
+  <fs-list-column
+      [title]="'Status'"
+      [name]="'status'"
+      [sortable]="true">
+    <ng-template fs-list-cell let-row="row">
+      {{ AccountRequestStates[row.status] }}
+      @if (row.status === AccountRequestState.Pending) {
+        <div class="small">
+          Expires: {{ row.expiryDate | fsDate: 'date-time-yearless' }}
+        </div>
+      }
+    </ng-template>
+  </fs-list-column>
+  <fs-list-column
+      [title]="'Created'"
+      [name]="'create_date'"
+      [sortable]="true">
+    <ng-template fs-list-cell let-row="row">
+      <fs-date-ago [date]="row.createDate"></fs-date-ago>
+    </ng-template>
+  </fs-list-column>
+</fs-list>
