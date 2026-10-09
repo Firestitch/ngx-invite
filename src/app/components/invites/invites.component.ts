@@ -129,6 +129,7 @@ export class FsInvitesComponent implements OnInit {
 
   private _createListConfig(): FsListConfig {
     return {
+      sort: { value: 'create_date', direction: 'desc' },
       filters: this._createFilters(),
       rowActions: [
         {
