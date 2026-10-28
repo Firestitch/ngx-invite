@@ -4,7 +4,7 @@ import { FsApi } from '@firestitch/api';
 
 import { Observable } from 'rxjs';
 
-import { FsInviteAccountRequest, FsInvitesResponse } from '../interfaces';
+import { FsInvite, FsInvitesResponse } from '../interfaces';
 
 
 /**
@@ -22,11 +22,11 @@ export class InvitesData {
     return this._api.get(apiUrl, query, { key: null });
   }
 
-  public resend(apiUrl: string, accountRequestId: number): Observable<FsInviteAccountRequest> {
-    return this._api.post(`${apiUrl}/${accountRequestId}/resend`, {}, { key: 'accountRequest' });
+  public resend(apiUrl: string, inviteId: number): Observable<FsInvite> {
+    return this._api.post(`${apiUrl}/${inviteId}/resend`, {}, { key: 'invite' });
   }
 
-  public delete(apiUrl: string, accountRequestId: number): Observable<FsInviteAccountRequest> {
-    return this._api.delete(`${apiUrl}/${accountRequestId}`, {}, { key: 'accountRequest' });
+  public delete(apiUrl: string, inviteId: number): Observable<FsInvite> {
+    return this._api.delete(`${apiUrl}/${inviteId}`, {}, { key: 'invite' });
   }
 }

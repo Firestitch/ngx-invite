@@ -98,35 +98,6 @@ export class InviteComponent implements OnInit, OnDestroy {
 
     if (this.invite && this.invite.error) {
       switch (this.invite.error.code) {
-        case 460:
-          this._message.info(this.invite.error.message, {
-            mode: MessageMode.Dialog,
-            buttons: [
-              {
-                label: 'Ok',
-                click: () => {
-                  return;
-                },
-              },
-              {
-                label: 'Send New Invitation',
-                click: () => {
-                  this._inviteData.resend({
-                    guid: this._route.snapshot.params.guid,
-                  })
-                    .subscribe(() => {
-                      this._message.success('Invite has been resent. Please check your email.',
-                        {
-                          title: 'Resent Invite',
-                          mode: MessageMode.Dialog,
-                        });
-                    });
-                },
-              },
-            ],
-          });
-          break;
-
         case 450:
           this._message.error(this.invite.error.message, {
             mode: MessageMode.Dialog,

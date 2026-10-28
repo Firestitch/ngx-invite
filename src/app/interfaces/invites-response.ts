@@ -1,9 +1,9 @@
 import { FsPaging } from '@firestitch/list';
 
-import { FsInviteAccountRequest } from './invite-account-request';
+import { FsInvite } from './invite';
 
 
 export interface FsInvitesResponse {
-  accountRequests: FsInviteAccountRequest[];
+  invites: FsInvite[];
   paging: FsPaging;
 }

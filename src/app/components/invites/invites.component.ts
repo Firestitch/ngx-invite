@@ -20,10 +20,10 @@ import { map, tap } from 'rxjs/operators';
 
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-import { AccountRequestStates } from '../../consts';
+import { InviteStates } from '../../consts';
 import { InvitesData } from '../../data';
-import { AccountRequestState, AccountRequestType } from '../../enums';
-import { FsInviteAccount, FsInviteAccountRequest, FsInvitesResponse } from '../../interfaces';
+import { InviteState } from '../../enums';
+import { FsInvite, FsInviteAccount, FsInvitesResponse } from '../../interfaces';
 
 
 @Component({
@@ -55,11 +55,7 @@ export class FsInvitesComponent implements OnInit {
   public environmentLabel = input('Environment');
   public showFilters = input(false);
   public query = input<Record<string, unknown>>({});
-  public accountRequestTypes = input<AccountRequestType[]>([
-    AccountRequestType.Invite,
-    AccountRequestType.Activation,
-  ]);
-  public accountRequestStates = input<AccountRequestState[]>([]);
+  public inviteStates = input<InviteState[]>([]);
   /**
    * The list's endpoint. Defaults to the environment's invites when environmentId is set,
    * otherwise the app-level invites.
@@ -70,12 +66,12 @@ export class FsInvitesComponent implements OnInit {
    * (open the account, a dialog, nothing). Without it the creator is plain text.
    */
   public creatorAccountClick = input<
-    (account: FsInviteAccount, accountRequest: FsInviteAccountRequest) => void
+    (account: FsInviteAccount, invite: FsInvite) => void
   >();
 
   public listConfig = signal<FsListConfig>(null);
-  public AccountRequestState = AccountRequestState;
-  public AccountRequestStates = list(AccountRequestStates, 'name', 'value');
+  public InviteState = InviteState;
+  public InviteStates = list(InviteStates, 'name', 'value');
 
   private _list = viewChild(FsListComponent);
   private _url = computed(() => {
@@ -99,9 +95,9 @@ export class FsInvitesComponent implements OnInit {
 
   public openCreatorAccount(
     account: FsInviteAccount,
-    accountRequest: FsInviteAccountRequest,
+    invite: FsInvite,
   ): void {
-    this.creatorAccountClick()(account, accountRequest);
+    this.creatorAccountClick()(account, invite);
   }
 
   private _createFilters(): IFilterConfigItem[] {
@@ -120,24 +116,24 @@ export class FsInvitesComponent implements OnInit {
         type: ItemType.Select,
         label: 'Status',
         multiple: true,
-        default: this.accountRequestStates(),
-        values: AccountRequestStates,
-        isolate: { label: 'Show Deleted', value: AccountRequestState.Deleted },
+        default: this.inviteStates(),
+        values: InviteStates,
+        isolate: { label: 'Show Deleted', value: InviteState.Deleted },
       },
     ];
   }
 
   private _createListConfig(): FsListConfig {
     return {
-      sort: { value: 'create_date', direction: 'desc' },
+      sort: { value: 'createDate', direction: 'desc' },
       filters: this._createFilters(),
       rowActions: [
         {
           menu: true,
           label: 'Resend Invite',
-          show: (accountRequest: FsInviteAccountRequest) => this._isActive(accountRequest),
-          click: (accountRequest: FsInviteAccountRequest) => {
-            this._invitesData.resend(this._url(), accountRequest.id)
+          show: (invite: FsInvite) => this._isResendable(invite),
+          click: (invite: FsInvite) => {
+            this._invitesData.resend(this._url(), invite.id)
               .pipe(
                 tap(() => {
                   this.reload();
@@ -150,13 +146,13 @@ export class FsInvitesComponent implements OnInit {
         {
           menu: true,
           label: 'Delete',
-          show: (accountRequest: FsInviteAccountRequest) => this._isActive(accountRequest),
+          show: (invite: FsInvite) => this._isActive(invite),
           remove: {
             title: 'Confirm',
             template: 'Are you sure you would like to delete this request?',
           },
-          click: (accountRequest: FsInviteAccountRequest) => {
-            return this._invitesData.delete(this._url(), accountRequest.id);
+          click: (invite: FsInvite) => {
+            return this._invitesData.delete(this._url(), invite.id);
           },
         },
       ],
@@ -165,15 +161,13 @@ export class FsInvitesComponent implements OnInit {
           .gets(this._url(), {
             ...this.query(),
             ...query,
-            creatorAccounts: true,
-            creatorAccountAvatars: true,
-            statuses: true,
-            type: this.accountRequestTypes().join(','),
-            ...(this.showEnvironments() ? { environments: true, environmentAvatars: true } : {}),
+            creatorAccount: true,
+            creatorAccountAvatar: true,
+            ...(this.showEnvironments() ? { environment: true, environmentAvatar: true } : {}),
           })
           .pipe(
             map((response: FsInvitesResponse) => ({
-              data: response.accountRequests,
+              data: response.invites,
               paging: response.paging,
             })),
           );
@@ -181,7 +175,12 @@ export class FsInvitesComponent implements OnInit {
     };
   }
 
-  private _isActive(accountRequest: FsInviteAccountRequest): boolean {
-    return accountRequest.state !== AccountRequestState.Deleted;
+  private _isActive(invite: FsInvite): boolean {
+    return invite.state !== InviteState.Deleted;
+  }
+
+  /** The server sends again only a pending invite, or one that expired unused. */
+  private _isResendable(invite: FsInvite): boolean {
+    return invite.status === InviteState.Pending || invite.status === InviteState.Expired;
   }
 }

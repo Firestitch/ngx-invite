@@ -4,10 +4,7 @@
       {{ row.email }}
     </ng-template>
   </fs-list-column>
-  <fs-list-column
-      [title]="'Invitation Creator'"
-      [name]="'creator_name'"
-      [sortable]="true">
+  <fs-list-column [title]="'Invitation Creator'">
     <ng-template fs-list-cell let-row="row">
       @if (row.creatorAccount; as account) {
         <div class="fs-row.gap-sm">
@@ -44,8 +41,8 @@
       [name]="'status'"
       [sortable]="true">
     <ng-template fs-list-cell let-row="row">
-      {{ AccountRequestStates[row.status] }}
-      @if (row.status === AccountRequestState.Pending) {
+      {{ InviteStates[row.status] }}
+      @if (row.status === InviteState.Pending) {
         <div class="small">
           Expires: {{ row.expiryDate | fsDate: 'date-time-yearless' }}
         </div>
@@ -54,7 +51,7 @@
   </fs-list-column>
   <fs-list-column
       [title]="'Created'"
-      [name]="'create_date'"
+      [name]="'createDate'"
       [sortable]="true">
     <ng-template fs-list-cell let-row="row">
       <fs-date-ago [date]="row.createDate"></fs-date-ago>

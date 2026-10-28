@@ -1,1 +1,1 @@
-export * from './account-request-states.const';
+export * from './invite-states.const';

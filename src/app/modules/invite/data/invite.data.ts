@@ -23,16 +23,12 @@ export class InviteData {
     return this._api.post(this.apiUrl('email'), data, { key: 'exists' });
   }
 
-  public use(guid): Observable<any> {
+  public use(guid: string): Observable<any> {
     return this._api.post(this.apiUrl('use'), { guid }, { key: '' });
   }
 
   public signupEmail(guid, account): Observable<any> {
     return this._api.post(this.apiUrl('signup/email'), { account, guid }, { key: null });
-  }
-
-  public resend(data): Observable<any> {
-    return this._api.post(this.apiUrl('resend'), data, { key: null });
   }
 
   public apiUrl(path: string): string {

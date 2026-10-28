@@ -21,9 +21,7 @@ export function signinConfig(
       return of(true);
     },
     beforeProcessSignin() {
-      return inviteData.use({
-        guid: inviteService.invite.guid,
-      });
+      return inviteData.use(inviteService.invite.guid);
     },
   };
 }
