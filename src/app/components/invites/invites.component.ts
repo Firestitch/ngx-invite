@@ -161,9 +161,9 @@ export class FsInvitesComponent implements OnInit {
           .gets(this._url(), {
             ...this.query(),
             ...query,
-            creatorAccount: true,
-            creatorAccountAvatar: true,
-            ...(this.showEnvironments() ? { environment: true, environmentAvatar: true } : {}),
+            creatorAccounts: true,
+            creatorAccountAvatars: true,
+            ...(this.showEnvironments() ? { environments: true, environmentAvatars: true } : {}),
           })
           .pipe(
             map((response: FsInvitesResponse) => ({
